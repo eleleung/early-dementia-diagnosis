@@ -6,8 +6,8 @@ import {Test} from "./models/test";
   selector: "my-app",
   template: `
     <ActionBar title="My App"></ActionBar>
-    <div *ngIf="test != null">{{test.message}}</div>
-  `
+    <Label *ngIf="test != null" style="text-align:center" [text]='test.message'></Label>  
+    `
 })
 export class AppComponent {
 
@@ -15,14 +15,18 @@ export class AppComponent {
 
     constructor(private appService: AppService) {
         this.appService.getTestData().subscribe(
-            data => {
-                console.log(data);
-                this.test = JSON.parse(JSON.parse(JSON.stringify(data))._body);
-            },
-            error => {
-                console.log("error");
-                console.log(error);
-            }
-        )
+            (result) => this.onGetDataSuccess(result),
+            (error) => this.onGetDataError(error)
+        );
+    }
+
+    private onGetDataSuccess(res) {
+        this.test = res;
+    }
+
+    private onGetDataError(error: Response | any) {
+        const body = error.json() || "";
+        const err = body.error || JSON.stringify(body);
+        console.log("onGetDataError: " + err);
     }
 }

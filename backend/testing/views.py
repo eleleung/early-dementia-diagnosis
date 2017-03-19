@@ -12,6 +12,6 @@ class TestViewSet(viewsets.ModelViewSet):
 @csrf_exempt
 def test_message(request):
     if request.method == 'GET':
-        test = Test(message='hello nathan')
+        test = Test(message='hello all')
         serializer = TestSerializer(test)
-        return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.data, safe=True)
