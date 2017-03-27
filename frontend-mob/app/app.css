@@ -1,1 +1,12 @@
+@import url("~/platform.css");
 @import "nativescript-theme-core/css/core.light.css";
+
+Page {
+  background-color: white;
+  font-size: 15;
+}
+
+TextField {
+  padding: 10;
+  font-size: 13;
+}

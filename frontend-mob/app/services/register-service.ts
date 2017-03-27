@@ -16,8 +16,8 @@ export class RegisterService {
     constructor (private http: Http) {
     }
 
-    private registerCarer(carer: Carer) {
-        let url = GlobalVariable.BASE_API_URL + "/registerCarer";
+    registerCarer(carer: Carer) {
+        let url = GlobalVariable.BASE_API_URL + "/api/v1/auth/register/";
         let headers = this.createRequestHeader();
         return this.http.post(url, JSON.stringify(carer), {headers: headers}).map(res => res.json());
     }

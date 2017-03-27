@@ -6,7 +6,6 @@ import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {GlobalVariable} from "../global";
 
-import { Observable as RxObservable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 

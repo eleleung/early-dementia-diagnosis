@@ -7,7 +7,6 @@ import {Http, Headers} from '@angular/http';
 import {GlobalVariable} from "../global";
 import {Carer} from "../models/carer";
 
-import { Observable as RxObservable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 
@@ -17,10 +16,10 @@ export class LoginService {
     constructor (private http: Http) {
     }
 
-    getTestData() {
-        let url = GlobalVariable.BASE_API_URL + "/testing/";
+    login(carer: Carer) {
+        let url = GlobalVariable.BASE_API_URL + "/api/v1/auth/login/";
         let headers = this.createRequestHeader();
-        return this.http.post(url, {headers: headers}).map(res => res.json());
+        return this.http.post(url, JSON.stringify(carer), {headers: headers}).map(res => res.json());
     }
 
     private createRequestHeader() {

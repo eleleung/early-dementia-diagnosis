@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<StackLayout #formControls [formGroup]="registerForm">
+    <TextField formControlName="email" hint="Email Address" keyboardType="email" [(ngModel)]="carer.email"
+               autocorrect="false" autocapitalizationType="none"></TextField>
+
+    <TextField formControlName="password" required hint="Password" secure="true" [(ngModel)]="carer.password"></TextField>
+    <TextField formControlName="confirmPassword" required *ngIf="!isLoggingIn" hint="Confirm Password" secure="true" [(ngModel)]="carer.confirm_password"></TextField>
+    <TextField formControlName="firstName" required *ngIf="!isLoggingIn" hint="First Name" [(ngModel)]="carer.firstname"
+               autocorrect="false" autocapitalizationType="words"></TextField>
+    <TextField formControlName="lastName" required *ngIf="!isLoggingIn" hint="Last Name" [(ngModel)]="carer.lastname"
+               autocorrect="false" autocapitalizationType="words"></TextField>
+    <TextField formControlName="dateOfBirth" required *ngIf="!isLoggingIn" id="textFieldBDate" hint="Date Of Birth" [text]='birthDate | date:"MM/dd/yy"' (tap)="showDatePicker()"
+               row="29" col="1" returnKeyType="done"></TextField>
+    <StackLayout backgroundColor="white" [visibility]="isDatePickerVisible ? 'visible' : 'collapsed'" row="0" col="0">
+        <DatePicker class="m-15" id="datePicker" #dp [visibility]="isDateButtonVisible ? 'visible' : 'collapsed'"></DatePicker>
+        <Button class="btn btn-primary btn-active" text="Enter the date" (tap)="enterDate()" [visibility]="isDateButtonVisible ? 'visible' : 'collapsed'"></Button>
+    </StackLayout>
+    <StackLayout [visibility]="isDatePickerVisible ? 'collapsed' : 'visible'">
+        <Button [text]="isLoggingIn ? 'Sign in' : 'Sign up'" class="submit-button" (tap)="submit()"></Button>
+        <Button [text]="isLoggingIn ? 'Sign up' : 'Back to login'" (tap)="toggleDisplay()"></Button>
+    </StackLayout>
+</StackLayout>
