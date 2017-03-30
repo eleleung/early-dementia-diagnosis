@@ -1,20 +1,42 @@
 StackLayout {
-  margin-left: 30;
-  margin-right: 30;
-  padding-bottom: 15;
-  background-color: white;
+
 }
 Image {
   margin-top: 5;
   margin-bottom: 20;
 }
 Button, TextField {
-  margin-left: 16;
-  margin-right: 16;
-  margin-bottom: 10;
+  margin-left: 20;
+  margin-right: 20;
+  margin-bottom: 5;
+  margin-top: 5;
+  border-radius: 5px;
+  height: 40;
+  color:white;
 }
-.submit-button {
-  background-color: #CB1D00;
+.my-btn-primary{
   color: white;
-  margin-top: 20;
+  background-color: #ff9966;
+}
+
+.my-btn-minor{
+  margin-left:0;
+  margin-right:0;
+  margin-bottom:0;
+  background-color: rgba(255,255,255, 0.2);
+  color:white;
+  height:50;
+}
+
+.my-background{
+  background-image: url('~/images/background.png');
+  background-size: cover;
+}
+
+.login-panel{
+  background-color: rgba(255,255,255, 0.2);
+  border-radius: 5px;
+  margin: 10 20;
+  border-width: 1px;
+  border-color: rgba(255,255,255, 0.4);
 }
