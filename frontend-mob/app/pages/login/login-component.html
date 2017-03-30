@@ -1,23 +1,35 @@
-<GridLayout #formControls [formGroup]="registerForm" class="my-background">
+<GridLayout #formControls [formGroup]="loginSignupForm" class="my-background">
     <StackLayout verticalAlignment="center" class="login-panel">
-        <TextField formControlName="email" hint="Email Address" keyboardType="email" [(ngModel)]="carer.email"
-                   autocorrect="false" autocapitalizationType="none"></TextField>
-        <TextField formControlName="firstName" required *ngIf="!isLoggingIn" hint="First Name" [(ngModel)]="carer.firstname"
-                   autocorrect="false" autocapitalizationType="words"></TextField>
-        <TextField formControlName="lastName" required *ngIf="!isLoggingIn" hint="Last Name" [(ngModel)]="carer.lastname"
-                   autocorrect="false" autocapitalizationType="words"></TextField>
-        <TextField formControlName="dateOfBirth" required *ngIf="!isLoggingIn" id="textFieldBDate" hint="Date Of Birth" [text]='birthDate | date:"MM/dd/yy"' (tap)="showDatePicker()"
-                   row="29" col="1" returnKeyType="done"></TextField>
+        <Label class="error-message" *ngIf="loginError && isLoggingIn" [text]="'Invalid email address or password'"></Label>
+        <TextField #email formControlName="email" hint="Email Address" keyboardType="email" returnKeyType="next"
+                   (returnPress)="isLoggingIn ? focusPassword() : focusFirstName()" autocorrect="false" autocapitalizationType="none" [isEnabled]="!isAuthenticating"></TextField>
+        <TextField #firstName formControlName="firstName" returnKeyType="next" required *ngIf="!isLoggingIn" hint="First Name"
+                   (returnPress)="focusLastName()" autocorrect="false" autocapitalizationType="words"></TextField>
+        <TextField #lastName formControlName="lastName" returnKeyType="next" required *ngIf="!isLoggingIn" hint="Last Name"
+                   (returnPress)="focusDateOfBirth()" autocorrect="false" autocapitalizationType="words"></TextField>
+        <TextField #dateOfBirth formControlName="dateOfBirth" required *ngIf="!isLoggingIn" id="textFieldBDate" hint="Date Of Birth" [text]='birthDate | date:"MM/dd/yy"' (tap)="showDatePicker()"
+                   row="29" col="1" (returnPress)="focusPassword()" returnKeyType="next"></TextField>
         <StackLayout [visibility]="isDatePickerVisible ? 'visible' : 'collapsed'" row="0" col="0">
             <DatePicker class="m-15" id="datePicker" #dp [visibility]="isDateButtonVisible ? 'visible' : 'collapsed'"></DatePicker>
             <Button class="btn my-btn-primary btn-active" text="Select" (tap)="enterDate()" [visibility]="isDateButtonVisible ? 'visible' : 'collapsed'"></Button>
         </StackLayout>
-        <TextField formControlName="password" required hint="Password" secure="true" [(ngModel)]="carer.password"></TextField>
-        <TextField formControlName="confirmPassword" required *ngIf="!isLoggingIn" hint="Confirm Password" secure="true" [(ngModel)]="carer.confirm_password"></TextField>
-
+        <TextField #password formControlName="password" required hint="Password" secure="true"
+                   (returnPress)="isLoggingIn ? submit() : focusConfirmPassword()" returnKeyType="next"></TextField>
+        <TextField #confirmPassword formControlName="confirmPassword" required *ngIf="!isLoggingIn" hint="Confirm Password" secure="true"
+                   returnKeyType="done" (returnPress)="submitOrFocusUsername()"></TextField>
+        <Label *ngIf="!userConfirmPasswordControl.pristine && userPasswordControl.value != userConfirmPasswordControl.value" text="Passwords much match!"></Label>
+        <ActivityIndicator [busy]="isAuthenticating" [visibility]="isAuthenticating ? 'visible' : 'collapse'"
+                           row="2" style="color:#ffffff;">
+        </ActivityIndicator>
+        <Label class="forgot-password-label" text="Forgot password?"
+               (tap)="forgotPassword()" [opacity]="isLoggingIn ? 1 : 0">
+        </Label>
     </StackLayout>
     <StackLayout [visibility]="isDatePickerVisible ? 'collapsed' : 'visible'" verticalAlignment="bottom">
-        <Button [text]="isLoggingIn ? 'Sign in' : 'Register'" class="my-btn-primary" (tap)="submit()" ></Button>
-        <Button [text]="isLoggingIn ? 'Create an Account' : 'Back to login'" (tap)="toggleDisplay()" style="margin-top:20px" class="my-btn-minor" ></Button>
+        <Button [text]="isLoggingIn ? 'Sign in' : 'Register'" class="my-btn-primary" [isEnabled]="loginSignupForm.valid"
+                [opacity]="loginSignupForm.valid || userEmailControl.valid ? '1' : '0.5'"  [isEnabled]="!isAuthenticating" (tap)="submit()"
+                [isEnabled]="isLoggingIn ? userEmailControl.valid : loginSignupForm.valid"></Button>
+        <Button [text]="isLoggingIn ? 'Create an Account' : 'Back to login'"
+                (tap)="toggleDisplay()" style="margin-top:20px" class="my-btn-minor" ></Button>
     </StackLayout>
 </GridLayout>

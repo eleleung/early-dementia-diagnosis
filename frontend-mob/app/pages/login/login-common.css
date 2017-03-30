@@ -1,10 +1,12 @@
 StackLayout {
 
 }
+
 Image {
   margin-top: 5;
   margin-bottom: 20;
 }
+
 Button, TextField {
   margin-left: 20;
   margin-right: 20;
@@ -13,7 +15,9 @@ Button, TextField {
   border-radius: 5px;
   height: 40;
   color:white;
+  border-width:0;
 }
+
 .my-btn-primary{
   color: white;
   background-color: #ff9966;
@@ -39,4 +43,17 @@ Button, TextField {
   margin: 10 20;
   border-width: 1px;
   border-color: rgba(255,255,255, 0.4);
+}
+
+.forgot-password-label{
+  font-size: 10px;
+  margin-left: 25px;
+  color: white;
+}
+
+.error-message{
+  font-size: 14px;
+  margin-top: 10px;
+  margin-left: 10px;
+  color: white;
 }

@@ -1,5 +1,5 @@
-import {Component, OnInit, Inject} from "@angular/core";
-import {FormGroup, FormBuilder, Validators, FormControl, AbstractControl} from '@angular/forms';
+import {Component, OnInit, Inject, ElementRef, ViewChild} from "@angular/core";
+import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
 import {RouterExtensions} from "nativescript-angular";
 
 import {DatePicker} from "ui/date-picker";
@@ -18,28 +18,48 @@ import applicationSettings = require("application-settings");
     styleUrls: ["pages/login/login-common.css"]
 })
 export class LoginComponent implements OnInit {
-    registerForm: FormGroup;
-    emailControl: AbstractControl;
-    email = '';
+    loginSignupForm: FormGroup;
+    userEmailControl: AbstractControl;
+    userFirstNameControl: AbstractControl;
+    userLastNameControl: AbstractControl;
+    userPasswordControl: AbstractControl;
+    userConfirmPasswordControl: AbstractControl;
+    userDateOfBirthControl: AbstractControl;
 
-    birthDate;
+    birthDate: any;
     carer: Carer;
+    error: string;
+    loginError: boolean = false;
     isLoggingIn = true;
+    isAuthenticating: boolean;
     isDateButtonVisible = false;
     isDatePickerVisible = false;
+
+    @ViewChild("email") email: ElementRef;
+    @ViewChild("password") password: ElementRef;
+    @ViewChild("confirmPassword") confirmPassword: ElementRef;
+    @ViewChild("firstName") firstName: ElementRef;
+    @ViewChild("lastName") lastName: ElementRef;
+    @ViewChild("dateOfBirth") dateOfBirth: ElementRef;
+
 
     constructor(private loginService: LoginService, private registerService: RegisterService,
                 private page: Page, @Inject(FormBuilder) formBuilder: FormBuilder, private routerExtensions: RouterExtensions) {
         this.carer = new Carer();
-        this.registerForm = formBuilder.group({
-            email: ['', [Validators.required, Validators.minLength(5)]],
-            password: ['', Validators.required],
-            confirmPassword: ['', Validators.required],
+        this.loginSignupForm = formBuilder.group({
+            email: ['', [Validators.required, Validators.maxLength(60), Validators.pattern('[A-Za-z,. :0-9/()-_@]*')]],
+            password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20), Validators.pattern('[A-Za-z,. :0-9/()-_?!]*')]],
+            confirmPassword: ['', [Validators.required, Validators.minLength(5)]],
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             dateOfBirth: ['', Validators.required]
         });
-        this.emailControl = this.registerForm.controls['email'];
+        this.userEmailControl = this.loginSignupForm.controls['email'];
+        this.userPasswordControl = this.loginSignupForm.controls['password'];
+        this.userConfirmPasswordControl = this.loginSignupForm.controls['confirmPassword'];
+        this.userFirstNameControl = this.loginSignupForm.controls['firstName'];
+        this.userLastNameControl = this.loginSignupForm.controls['lastName'];
+        this.userDateOfBirthControl = this.loginSignupForm.controls['dateOfBirth'];
     }
 
     ngOnInit() {
@@ -49,6 +69,9 @@ export class LoginComponent implements OnInit {
         datePicker.day = 9;
         datePicker.minDate = new Date(1975, 0, 29);
         datePicker.maxDate = new Date(2045, 4, 12);
+
+        this.isLoggingIn = true;
+        this.isAuthenticating = false;
     }
 
     showDatePicker() {
@@ -65,20 +88,29 @@ export class LoginComponent implements OnInit {
         this.isDatePickerVisible = false;
     }
 
-    submit() {
+    validateEmail(email: string): boolean {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+    submitOrFocusUsername() {
         if (this.isLoggingIn) {
-            if (this.carer.email != null || this.carer.password != null) {
-                this.login();
-            } else {
-                alert("Please enter in email and password");
-            }
+            this.login();
         } else {
-            if (this.carer.email != null || this.carer.password != null || this.carer.firstname != null || this.carer.lastname
-                != null) {
-                this.register();
-            } else {
-                alert("Please fill in details");
-            }
+            this.register();
+        }
+    }
+
+    submit() {
+        if (!this.validateEmail(this.userEmailControl.value)) {
+            alert("Enter a valid email address.");
+            return;
+        }
+        this.isAuthenticating = true;
+        if (this.isLoggingIn) {
+            this.login();
+        } else {
+            this.register();
         }
     }
 
@@ -86,34 +118,80 @@ export class LoginComponent implements OnInit {
         this.isLoggingIn = !this.isLoggingIn;
     }
 
+    forgotPassword() {
+        alert("We will send you an email with instructions to reset your password");
+    }
+
     login() {
+        this.carer.email = this.userEmailControl.value;
+        this.carer.password = this.userPasswordControl.value;
         this.loginService.login(this.carer).subscribe(
-            (result) => this.loginSuccess(result),
-            (error) => this.onGetDataError(error)
+            (result) => {
+                this.isAuthenticating = false;
+                this.loginSuccess(result);
+            },
+            (error) => {
+                this.loginError = true;
+                this.isAuthenticating = false;
+                console.log(this.onGetDataError(error));
+            }
         )
     }
 
     loginSuccess(result) {
-        // console.log(result);
-        // applicationSettings.setString("token", JSON.parse(result));
-        // console.log(applicationSettings.getString("token"));
+        applicationSettings.setString("token", result.token);
         this.routerExtensions.navigate(["/home"]), {clearHistory: true};
     }
 
     register() {
+        this.carer.email = this.userEmailControl.value;
+        this.carer.password = this.userPasswordControl.value;
+        this.carer.confirm_password = this.userConfirmPasswordControl.value;
+        this.carer.firstname = this.userFirstNameControl.value;
+        this.carer.lastname = this.userLastNameControl.value;
+        this.carer.dateOfBirth = this.userDateOfBirthControl.value;
+
         this.registerService.registerCarer(this.carer).subscribe(
-            (result) => this.registerSuccess(),
-            (error) => this.onGetDataError(error)
+            (result) => {
+                this.isAuthenticating = false;
+                this.registerSuccess();
+            },
+            (error) => {
+                this.isAuthenticating = false;
+                this.onGetDataError(error);
+            }
         )
     }
 
     registerSuccess() {
         this.routerExtensions.navigate(["/home"]), {clearHistory: true};
+
     }
 
     onGetDataError(error: Response | any) {
         const body = error.json() || "";
-        const err = body.error || JSON.stringify(body);
-        console.log("onGetDataError: " + err);
+        this.error = body.error || JSON.stringify(body);
+        this.error = JSON.parse(this.error).non_field_errors;
+        console.log("onGetDataError: " + this.error);
+    }
+
+    focusPassword() {
+        this.password.nativeElement.focus();
+    }
+
+    focusConfirmPassword() {
+        this.confirmPassword.nativeElement.focus();
+    }
+
+    focusFirstName() {
+        this.firstName.nativeElement.focus();
+    }
+
+    focusLastName() {
+        this.lastName.nativeElement.focus();
+    }
+
+    focusDateOfBirth() {
+        this.dateOfBirth.nativeElement.focus();
     }
 }
