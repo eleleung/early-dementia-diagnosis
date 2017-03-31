@@ -2,23 +2,23 @@
     <!--<GridLayout row="0" flexDirection="row" backgroundColor="#8fbc8f">-->
         <!--<Button text="Logo" color="white"></Button>-->
     <!--</GridLayout>-->
-    <FlexboxLayout row="0" flexDirection="row" >
-        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Blue" (tap)="onBlue()"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Purple" (tap)="onPurple()"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Yellow" (tap)="onYellow()"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Settings" (tap)="onSettings()"></Button>
+    <FlexboxLayout row="0" flexDirection="row">
+        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf015;" (tap)="goHome()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf0ae;" (tap)="goListOfRecordings()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf2bc;" (tap)="goPatientTests()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf013;" (tap)="goSettings()"></Button>
     </FlexboxLayout>
-    <GridLayout row="1" [ngSwitch]="color" height="520" flexGrow="1">
-        <GridLayout *ngSwitchCase="'purple'" backgroundColor="#8C489F" ></GridLayout>
-        <GridLayout *ngSwitchCase="'blue'" backgroundColor="#0077AF" ></GridLayout>
-        <GridLayout *ngSwitchCase="'yellow'" backgroundColor="#FFFF66" ></GridLayout>
+    <GridLayout row="1" [ngSwitch]="page" height="520" flexGrow="1">
+        <GridLayout *ngSwitchCase="'home'" backgroundColor="#8C489F" ></GridLayout>
+        <GridLayout *ngSwitchCase="'listOfRecordings'" backgroundColor="#0077AF" ></GridLayout>
+        <GridLayout *ngSwitchCase="'patientTests'" backgroundColor="#FFFF66" ></GridLayout>
         <GridLayout *ngSwitchCase="'settings'" backgroundColor="#7fffd4"></GridLayout>
-        <GridLayout *ngSwitchDefault backgroundColor="gray"></GridLayout>
+        <GridLayout *ngSwitchDefault backgroundColor="#8C489F"></GridLayout>
     </GridLayout>
     <FlexboxLayout row="2" flexDirection="row">
-        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Blue" (tap)="onBlue()"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Purple" (tap)="onPurple()"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Yellow" (tap)="onYellow()"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Settings" (tap)="onSettings()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf1f8;"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf0c7;"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="00:00"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf093;"></Button>
     </FlexboxLayout>
 </GridLayout>

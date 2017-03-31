@@ -5,27 +5,28 @@ import {Component} from "@angular/core";
 
 @Component({
     selector: "home",
-    templateUrl: "./pages/home/home-component.html"
+    templateUrl: "./pages/home/home-component.html",
+    styleUrls: ["pages/home/home-common.css"]
 })
 export class HomeComponent {
     constructor() {
     }
 
-    public color: string;
+    public page: string;
 
-    onBlue() {
-        this.color = "blue";
+    goHome() {
+        this.page = "home";
     }
 
-    onPurple() {
-        this.color = "purple";
+    goListOfRecordings() {
+        this.page = "listOfRecordings";
     }
 
-    onYellow() {
-        this.color = "yellow";
+    goPatientTests() {
+        this.page = "patientTests";
     }
 
-    onSettings() {
-        this.color = "settings";
+    goSettings() {
+        this.page = "settings";
     }
 }
