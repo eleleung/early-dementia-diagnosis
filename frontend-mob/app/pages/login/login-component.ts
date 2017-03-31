@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, ElementRef, ViewChild} from "@angular/core";
+import {Component, OnInit, Inject, ElementRef, ViewChild, AfterViewInit} from "@angular/core";
 import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
 import {RouterExtensions} from "nativescript-angular";
 
@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
     @ViewChild("firstName") firstName: ElementRef;
     @ViewChild("lastName") lastName: ElementRef;
     @ViewChild("dateOfBirth") dateOfBirth: ElementRef;
-
 
     constructor(private loginService: LoginService, private registerService: RegisterService,
                 private page: Page, @Inject(FormBuilder) formBuilder: FormBuilder, private routerExtensions: RouterExtensions) {
@@ -118,6 +117,7 @@ export class LoginComponent implements OnInit {
     }
 
     forgotPassword() {
+        // this.routerExtensions.navigate(["/home"]), {clearHistory: true};
         alert("We will send you an email with instructions to reset your password");
     }
 

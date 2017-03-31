@@ -1,3 +1,24 @@
-<StackLayout class="my-background">
-    <Label text="Welcome to the app"></Label>
-</StackLayout>
+<GridLayout rows="60, auto,*" columns="*" exampleTitle toggleNavButton>
+    <!--<GridLayout row="0" flexDirection="row" backgroundColor="#8fbc8f">-->
+        <!--<Button text="Logo" color="white"></Button>-->
+    <!--</GridLayout>-->
+    <FlexboxLayout row="0" flexDirection="row" >
+        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Blue" (tap)="onBlue()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Purple" (tap)="onPurple()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Yellow" (tap)="onYellow()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Settings" (tap)="onSettings()"></Button>
+    </FlexboxLayout>
+    <GridLayout row="1" [ngSwitch]="color" height="520" flexGrow="1">
+        <GridLayout *ngSwitchCase="'purple'" backgroundColor="#8C489F" ></GridLayout>
+        <GridLayout *ngSwitchCase="'blue'" backgroundColor="#0077AF" ></GridLayout>
+        <GridLayout *ngSwitchCase="'yellow'" backgroundColor="#FFFF66" ></GridLayout>
+        <GridLayout *ngSwitchCase="'settings'" backgroundColor="#7fffd4"></GridLayout>
+        <GridLayout *ngSwitchDefault backgroundColor="gray"></GridLayout>
+    </GridLayout>
+    <FlexboxLayout row="2" flexDirection="row">
+        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Blue" (tap)="onBlue()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Purple" (tap)="onPurple()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Yellow" (tap)="onYellow()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active" margin="0" text="Settings" (tap)="onSettings()"></Button>
+    </FlexboxLayout>
+</GridLayout>
