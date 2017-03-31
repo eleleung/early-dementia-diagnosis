@@ -7,48 +7,64 @@ Image {
   margin-bottom: 20;
 }
 
-Button, TextField {
-  margin-left: 20;
-  margin-right: 20;
-  margin-bottom: 5;
-  margin-top: 5;
+Button {
+  margin-left: 40;
+  margin-right: 40;
+  margin-bottom: 10;
+  margin-top: 10;
   border-radius: 5px;
   height: 40;
   color:white;
   border-width:0;
 }
 
+TextField {
+  margin-left: 40;
+  margin-right: 40;
+  margin-bottom: 10;
+  margin-top: 10;
+  border-radius: 5px;
+  height: 40;
+  border-width:1;
+  border-color: rgba(255,255,255, 0.4);
+  background-color: white;
+}
+
+.error{
+  border-color: rgba(239, 0, 0, 0.4);
+}
+
 .my-btn-primary{
   color: white;
-  background-color: #ff9966;
+  background-color: #67c581;
 }
 
 .my-btn-minor{
   margin-left:0;
   margin-right:0;
   margin-bottom:0;
-  background-color: rgba(255,255,255, 0.2);
-  color:white;
+  background-color: rgba(255,255,255, 0.5);
+  color: #848484;
   height:50;
 }
 
 .my-background{
-  background-image: url('~/images/background.png');
-  background-size: cover;
+  background-color: #f1f1f1;
 }
 
-.login-panel{
-  background-color: rgba(255,255,255, 0.2);
-  border-radius: 5px;
-  margin: 10 20;
-  border-width: 1px;
-  border-color: rgba(255,255,255, 0.4);
-}
+/*.login-panel{*/
+  /*background-color: rgba(255,255,255, 0.2);*/
+  /*border-radius: 5px;*/
+  /*margin: 10 20;*/
+  /*border-width: 1px;*/
+  /*border-color: rgba(255,255,255, 0.4);*/
+/*}*/
 
 .forgot-password-label{
-  font-size: 10px;
-  margin-left: 25px;
-  color: white;
+  margin-top: 10px;
+  font-size: 12px;
+  text-align: center;
+  color: #848484;
 }
 
 .error-message{

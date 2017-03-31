@@ -19,6 +19,7 @@ import applicationSettings = require("application-settings");
 })
 export class LoginComponent implements OnInit {
     loginSignupForm: FormGroup;
+
     userEmailControl: AbstractControl;
     userFirstNameControl: AbstractControl;
     userLastNameControl: AbstractControl;
@@ -28,11 +29,12 @@ export class LoginComponent implements OnInit {
 
     birthDate: any;
     carer: Carer;
+
     error: string;
     loginError: boolean = false;
     isLoggingIn = true;
     isAuthenticating: boolean;
-    isDateButtonVisible = false;
+
     isDatePickerVisible = false;
 
     @ViewChild("email") email: ElementRef;
@@ -67,7 +69,7 @@ export class LoginComponent implements OnInit {
         datePicker.year = 1980;
         datePicker.month = 2;
         datePicker.day = 9;
-        datePicker.minDate = new Date(1975, 0, 29);
+        datePicker.minDate = new Date(1900, 0, 29);
         datePicker.maxDate = new Date(2045, 4, 12);
 
         this.isLoggingIn = true;
@@ -76,15 +78,12 @@ export class LoginComponent implements OnInit {
 
     showDatePicker() {
         let textFieldBDate = this.page.getViewById<TextField>("textFieldBDate");
-        this.isDateButtonVisible = true;
         this.isDatePickerVisible = true;
     }
 
     enterDate() {
         let datePicker = this.page.getViewById<DatePicker>("datePicker");
-        let selectedDate = new Date(datePicker.year, datePicker.month - 1, datePicker.day);
-        this.birthDate = selectedDate;
-        this.isDateButtonVisible = false;
+        this.birthDate = new Date(datePicker.year, datePicker.month - 1, datePicker.day);
         this.isDatePickerVisible = false;
     }
 
@@ -133,7 +132,7 @@ export class LoginComponent implements OnInit {
             (error) => {
                 this.loginError = true;
                 this.isAuthenticating = false;
-                console.log(this.onGetDataError(error));
+                this.onGetDataError(error);
             }
         )
     }
@@ -172,7 +171,6 @@ export class LoginComponent implements OnInit {
         const body = error.json() || "";
         this.error = body.error || JSON.stringify(body);
         this.error = JSON.parse(this.error).non_field_errors;
-        console.log("onGetDataError: " + this.error);
     }
 
     focusPassword() {
