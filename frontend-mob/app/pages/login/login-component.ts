@@ -192,4 +192,13 @@ export class LoginComponent implements OnInit {
     focusDateOfBirth() {
         this.dateOfBirth.nativeElement.focus();
     }
+
+    clearTextfieldFocus() {
+        this.page.getViewById<TextField>("email").dismissSoftInput();
+        this.page.getViewById<TextField>("password").dismissSoftInput();
+    }
+
+    showKeyboardSpace() {
+        console.log("test");
+    }
 }
