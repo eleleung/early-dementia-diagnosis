@@ -36,11 +36,8 @@ with sr.Microphone() as source:
     print("Say something!")
     audio = r.listen(source)
 
-# Speech recognition using Google Speech Recognition
+# Speech recognition using Sphinx
 try:
-    # for testing purposes, we're just using the default API key
-    # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-    # instead of `r.recognize_google(audio)`
     print("You said: " + r.recognize_sphinx(audio))
 except sr.UnknownValueError:
     print("Sphinx Recognition could not understand audio")
