@@ -1,4 +1,4 @@
-import {Component, OnInit, Inject, ElementRef, ViewChild, AfterViewInit} from "@angular/core";
+import {Component, OnInit, Inject, ElementRef, ViewChild} from "@angular/core";
 import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
 import {RouterExtensions} from "nativescript-angular";
 
@@ -25,9 +25,7 @@ export class LoginComponent implements OnInit {
     userLastNameControl: AbstractControl;
     userPasswordControl: AbstractControl;
     userConfirmPasswordControl: AbstractControl;
-    userDateOfBirthControl: AbstractControl;
 
-    birthDate: any;
     carer: Carer;
 
     error: string;
@@ -35,14 +33,13 @@ export class LoginComponent implements OnInit {
     isLoggingIn = true;
     isAuthenticating: boolean;
 
-    isDatePickerVisible = false;
-
     @ViewChild("email") email: ElementRef;
     @ViewChild("password") password: ElementRef;
     @ViewChild("confirmPassword") confirmPassword: ElementRef;
     @ViewChild("firstName") firstName: ElementRef;
     @ViewChild("lastName") lastName: ElementRef;
     @ViewChild("dateOfBirth") dateOfBirth: ElementRef;
+
 
     constructor(private loginService: LoginService, private registerService: RegisterService,
                 private page: Page, @Inject(FormBuilder) formBuilder: FormBuilder, private routerExtensions: RouterExtensions) {
@@ -52,15 +49,13 @@ export class LoginComponent implements OnInit {
             password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20), Validators.pattern('[A-Za-z,. :0-9/()-_?!]*')]],
             confirmPassword: ['', [Validators.required, Validators.minLength(5)]],
             firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            dateOfBirth: ['', Validators.required]
+            lastName: ['', Validators.required]
         });
         this.userEmailControl = this.loginSignupForm.controls['email'];
         this.userPasswordControl = this.loginSignupForm.controls['password'];
         this.userConfirmPasswordControl = this.loginSignupForm.controls['confirmPassword'];
         this.userFirstNameControl = this.loginSignupForm.controls['firstName'];
         this.userLastNameControl = this.loginSignupForm.controls['lastName'];
-        this.userDateOfBirthControl = this.loginSignupForm.controls['dateOfBirth'];
     }
 
     ngOnInit() {
@@ -75,35 +70,13 @@ export class LoginComponent implements OnInit {
         this.isAuthenticating = false;
     }
 
-    showDatePicker() {
-        let textFieldBDate = this.page.getViewById<TextField>("textFieldBDate");
-        this.isDatePickerVisible = true;
-    }
-
-    enterDate() {
-        let datePicker = this.page.getViewById<DatePicker>("datePicker");
-        this.birthDate = new Date(datePicker.year, datePicker.month - 1, datePicker.day);
-        this.isDatePickerVisible = false;
-    }
-
+    //TODO: put this into the actual form control or don't worry about it
     validateEmail(email: string): boolean {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
 
-    submitOrFocusUsername() {
-        if (this.isLoggingIn) {
-            this.login();
-        } else {
-            this.register();
-        }
-    }
-
     submit() {
-        if (!this.validateEmail(this.userEmailControl.value)) {
-            alert("Enter a valid email address.");
-            return;
-        }
         this.isAuthenticating = true;
         if (this.isLoggingIn) {
             this.login();
@@ -117,7 +90,7 @@ export class LoginComponent implements OnInit {
     }
 
     forgotPassword() {
-        // this.routerExtensions.navigate(["/home"]), {clearHistory: true};
+        //TODO: implement this
         alert("We will send you an email with instructions to reset your password");
     }
 
@@ -132,7 +105,8 @@ export class LoginComponent implements OnInit {
             (error) => {
                 this.loginError = true;
                 this.isAuthenticating = false;
-                this.onGetDataError(error);
+                this.error = "Invalid username or password";
+                this.userPasswordControl.reset();
             }
         )
     }
@@ -148,29 +122,22 @@ export class LoginComponent implements OnInit {
         this.carer.confirm_password = this.userConfirmPasswordControl.value;
         this.carer.firstname = this.userFirstNameControl.value;
         this.carer.lastname = this.userLastNameControl.value;
-        this.carer.dateOfBirth = this.userDateOfBirthControl.value;
+
+        let datePicker = this.page.getViewById<DatePicker>("datePicker");
+        this.carer.dateOfBirth  = new Date(datePicker.year, datePicker.month - 1, datePicker.day);
 
         this.registerService.registerCarer(this.carer).subscribe(
             (result) => {
                 this.isAuthenticating = false;
-                this.registerSuccess();
+                this.login();
             },
             (error) => {
                 this.isAuthenticating = false;
-                this.onGetDataError(error);
+                this.error = "This email is already taken";
+                this.loginError = true;
+                this.userEmailControl.reset();
             }
         )
-    }
-
-    registerSuccess() {
-        this.routerExtensions.navigate(["/home"]), {clearHistory: true};
-
-    }
-
-    onGetDataError(error: Response | any) {
-        const body = error.json() || "";
-        this.error = body.error || JSON.stringify(body);
-        this.error = JSON.parse(this.error).non_field_errors;
     }
 
     focusPassword() {
@@ -196,9 +163,22 @@ export class LoginComponent implements OnInit {
     clearTextfieldFocus() {
         this.page.getViewById<TextField>("email").dismissSoftInput();
         this.page.getViewById<TextField>("password").dismissSoftInput();
+        this.page.getViewById<TextField>("firstname").dismissSoftInput();
+        this.page.getViewById<TextField>("lastname").dismissSoftInput();
+        this.page.getViewById<TextField>("confirmPassword").dismissSoftInput();
     }
 
-    showKeyboardSpace() {
-        console.log("test");
+    getPasswordClass() {
+        if (!this.userPasswordControl.valid && this.isLoggingIn && this.loginError) {
+            return 'error';
+        } else if (this.userPasswordControl.valid) {
+            return 'valid';
+        }
+    }
+
+    getPasswordConfirmedClass() {
+        if (this.userConfirmPasswordControl.valid && this.userPasswordControl.value == this.userConfirmPasswordControl.value) {
+            return 'valid';
+        }
     }
 }

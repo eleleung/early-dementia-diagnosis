@@ -22,7 +22,11 @@
                 </Image>
             </StackLayout>
             <StackLayout>
-                <Label class="error-message" *ngIf="loginError && isLoggingIn" [text]="'Invalid email address or password'"></Label>
+                <Label class="error-message"
+                       *ngIf="loginError"
+                       horizontalAlignment="center"
+                       [text]="error">
+                </Label>
                 <TextField #email id="email"
                            formControlName="email"
                            hint="Email Address"
@@ -32,6 +36,7 @@
                            autocorrect="false"
                            autocapitalizationType="none"
                            (focus)="showKeyboardSpace()"
+                           [ngClass]="loginError && isLoggingIn ? 'error' : ''"
                            [isEnabled]="!isAuthenticating">
                 </TextField>
                 <TextField #firstName id="firstname"
@@ -42,8 +47,7 @@
                            hint="First Name"
                            (returnPress)="focusLastName()"
                            autocorrect="false"
-                           autocapitalizationType="words"
-                           >
+                           autocapitalizationType="words">
                 </TextField>
                 <TextField #lastName id="lastname"
                            formControlName="lastName"
@@ -55,32 +59,18 @@
                            autocorrect="false"
                            autocapitalizationType="words">
                 </TextField>
-                <TextField #dateOfBirth
-                           formControlName="dateOfBirth"
-                           required
-                           *ngIf="!isLoggingIn"
-                           id="textFieldBDate"
-                           hint="Date Of Birth"
-                           [text]='birthDate | date:"MM/dd/yy"'
-                           (tap)="showDatePicker()"
-                           row="29" col="1"
-                           (returnPress)="focusPassword()"
-                           returnKeyType="next">
-                </TextField>
-                <StackLayout [visibility]="isDatePickerVisible ? 'visible' : 'collapsed'" row="0" col="0">
-                    <DatePicker class="m-15" id="datePicker" #dp [visibility]="isDatePickerVisible ? 'visible' : 'collapsed'" ></DatePicker>
-                    <Button class="btn my-btn-primary btn-active"
-                            text="Select"
-                            (tap)="enterDate()"
-                            [visibility]="isDatePickerVisible ? 'visible' : 'collapsed'">
-                    </Button>
-                </StackLayout>
+                <DatePicker #dp id="datePicker"
+                            class="m-15"
+                            style="width:300px;height:100px"
+                            [visibility]="!isLoggingIn ? 'visible' : 'collapsed'" >
+                </DatePicker>
                 <TextField #password id="password"
                            formControlName="password"
                            required
                            hint="Password"
                            secure="true"
                            (returnPress)="isLoggingIn ? submit() : focusConfirmPassword()"
+                           [ngClass]="getPasswordClass()"
                            returnKeyType="next">
                 </TextField>
                 <TextField #confirmPassword id="confirmPassword"
@@ -90,21 +80,17 @@
                            hint="Confirm Password"
                            secure="true"
                            returnKeyType="done"
-                           (returnPress)="submitOrFocusUsername()">
+                           [ngClass]="getPasswordConfirmedClass()"
+                           (returnPress)="clearTextfieldFocus()">
                 </TextField>
-                <Label *ngIf="!userConfirmPasswordControl.pristine && userPasswordControl.value != userConfirmPasswordControl.value"
-                       text="Passwords much match!">
-                </Label>
                 <ActivityIndicator [busy]="isAuthenticating" [visibility]="isAuthenticating ? 'visible' : 'collapse'"
                                    row="2" style="color:#ffffff;">
                 </ActivityIndicator>
                 <Button [text]="isLoggingIn ? 'Sign in' : 'Register'"
                         class="my-btn-primary"
-                        [isEnabled]="loginSignupForm.valid"
-                        [opacity]="loginSignupForm.valid ? '1' : '0.5'"
-                        [isEnabled]="!isAuthenticating"
+                        [opacity]="(isLoggingIn ? userEmailControl.valid && userPasswordControl.valid : loginSignupForm.valid) ? '1' : '0.5'"
                         (tap)="submit()"
-                        [isEnabled]="isLoggingIn ? userEmailControl.valid : loginSignupForm.valid">
+                        [isEnabled]="isLoggingIn ? userEmailControl.valid && userPasswordControl.valid : loginSignupForm.valid">
                 </Button>
                 <Label class="forgot-password-label"
                        text="Forgot password?"
@@ -115,7 +101,7 @@
             </StackLayout>
         </ScrollView>
     </StackLayout>
-    <StackLayout [visibility]="isDatePickerVisible ? 'collapsed' : 'visible'" row="1">
+    <StackLayout row="1">
         <Button [text]="isLoggingIn ? 'Create an Account' : 'Back to login'"
                 (tap)="toggleDisplay()"
                 class="my-btn-minor">

@@ -30,8 +30,14 @@ TextField {
   background-color: white;
 }
 
+.valid{
+  border-color: rgb(225, 255, 225);
+  background-color: rgb(245, 255, 245);
+}
+
 .error{
-  border-color: rgba(239, 0, 0, 0.4);
+  border-color: rgb(255, 225, 225);
+  background-color: rgb(255, 240, 240);
 }
 
 .my-btn-primary{
@@ -68,8 +74,10 @@ TextField {
 }
 
 .error-message{
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
   font-size: 14px;
-  margin-top: 10px;
-  margin-left: 10px;
-  color: white;
+  margin: 10px;
+  color: rgba(170,0,0,0.6);
 }
