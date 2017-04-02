@@ -13,9 +13,14 @@ import {LoginService} from "./services/login-service";
 import {RegisterService} from "./services/register-service";
 import {routes} from "./app.routes";
 import {LoginComponent} from "./pages/login/login-component";
+import {TutorialComponent} from "./pages/tutorial/tutorial-component";
+import {SettingsComponent} from "./pages/settings/settings-component";
+import {InformationComponent} from "./pages/information/information-component";
+import {RecordingsListComponent} from "./pages/recordings-list/recordings-list-component";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, TutorialComponent, SettingsComponent, InformationComponent,
+                RecordingsListComponent],
   bootstrap: [AppComponent],
   imports: [NativeScriptModule, NativeScriptHttpModule, NativeScriptFormsModule, ReactiveFormsModule, NativeScriptRouterModule,
             NativeScriptRouterModule.forRoot(routes), RouterModule],

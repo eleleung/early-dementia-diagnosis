@@ -2,6 +2,7 @@
  * Created by EleanorLeung on 25/03/2017.
  */
 import {Component} from "@angular/core";
+import {RouterExtensions} from "nativescript-angular";
 
 @Component({
     selector: "home",
@@ -9,7 +10,7 @@ import {Component} from "@angular/core";
     styleUrls: ["pages/home/home-common.css"]
 })
 export class HomeComponent {
-    constructor() {
+    constructor(private routerExtensions: RouterExtensions) {
     }
 
     public page: string;
@@ -18,12 +19,12 @@ export class HomeComponent {
         this.page = "home";
     }
 
-    goListOfRecordings() {
-        this.page = "listOfRecordings";
+    goRecordingsList() {
+        this.page = "recordingsList";
     }
 
-    goPatientTests() {
-        this.page = "patientTests";
+    goInformation() {
+        this.page = "information";
     }
 
     goSettings() {

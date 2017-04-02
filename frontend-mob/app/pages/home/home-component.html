@@ -1,17 +1,17 @@
 <GridLayout rows="60, auto,*" columns="*" exampleTitle toggleNavButton>
     <!--<GridLayout row="0" flexDirection="row" backgroundColor="#8fbc8f">-->
-        <!--<Button text="Logo" color="white"></Button>-->
+        <!--<Button flexGrow="1" text="Logo" color="white"></Button>-->
     <!--</GridLayout>-->
     <FlexboxLayout row="0" flexDirection="row">
         <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf015;" (tap)="goHome()"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf0ae;" (tap)="goListOfRecordings()"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf2bc;" (tap)="goPatientTests()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf05a;" (tap)="goInformation()"></Button>
+        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf0ae;" (tap)="goRecordingsList()"></Button>
         <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf013;" (tap)="goSettings()"></Button>
     </FlexboxLayout>
     <GridLayout row="1" [ngSwitch]="page" height="520" flexGrow="1">
         <GridLayout *ngSwitchCase="'home'" backgroundColor="#8C489F" ></GridLayout>
-        <GridLayout *ngSwitchCase="'listOfRecordings'" backgroundColor="#0077AF" ></GridLayout>
-        <GridLayout *ngSwitchCase="'patientTests'" backgroundColor="#FFFF66" ></GridLayout>
+        <GridLayout *ngSwitchCase="'information'" backgroundColor="#FFFF66" ></GridLayout>
+        <GridLayout *ngSwitchCase="'recordingsList'" backgroundColor="#0077AF" ></GridLayout>
         <GridLayout *ngSwitchCase="'settings'" backgroundColor="#7fffd4"></GridLayout>
         <GridLayout *ngSwitchDefault backgroundColor="#8C489F"></GridLayout>
     </GridLayout>
