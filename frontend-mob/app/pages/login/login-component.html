@@ -23,7 +23,7 @@
             </StackLayout>
             <StackLayout>
                 <Label class="error-message"
-                       *ngIf="loginError"
+                       *ngIf="loginError && isLoggingIn"
                        horizontalAlignment="center"
                        [text]="error">
                 </Label>

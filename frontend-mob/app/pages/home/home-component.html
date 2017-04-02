@@ -1,24 +1,23 @@
 <GridLayout rows="60, auto,*" columns="*" exampleTitle toggleNavButton>
-    <!--<GridLayout row="0" flexDirection="row" backgroundColor="#8fbc8f">-->
-        <!--<Button flexGrow="1" text="Logo" color="white"></Button>-->
-    <!--</GridLayout>-->
+    <ActionBar title="Logo">
+    </ActionBar>
     <FlexboxLayout row="0" flexDirection="row">
-        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf015;" (tap)="goHome()"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf05a;" (tap)="goInformation()"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf0ae;" (tap)="goRecordingsList()"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf013;" (tap)="goSettings()"></Button>
+        <Button flexGrow="1" class="icon" margin="0" text="&#xf015;" (tap)="goHome()"></Button>
+        <Button flexGrow="1" class="icon" margin="0" text="&#xf05a;" (tap)="goInformation()"></Button>
+        <Button flexGrow="1" class="icon" margin="0" text="&#xf0ae;" (tap)="goRecordingsList()"></Button>
+        <Button flexGrow="1" class="icon" margin="0" text="&#xf013;" (tap)="goSettings()"></Button>
     </FlexboxLayout>
-    <GridLayout row="1" [ngSwitch]="page" height="520" flexGrow="1">
-        <GridLayout *ngSwitchCase="'home'" backgroundColor="#8C489F" ></GridLayout>
+    <GridLayout row="1" [ngSwitch]="page" height="480" flexGrow="1">
+        <GridLayout *ngSwitchCase="'home'" backgroundColor="#d3d3d3" ></GridLayout>
         <GridLayout *ngSwitchCase="'information'" backgroundColor="#FFFF66" ></GridLayout>
         <GridLayout *ngSwitchCase="'recordingsList'" backgroundColor="#0077AF" ></GridLayout>
         <GridLayout *ngSwitchCase="'settings'" backgroundColor="#7fffd4"></GridLayout>
-        <GridLayout *ngSwitchDefault backgroundColor="#8C489F"></GridLayout>
+        <GridLayout *ngSwitchDefault backgroundColor="#d3d3d3"></GridLayout>
     </GridLayout>
     <FlexboxLayout row="2" flexDirection="row">
-        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf1f8;"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf0c7;"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="00:00"></Button>
-        <Button flexGrow="1" class="btn btn-primary btn-active icon" margin="0" text="&#xf093;"></Button>
+        <Button flexGrow="1" class="icon" margin="0" text="&#xf1f8;"></Button>
+        <Button flexGrow="1" class="icon" margin="0" text="&#xf0c7;"></Button>
+        <Button flexGrow="1" class="icon" margin="0" text="00:00"></Button>
+        <Button flexGrow="1" class="icon" margin="0" text="&#xf093;"></Button>
     </FlexboxLayout>
 </GridLayout>
