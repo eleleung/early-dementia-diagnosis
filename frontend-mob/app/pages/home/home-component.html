@@ -8,10 +8,17 @@
         <Button flexGrow="1" class="icon" margin="0" text="&#xf013;" (tap)="goSettings()"></Button>
     </FlexboxLayout>
     <GridLayout row="1" [ngSwitch]="page" height="480" flexGrow="1">
-        <GridLayout *ngSwitchCase="'home'" backgroundColor="#d3d3d3" ></GridLayout>
-        <GridLayout *ngSwitchCase="'information'" backgroundColor="#FFFF66" ></GridLayout>
-        <GridLayout *ngSwitchCase="'recordingsList'" backgroundColor="#0077AF" ></GridLayout>
-        <GridLayout *ngSwitchCase="'settings'" backgroundColor="#7fffd4"></GridLayout>
+        <GridLayout *ngSwitchCase="'home'" backgroundColor="#d3d3d3">
+        </GridLayout>
+        <GridLayout *ngSwitchCase="'information'" backgroundColor="#d3d3d3">
+            <information></information>
+        </GridLayout>
+        <GridLayout *ngSwitchCase="'recordingsList'" backgroundColor="#d3d3d3">
+            <recordings-list></recordings-list>
+        </GridLayout>
+        <GridLayout *ngSwitchCase="'settings'" backgroundColor="#d3d3d3">
+            <settings></settings>
+        </GridLayout>
         <GridLayout *ngSwitchDefault backgroundColor="#d3d3d3"></GridLayout>
     </GridLayout>
     <FlexboxLayout row="2" flexDirection="row">
