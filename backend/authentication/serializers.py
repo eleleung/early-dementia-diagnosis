@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import User
+from .models import User, Patient
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'id', 'email', 'date_created', 'date_modified',
-            'firstname', 'lastname', 'password', 'confirm_password')
+            'firstname', 'lastname', 'date_of_birth', 'password', 'confirm_password')
         read_only_fields = ('date_created', 'date_modified')
 
     def create(self, validated_data):
@@ -40,3 +40,19 @@ class UserSerializer(serializers.ModelSerializer):
                     "The passwords have to be the same"
                 )
         return data
+
+
+class PatientSerializer(serializers.ModelSerializer):
+    carers = UserSerializer(many=True, allow_null=True)
+
+    class Meta:
+        model = Patient
+        fields = ('firstname', 'lastname', 'gender', 'date_created', 'date_modified', 'date_of_birth', 'carers')
+        extra_kwargs = {'carers': {'allow_null': 'True'}}
+
+    def create(self, validated_data):
+        Patient.objects.create(**validated_data)
+        # Patient.carers.add(self.context['request'].user)
+        Patient.save()
+        return Patient
+

@@ -5,14 +5,15 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-from authentication.models import User
-from .serializers import UserSerializer
+from authentication.models import User, Patient
+from .serializers import UserSerializer, PatientSerializer
 
 class AuthRegister(APIView):
     serializer_class = UserSerializer
     permission_classes = (AllowAny, )
 
     def post(self, request):
+        print(request.data)
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -32,3 +33,24 @@ class ListUsersAPIView(ListAPIView):
     permission_classes = (AllowAny,)
     queryset = User.objects.all()
 
+
+class PatientRegister(APIView):
+    serializer_class = PatientSerializer
+    permission_classes = (IsAuthenticated, )
+
+    def post(self, request):
+        # a = User.objects.get(pk=request.user.id)
+        # This shouldn't be creating new user.
+        request.data['carers'] = []
+        request.data['carers'].append({
+            'email': 'test@gmail.com',
+            'password': request.user.password,
+            'confirm_password': request.user.password
+        })
+
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
