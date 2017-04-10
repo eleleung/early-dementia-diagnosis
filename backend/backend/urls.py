@@ -20,4 +20,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/v1/auth/', include('authentication.urls')),
+    url(r'^api/v1/recogniser/', include('recogniser.urls'))
 ]
