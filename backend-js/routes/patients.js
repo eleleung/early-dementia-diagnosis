@@ -15,10 +15,11 @@ router.post('/register', passport.authenticate('jwt', {session:false}), function
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         gender: req.body.gender,
-        dateOfBirth: req.body.dateOfBirth
+        dateOfBirth: req.body.dateOfBirth,
+        carers: []
     });
 
-
+    newPatient.carers.push(req.user);
 
     Patient.addPatient(newPatient, function(err, patient){
         if (err) {

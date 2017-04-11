@@ -4,6 +4,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const config = require('../config/database');
+const relationship = require('../node_modules/mongoose-relationship');
 
 const Patient = require('../models/patient');
 
@@ -18,7 +19,8 @@ const UserSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -27,9 +29,27 @@ const UserSchema = mongoose.Schema({
     dateOfBirth: {
         type: Date,
     },
-    carers: [{
+    patients: [{
         type: mongoose.Schema.ObjectId, ref : 'Patient'
     }]
+});
+
+UserSchema.pre('save', true, function(next, done){
+   var self = this;
+
+   User.findOne({email : this.email}, 'email', function(err, results){
+       if (err) {
+           done(err);
+       }
+       else if (results) {
+           self.invalidate("email", "Email must be unique");
+           done(new Error("Email must be unique!"));
+       }
+       else {
+           done();
+       }
+   })
+    next();
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);

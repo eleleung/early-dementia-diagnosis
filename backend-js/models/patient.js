@@ -1,12 +1,14 @@
 /**
  * Created by EleanorLeung on 7/04/2017.
  */
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    relationship = require("mongoose-relationship");
 const config = require('../config/database');
 
 const User = require('./user');
 
-const PatientSchema = mongoose.Schema({
+const PatientSchema = Schema({
     firstName: {
         type: String,
         required: true
@@ -22,10 +24,10 @@ const PatientSchema = mongoose.Schema({
         type: Date
     },
     carers: [{
-        type: mongoose.Schema.ObjectId, ref : 'User'
+        type: Schema.ObjectId, ref : "User", childPath : "patients"
     }]
 });
-
+PatientSchema.plugin(relationship, {relationshipPathName: "carers"});
 const Patient = module.exports = mongoose.model('Patient', PatientSchema);
 
 module.exports.getPatientById = function(id, callback){
