@@ -62,3 +62,9 @@ app.get('*', function(req, res){
 app.listen(port, function(){
     console.log('Server started on port ' + port);
 });
+
+//transcribe file
+//app.post("/transcribe", function(req, res)
+//{
+//    res.send(res.message);
+//});
