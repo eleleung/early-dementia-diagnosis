@@ -3,8 +3,8 @@ var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1');
 var fs = require('fs');
 
 var speech_to_text = new SpeechToTextV1({
-    username: '6540d10d-438d-4d8b-aac3-01a41f848db7',
-    password: 'bGBpHMu4i8PJ'
+    username: '<username>',
+    password: '<password>'
 });
 
 var params = {
