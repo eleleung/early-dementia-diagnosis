@@ -7,7 +7,10 @@ import {RecordingsListComponent} from "../recordings-list/recordings-list-compon
 import {SettingsComponent} from "../settings/settings-component";
 import {InformationComponent} from "../information/information-component";
 import {Page} from "ui/page";
-import {TNSPlayer} from "nativescript-audio";
+
+//Records to a .caf file and saves it on the device
+var fs = require('file-system');
+var audio = require("nativescript-audio");
 
 @Component({
     selector: "home",
@@ -19,11 +22,16 @@ export class HomeComponent {
     @ViewChild(SettingsComponent) settingsComponent: SettingsComponent;
     @ViewChild(InformationComponent) informationComponent: InformationComponent;
 
+    recorder: any;
+
+    isRecording: boolean;
+    filePath: string;
+
     constructor(private routerExtensions: RouterExtensions, private page: Page) {
         this.page.actionBarHidden = false;
     }
 
-    public tab: string;
+    public tab: string = "home";
 
     goHome() {
         this.tab = "home";
@@ -41,103 +49,79 @@ export class HomeComponent {
         this.tab = "settings";
     }
 
+    /* START RECORDING */
     start() {
-        startRecording()
+        // you should check if the device has recording capabilities
+        if (audio.TNSRecorder.CAN_RECORD()) {
+
+            this.recorder = new audio.TNSRecorder();
+
+            let audioFolder = fs.knownFolders.currentApp().getFolder("audio");
+            // let audioFolder = "/Users/nathanstanley/Desktop";
+
+            let recorderOptions = {
+
+                //filename: audioFolder.path + '/recording.caf',
+                filename: audioFolder + '/recording.caf',
+                infoCallback: () => {
+                    console.log('infoCallback');
+                },
+                errorCallback: () => {
+                    console.log('errorCallback');
+                    alert('Error recording.');
+                }
+            };
+
+            console.log('RECORDER OPTIONS: ' + recorderOptions);
+
+            this.recorder.start(recorderOptions).then(
+                (res) => {
+                    this.isRecording = true;
+                },
+                (err) => {
+                    this.isRecording = false;
+                    console.log('ERROR: ' + err);
+                }
+            );
+
+        } else {
+            alert('This device cannot record audio.');
+        }
     }
 
+    /* STOP RECORDING */
     stop() {
-        stopRecording()
+        if (this.recorder != undefined) {
+            this.recorder.stop().then(
+                () => {
+                    this.isRecording = false;
+                    alert('Audio Recorded Successfully.');
+                },
+                (err) => {
+                    this.isRecording = false;
+                    console.log(err);
+                }
+            );
+        }
     }
 
     getFile() {
-        getRecordedFile()
-    }
-}
-
-//Records to a .caf file and saves it on the device
-
-var observable = require("data/observable");
-var fs = require('file-system');
-var audio = require("nativescript-audio");
-
-
-var data = new observable.Observable({});
-var recorder;
-
-data.set('isRecording', false);
-
-function onNavigatingTo(args) {
-    var page = args.object;
-    page.bindingContext = data;
-
-    data.set('isRecording', false);
-}
-
-/* START RECORDING */
-
-function startRecording() {
-    // you should check if the device has recording capabilities
-    if (audio.TNSRecorder.CAN_RECORD()) {
-
-        recorder = new audio.TNSRecorder();
-
-        //var audioFolder = fs.knownFolders.currentApp().getFolder("audio");
-        var audioFolder = "/Users/caitlinwoods/Deskop";
-
-        var recorderOptions = {
-
-            //filename: audioFolder.path + '/recording.caf',
-            filename: audioFolder + '/recording.caf',
-            infoCallback: function () {
-                console.log('infoCallback');
-            },
-            errorCallback: function () {
-                console.log('errorCallback');
-                alert('Error recording.');
-            }
-        };
-
-        console.log('RECORDER OPTIONS: ' + recorderOptions);
-
-        recorder.start(recorderOptions).then(function (res) {
-            data.set('isRecording', true);
-        }, function (err) {
-            data.set('isRecording', false);
-            console.log('ERROR: ' + err);
-        });
-
-    } else {
-        alert('This device cannot record audio.');
+        try {
+            // let audioFolder = fs.knownFolders.currentApp().getFolder("audio");
+            // let recordedFile = audioFolder.getFile('recording.caf');
+            // console.log(recordedFile.path);
+            // this.filePath = recordedFile.path;
+        } catch (ex) {
+            console.log(ex);
+        }
     }
 }
 
 
 
-/* STOP RECORDING */
-
-function stopRecording() {
-    if (recorder != undefined) {
-        recorder.stop().then(function () {
-            data.set('isRecording', false);
-            alert('Audio Recorded Successfully.');
-        }, function (err) {
-            console.log(err);
-            data.set('isRecording', false);
-        });
-    }
-}
 
 
-function getRecordedFile() {
-    try {
-        var audioFolder = fs.knownFolders.currentApp().getFolder("audio");
-        var recordedFile = audioFolder.getFile('recording.caf');
-        console.log(recordedFile.path);
-        data.set("recordedAudioFile", recordedFile.path);
-    } catch (ex) {
-        console.log(ex);
-    }
-}
+
 
 
 

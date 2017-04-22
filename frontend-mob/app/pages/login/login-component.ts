@@ -113,7 +113,9 @@ export class LoginComponent implements OnInit {
 
     forgotPassword() {
         //TODO: implement this
-        alert("We will send you an email with instructions to reset your password");
+        // alert("We will send you an email with instructions to reset your password");
+        this.routerExtensions.navigate(["/home"], {clearHistory: true});
+
     }
 
     login() {
