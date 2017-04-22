@@ -9,6 +9,13 @@
     </FlexboxLayout>
     <GridLayout row="1" [ngSwitch]="page" height="480" flexGrow="1">
         <GridLayout *ngSwitchCase="'home'" backgroundColor="#d3d3d3">
+            <StackLayout>
+                <ActivityIndicator color="#3489db" busy="{{ isRecording }}"></ActivityIndicator>
+                <Button text="Start Recording" (tap)="start()" ></Button>
+                <Button text="Stop Recording" (tap)="stop()" ></Button>
+                <Button text="Get Recorded File" (tap)="getFile()" ></Button>
+                <Label text="{{ recordedAudioFile }}" color="#3489db" textWrap="true" ></Label>
+            </StackLayout>
         </GridLayout>
         <GridLayout *ngSwitchCase="'information'" backgroundColor="#d3d3d3">
             <information></information>
@@ -25,6 +32,6 @@
         <Button flexGrow="1" class="icon" margin="0" text="&#xf1f8;"></Button>
         <Button flexGrow="1" class="icon" margin="0" text="&#xf0c7;"></Button>
         <Button flexGrow="1" class="icon" margin="0" text="00:00"></Button>
-        <Button flexGrow="1" class="icon" margin="0" text="&#xf093;"></Button>
+        <Button flexGrow="1" class="icon" margin="0" text="&#xf093;" (tap)="uploadAudio()"></Button>
     </FlexboxLayout>
 </GridLayout>

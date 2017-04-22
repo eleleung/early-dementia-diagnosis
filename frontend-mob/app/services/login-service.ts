@@ -17,7 +17,7 @@ export class LoginService {
     }
 
     login(carer: Carer) {
-        let url = GlobalVariable.BASE_API_URL + "/api/v1/auth/login/";
+        let url = GlobalVariable.BASE_API_URL + "/users/authenticate";
         let headers = this.createRequestHeader();
         return this.http.post(url, JSON.stringify(carer), {headers: headers}).map(res => res.json());
     }
