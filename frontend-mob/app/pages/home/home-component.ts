@@ -6,6 +6,7 @@ import {RouterExtensions} from "nativescript-angular";
 import {RecordingsListComponent} from "../recordings-list/recordings-list-component";
 import {SettingsComponent} from "../settings/settings-component";
 import {InformationComponent} from "../information/information-component";
+import {Page} from "ui/page";
 import {TNSPlayer} from "nativescript-audio";
 
 @Component({
@@ -18,25 +19,26 @@ export class HomeComponent {
     @ViewChild(SettingsComponent) settingsComponent: SettingsComponent;
     @ViewChild(InformationComponent) informationComponent: InformationComponent;
 
-    constructor(private routerExtensions: RouterExtensions) {
+    constructor(private routerExtensions: RouterExtensions, private page: Page) {
+        this.page.actionBarHidden = false;
     }
 
-    public page: string;
+    public tab: string;
 
     goHome() {
-        this.page = "home";
+        this.tab = "home";
     }
 
     goRecordingsList() {
-        this.page = "recordingsList";
+        this.tab = "recordingsList";
     }
 
     goInformation() {
-        this.page = "information";
+        this.tab = "information";
     }
 
     goSettings() {
-        this.page = "settings";
+        this.tab = "settings";
     }
 
     start() {

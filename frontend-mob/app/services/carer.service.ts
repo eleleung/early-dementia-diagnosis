@@ -1,7 +1,6 @@
 /**
- * Created by EleanorLeung on 19/03/2017.
+ * Created by nathanstanley on 21/4/17.
  */
-
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {GlobalVariable} from "../global";
@@ -12,14 +11,14 @@ import "rxjs/add/operator/do";
 import {SecurityService} from "./security.service";
 
 @Injectable()
-export class RegisterService {
-    
+export class CarerService {
+
     constructor (private http: Http, private securityService: SecurityService) {
     }
 
-    registerCarer(carer: Carer) {
-        let url = GlobalVariable.BASE_API_URL + "/users/register/";
-        let headers = this.securityService.loggedOutHeader();
-        return this.http.post(url, JSON.stringify(carer), {headers: headers}).map(res => res.json());
+    getProfile() {
+        let url = GlobalVariable.BASE_API_URL + "/users/profile/";
+        let headers = this.securityService.loggedInHeader();
+        return this.http.get(url, {headers: headers}).map(res => res.json());
     }
 }

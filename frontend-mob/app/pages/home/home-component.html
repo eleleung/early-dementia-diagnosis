@@ -7,7 +7,7 @@
         <Button flexGrow="1" class="icon" margin="0" text="&#xf0ae;" (tap)="goRecordingsList()"></Button>
         <Button flexGrow="1" class="icon" margin="0" text="&#xf013;" (tap)="goSettings()"></Button>
     </FlexboxLayout>
-    <GridLayout row="1" [ngSwitch]="page" height="480" flexGrow="1">
+    <GridLayout row="1" [ngSwitch]="tab" height="480" flexGrow="1">
         <GridLayout *ngSwitchCase="'home'" backgroundColor="#d3d3d3">
             <StackLayout>
                 <ActivityIndicator color="#3489db" busy="{{ isRecording }}"></ActivityIndicator>

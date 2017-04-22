@@ -15,7 +15,8 @@
     "jsonwebtoken":"*",
     "body-parser":"*",
     "passport":"*",
-    "passport-jwt":"*"
+    "passport-jwt":"*",
+    "mongoose-relationship":"*"
   },
   "author": "Ele Leung",
   "license": "ISC"

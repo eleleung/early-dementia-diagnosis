@@ -33,7 +33,7 @@ class User(AbstractBaseUser):
     firstname = models.CharField(max_length=100, blank=True, null=True)
     lastname = models.CharField(max_length=100, blank=True, null=True)
 
-    date_of_birth = models.DateTimeField(null=True)
+    date_of_birth = models.DateTimeField(null=True, default='')
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 

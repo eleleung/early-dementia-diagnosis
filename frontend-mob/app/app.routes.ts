@@ -13,8 +13,4 @@ export const routes = [
     {path: "", redirectTo: "/login", pathMatch: "full"},
     {path: "login", component: LoginComponent},
     {path: "home", component: HomeComponent},
-    {path: "tutorial", component: TutorialComponent},
-    {path: "recordingsList", component: RecordingsListComponent},
-    {path: "information", component: InformationComponent},
-    {path: "settings", component: SettingsComponent}
 ]
