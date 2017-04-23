@@ -1,6 +1,3 @@
-@import url("~/platform.css");
-@import "nativescript-theme-core/css/core.light.css";
-
 Page {
   background-color: white;
   font-size: 15;
@@ -9,4 +6,8 @@ Page {
 TextField {
   padding: 10;
   font-size: 13;
+}
+
+ActionBar{
+  background-color: #8fbc8f;
 }

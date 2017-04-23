@@ -19,10 +19,11 @@ import {RecordingsListComponent} from "./pages/recordings-list/recordings-list-c
 import {SecurityService} from "./services/security.service";
 import {CarerService} from "./services/carer.service";
 import {DurationPipe} from "./pipes/duration.pipe";
+import {RegisterPatientFormComponent} from "./pages/forms/register-patient-component";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, TutorialComponent, SettingsComponent, InformationComponent,
-                RecordingsListComponent, DurationPipe],
+                RecordingsListComponent, DurationPipe, RegisterPatientFormComponent],
   bootstrap: [AppComponent],
   imports: [NativeScriptModule, NativeScriptHttpModule, NativeScriptFormsModule, ReactiveFormsModule, NativeScriptRouterModule,
             NativeScriptRouterModule.forRoot(routes), RouterModule],
