@@ -29,6 +29,7 @@ export class HomeComponent {
     filePath: string;
 
     duration: number = 0;
+    timerId: number;
 
     constructor(private routerExtensions: RouterExtensions, private page: Page) {
         this.page.actionBarHidden = false;
@@ -81,11 +82,11 @@ export class HomeComponent {
                 (res) => {
                     this.isRecording = true;
                     this.duration = 0;
-                    let id = timer.setInterval(() => {
+                    this.timerId = timer.setInterval(() => {
                         if (this.isRecording) {
                             this.duration++;
                         } else {
-                            timer.clearInterval(id);
+                            timer.clearInterval(this.timerId);
                         }
                     }, 1000);
                 },
@@ -102,6 +103,7 @@ export class HomeComponent {
 
     /* STOP RECORDING */
     stop() {
+        timer.clearInterval(this.timerId);
         if (this.recorder != undefined) {
             this.recorder.stop().then(
                 () => {
