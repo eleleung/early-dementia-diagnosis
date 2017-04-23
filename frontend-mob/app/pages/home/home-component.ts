@@ -11,6 +11,7 @@ import {Page} from "ui/page";
 //Records to a .caf file and saves it on the device
 var fs = require('file-system');
 var audio = require("nativescript-audio");
+var timer = require("timer");
 
 @Component({
     selector: "home",
@@ -27,26 +28,28 @@ export class HomeComponent {
     isRecording: boolean;
     filePath: string;
 
+    duration: number = 0;
+
     constructor(private routerExtensions: RouterExtensions, private page: Page) {
         this.page.actionBarHidden = false;
     }
 
-    public tab: string = "home";
+    public tab: string = "Home";
 
     goHome() {
-        this.tab = "home";
+        this.tab = "Home";
     }
 
     goRecordingsList() {
-        this.tab = "recordingsList";
+        this.tab = "My Recordings";
     }
 
     goInformation() {
-        this.tab = "information";
+        this.tab = "Information";
     }
 
     goSettings() {
-        this.tab = "settings";
+        this.tab = "Settings";
     }
 
     /* START RECORDING */
@@ -62,7 +65,7 @@ export class HomeComponent {
             let recorderOptions = {
 
                 //filename: audioFolder.path + '/recording.caf',
-                filename: audioFolder + '/recording.caf',
+                filename: audioFolder + '/recording_' + new Date().getTime() + '.caf',
                 infoCallback: () => {
                     console.log('infoCallback');
                 },
@@ -77,6 +80,14 @@ export class HomeComponent {
             this.recorder.start(recorderOptions).then(
                 (res) => {
                     this.isRecording = true;
+                    this.duration = 0;
+                    let id = timer.setInterval(() => {
+                        if (this.isRecording) {
+                            this.duration++;
+                        } else {
+                            timer.clearInterval(id);
+                        }
+                    }, 1000);
                 },
                 (err) => {
                     this.isRecording = false;
@@ -95,7 +106,6 @@ export class HomeComponent {
             this.recorder.stop().then(
                 () => {
                     this.isRecording = false;
-                    alert('Audio Recorded Successfully.');
                 },
                 (err) => {
                     this.isRecording = false;

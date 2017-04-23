@@ -7,97 +7,97 @@
     <StackLayout verticalAlignment="center" class="login-panel" row="0">
         <ScrollView height="100%">
             <StackLayout>
-            <StackLayout (tap)="clearTextfieldFocus()">
-                <Image id="logoLarge"
-                       horizontalAlignment="center"
-                       style="height:200px;margin-top:100px"
-                       src="res://app/images/apple.jpg"
-                       *ngIf="isLoggingIn">
-                </Image>
-                <Image id="logoSmall"
-                       horizontalAlignment="center"
-                       style="height:100px;margin-top:50px"
-                       src="res://app/images/apple.jpg"
-                       *ngIf="!isLoggingIn">
-                </Image>
-            </StackLayout>
-            <StackLayout>
-                <Label class="error-message"
-                       *ngIf="loginError && isLoggingIn"
-                       horizontalAlignment="center"
-                       [text]="error">
-                </Label>
-                <TextField #email id="email"
-                           formControlName="email"
-                           hint="Email Address"
-                           keyboardType="email"
-                           returnKeyType="next"
-                           (returnPress)="isLoggingIn ? focusPassword() : focusFirstName()"
-                           autocorrect="false"
-                           autocapitalizationType="none"
-                           (focus)="showKeyboardSpace()"
-                           [ngClass]="loginError && isLoggingIn ? 'error' : ''"
-                           [isEnabled]="!isAuthenticating">
-                </TextField>
-                <TextField #firstName id="firstname"
-                           formControlName="firstName"
-                           returnKeyType="next"
-                           required
-                           *ngIf="!isLoggingIn"
-                           hint="First Name"
-                           (returnPress)="focusLastName()"
-                           autocorrect="false"
-                           autocapitalizationType="words">
-                </TextField>
-                <TextField #lastName id="lastname"
-                           formControlName="lastName"
-                           returnKeyType="next"
-                           required
-                           *ngIf="!isLoggingIn"
-                           hint="Last Name"
-                           (returnPress)="focusDateOfBirth()"
-                           autocorrect="false"
-                           autocapitalizationType="words">
-                </TextField>
-                <DatePicker #dp id="datePicker"
-                            class="m-15"
-                            style="width:300px;height:100px"
-                            [visibility]="!isLoggingIn ? 'visible' : 'collapsed'" >
-                </DatePicker>
-                <TextField #password id="password"
-                           formControlName="password"
-                           required
-                           hint="Password"
-                           secure="true"
-                           (returnPress)="isLoggingIn ? submit() : focusConfirmPassword()"
-                           [ngClass]="getPasswordClass()"
-                           returnKeyType="next">
-                </TextField>
-                <TextField #confirmPassword id="confirmPassword"
-                           formControlName="confirmPassword"
-                           required
-                           *ngIf="!isLoggingIn"
-                           hint="Confirm Password"
-                           secure="true"
-                           returnKeyType="done"
-                           [ngClass]="getPasswordConfirmedClass()"
-                           (returnPress)="clearTextfieldFocus()">
-                </TextField>
-                <ActivityIndicator [busy]="isAuthenticating" [visibility]="isAuthenticating ? 'visible' : 'collapse'"
-                                   row="2" style="color:#ffffff;">
-                </ActivityIndicator>
-                <Button [text]="isLoggingIn ? 'Sign in' : 'Register'"
-                        class="my-btn-primary"
-                        [opacity]="(isLoggingIn ? userEmailControl.valid && userPasswordControl.valid : loginSignupForm.valid) ? '1' : '0.5'"
-                        (tap)="submit()"
-                        [isEnabled]="isLoggingIn ? userEmailControl.valid && userPasswordControl.valid : loginSignupForm.valid">
-                </Button>
-                <Label class="forgot-password-label"
-                       text="Forgot password?"
-                       (tap)="forgotPassword()"
-                       *ngIf="isLoggingIn">
-                </Label>
-            </StackLayout>
+                <StackLayout (tap)="clearTextfieldFocus()">
+                    <Image id="logoLarge"
+                           horizontalAlignment="center"
+                           style="height:200px;margin-top:100px"
+                           src="res://app/images/apple.jpg"
+                           *ngIf="isLoggingIn">
+                    </Image>
+                    <Image id="logoSmall"
+                           horizontalAlignment="center"
+                           style="height:100px;margin-top:50px"
+                           src="res://app/images/apple.jpg"
+                           *ngIf="!isLoggingIn">
+                    </Image>
+                </StackLayout>
+                <StackLayout>
+                    <Label class="error-message"
+                           *ngIf="loginError && isLoggingIn"
+                           horizontalAlignment="center"
+                           [text]="error">
+                    </Label>
+                    <TextField #email id="email"
+                               formControlName="email"
+                               hint="Email Address"
+                               keyboardType="email"
+                               returnKeyType="next"
+                               (returnPress)="isLoggingIn ? focusPassword() : focusFirstName()"
+                               autocorrect="false"
+                               autocapitalizationType="none"
+                               (focus)="showKeyboardSpace()"
+                               [ngClass]="loginError && isLoggingIn ? 'error' : ''"
+                               [isEnabled]="!isAuthenticating">
+                    </TextField>
+                    <TextField #firstName id="firstname"
+                               formControlName="firstName"
+                               returnKeyType="next"
+                               required
+                               *ngIf="!isLoggingIn"
+                               hint="First Name"
+                               (returnPress)="focusLastName()"
+                               autocorrect="false"
+                               autocapitalizationType="words">
+                    </TextField>
+                    <TextField #lastName id="lastname"
+                               formControlName="lastName"
+                               returnKeyType="next"
+                               required
+                               *ngIf="!isLoggingIn"
+                               hint="Last Name"
+                               (returnPress)="focusDateOfBirth()"
+                               autocorrect="false"
+                               autocapitalizationType="words">
+                    </TextField>
+                    <DatePicker #dp id="datePicker"
+                                class="m-15"
+                                style="width:300px;height:100px"
+                                [visibility]="!isLoggingIn ? 'visible' : 'collapsed'" >
+                    </DatePicker>
+                    <TextField #password id="password"
+                               formControlName="password"
+                               required
+                               hint="Password"
+                               secure="true"
+                               (returnPress)="isLoggingIn ? submit() : focusConfirmPassword()"
+                               [ngClass]="getPasswordClass()"
+                               returnKeyType="next">
+                    </TextField>
+                    <TextField #confirmPassword id="confirmPassword"
+                               formControlName="confirmPassword"
+                               required
+                               *ngIf="!isLoggingIn"
+                               hint="Confirm Password"
+                               secure="true"
+                               returnKeyType="done"
+                               [ngClass]="getPasswordConfirmedClass()"
+                               (returnPress)="clearTextfieldFocus()">
+                    </TextField>
+                    <ActivityIndicator [busy]="isAuthenticating" [visibility]="isAuthenticating ? 'visible' : 'collapse'"
+                                       row="2" style="color:#ffffff;">
+                    </ActivityIndicator>
+                    <Button [text]="isLoggingIn ? 'Sign in' : 'Register'"
+                            class="my-btn-primary"
+                            [opacity]="(isLoggingIn ? userEmailControl.valid && userPasswordControl.valid : loginSignupForm.valid) ? '1' : '0.5'"
+                            (tap)="submit()"
+                            [isEnabled]="isLoggingIn ? userEmailControl.valid && userPasswordControl.valid : loginSignupForm.valid">
+                    </Button>
+                    <Label class="forgot-password-label"
+                           text="Forgot password?"
+                           (tap)="forgotPassword()"
+                           *ngIf="isLoggingIn">
+                    </Label>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </StackLayout>

@@ -1,8 +1,15 @@
 .icon{
     font-size: 27;
     font-family:'FontAwesome';
+    color: #9b9b9b;
+}
+
+.icon-selected{
+    font-size: 27;
+    font-family:'FontAwesome';
     color: #8fbc8f;
 }
+
 
 ActionBar{
     background-color: #8fbc8f;

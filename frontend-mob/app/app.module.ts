@@ -18,10 +18,11 @@ import {InformationComponent} from "./pages/information/information-component";
 import {RecordingsListComponent} from "./pages/recordings-list/recordings-list-component";
 import {SecurityService} from "./services/security.service";
 import {CarerService} from "./services/carer.service";
+import {DurationPipe} from "./pipes/duration.pipe";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, TutorialComponent, SettingsComponent, InformationComponent,
-                RecordingsListComponent],
+                RecordingsListComponent, DurationPipe],
   bootstrap: [AppComponent],
   imports: [NativeScriptModule, NativeScriptHttpModule, NativeScriptFormsModule, ReactiveFormsModule, NativeScriptRouterModule,
             NativeScriptRouterModule.forRoot(routes), RouterModule],

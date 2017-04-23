@@ -6,7 +6,8 @@ import {LoginService} from "../../services/login-service";
 
 @Component({
     selector: "settings",
-    templateUrl: "./pages/settings/settings-component.html"
+    templateUrl: "./pages/settings/settings-component.html",
+    styleUrls: ["styles/custom.css"]
 })
 export class SettingsComponent {
     constructor(private loginService: LoginService) {
