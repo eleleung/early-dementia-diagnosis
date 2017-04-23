@@ -9,13 +9,7 @@
     </FlexboxLayout>
     <GridLayout row="1" [ngSwitch]="tab" height="480" flexGrow="1">
         <GridLayout *ngSwitchCase="'Home'" backgroundColor="#d3d3d3">
-            <StackLayout>
-                <!--<ActivityIndicator color="#3489db" busy="{{ isRecording }}"></ActivityIndicator>-->
-                <!--<Button text="Start Recording" (tap)="start()" ></Button>-->
-                <!--<Button text="Stop Recording" (tap)="stop()" ></Button>-->
-                <!--<Button text="Get Recorded File" (tap)="getFile()" ></Button>-->
-                <!--<Label text="{{ filePath }}" color="#3489db" textWrap="true" ></Label>-->
-            </StackLayout>
+            <StackLayout></StackLayout>
         </GridLayout>
         <GridLayout *ngSwitchCase="'Information'" backgroundColor="#d3d3d3">
             <information></information>
@@ -33,7 +27,7 @@
         <Button col="1" width="70" height="60" class="icon" margin="0" text="&#xf0c7;"></Button>
         <Button col="2"
                 *ngIf="!isRecording"
-                (tap)="start()"
+                (tap)="startRecording()"
                 class="icon"
                 margin="0"
                 width="58"
@@ -42,7 +36,7 @@
                 text="&#xf130;"></Button>
         <Button col="2"
                 *ngIf="isRecording"
-                (tap)="stop()"
+                (tap)="stopRecording()"
                 class="icon"
                 margin="0"
                 width="58"

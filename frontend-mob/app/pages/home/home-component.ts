@@ -18,6 +18,7 @@ var timer = require("timer");
     templateUrl: "./pages/home/home-component.html",
     styleUrls: ["pages/home/home-common.css"]
 })
+
 export class HomeComponent {
     @ViewChild(RecordingsListComponent) recordingsListComponent: RecordingsListComponent;
     @ViewChild(SettingsComponent) settingsComponent: SettingsComponent;
@@ -26,7 +27,6 @@ export class HomeComponent {
     recorder: any;
 
     isRecording: boolean;
-    filePath: string;
 
     duration: number = 0;
     timerId: number;
@@ -53,8 +53,7 @@ export class HomeComponent {
         this.tab = "Settings";
     }
 
-    /* START RECORDING */
-    start() {
+    startRecording() {
         // you should check if the device has recording capabilities
         if (audio.TNSRecorder.CAN_RECORD()) {
 
@@ -101,12 +100,11 @@ export class HomeComponent {
         }
     }
 
-    /* STOP RECORDING */
-    stop() {
+    stopRecording() {
         timer.clearInterval(this.timerId);
         if (this.recorder != undefined) {
             this.recorder.stop().then(
-                () => {
+                (res) => {
                     this.isRecording = false;
                 },
                 (err) => {
@@ -126,6 +124,10 @@ export class HomeComponent {
         } catch (ex) {
             console.log(ex);
         }
+    }
+
+    uploadAudio() {
+        // need to implement
     }
 }
 
