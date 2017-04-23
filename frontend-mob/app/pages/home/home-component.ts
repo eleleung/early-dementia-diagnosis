@@ -16,7 +16,7 @@ var timer = require("timer");
 @Component({
     selector: "home",
     templateUrl: "./pages/home/home-component.html",
-    styleUrls: ["pages/home/home-common.css"]
+    styleUrls: ["pages/home/home-common.css", "app.css"]
 })
 
 export class HomeComponent {

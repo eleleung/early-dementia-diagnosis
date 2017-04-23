@@ -51,7 +51,8 @@ export class LoginComponent implements OnInit {
                 private securityService: SecurityService)
     {
         this.page.actionBarHidden = true;
-        //Attempt to sign in if the token exists:
+
+        //Attempt to sign in if the token exists and also skip the tutorial:
         if (securityService.isToken()) {
             carerService.getProfile().subscribe(
                 (result) => {
@@ -138,7 +139,9 @@ export class LoginComponent implements OnInit {
     loginSuccess(result) {
         applicationSettings.setString("token", result.token);
         applicationSettings.setString("user", JSON.stringify(result.user));
-        this.routerExtensions.navigate(["/home"], {clearHistory: true});
+
+        // run tutorial for first time logging in
+        this.routerExtensions.navigate(["/tutorial"], {clearHistory: true});
     }
 
     register() {
