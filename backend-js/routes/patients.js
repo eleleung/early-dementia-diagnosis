@@ -23,6 +23,7 @@ router.post('/register', passport.authenticate('jwt', {session:false}), function
 
     Patient.addPatient(newPatient, function(err, patient){
         if (err) {
+            res.status(400);
             res.json({success: false, msg: 'Failed to register patient'});
         }
         else {

@@ -1,27 +1,30 @@
 /**
  * Created by EleanorLeung on 23/04/2017.
  */
-import {Component, ViewChild, ElementRef, Inject, OnInit} from "@angular/core";
+import {Component, ViewChild, ElementRef, Inject, OnInit, ChangeDetectionStrategy} from "@angular/core";
 import {FormGroup, AbstractControl, FormBuilder, Validators} from "@angular/forms";
 import {Patient} from "../../models/patient";
 import {RouterExtensions} from "nativescript-angular";
 import {Page} from "ui/page";
 import {TextField} from "ui/text-field";
 import {DatePicker} from "ui/date-picker";
+import {RegisterService} from "../../services/register-service";
+import {SegmentedBarItem} from "ui/segmented-bar";
 
 @Component({
     selector: "register-patient-form",
     styleUrls: ["./pages/forms/register-patient-common.css"],
-    templateUrl: "./pages/forms/register-patient-component.html"
+    templateUrl: "./pages/forms/register-patient-component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class RegisterPatientFormComponent implements OnInit {
     registerPatientForm: FormGroup;
-
     userFirstNameControl: AbstractControl;
     userLastNameControl: AbstractControl;
 
     patient: Patient;
+    public genderOptions: Array<SegmentedBarItem>;
 
     error: string;
     isAuthenticating: boolean;
@@ -31,8 +34,9 @@ export class RegisterPatientFormComponent implements OnInit {
     @ViewChild("dateOfBirth") dateOfBirth: ElementRef;
 
     constructor(private routerExtensions: RouterExtensions, private page: Page,
-                @Inject(FormBuilder) formBuilder: FormBuilder) {
+                @Inject(FormBuilder) formBuilder: FormBuilder, private registerService: RegisterService) {
         this.page.actionBarHidden = false;
+        this.genderOptions = [];
 
         this.registerPatientForm = formBuilder.group({
             firstName: ['', Validators.required],
@@ -40,8 +44,13 @@ export class RegisterPatientFormComponent implements OnInit {
         });
         this.userFirstNameControl = this.registerPatientForm.controls['firstName'];
         this.userLastNameControl = this.registerPatientForm.controls['lastName'];
-
         this.patient = new Patient();
+
+        let femaleSegmentedBar: SegmentedBarItem = <SegmentedBarItem>new SegmentedBarItem();
+        let maleSegmentedBar: SegmentedBarItem = <SegmentedBarItem>new SegmentedBarItem();
+        femaleSegmentedBar.title = "Female";
+        maleSegmentedBar.title = "Male";
+        this.genderOptions.push(femaleSegmentedBar, maleSegmentedBar);
     }
 
     ngOnInit() {
@@ -55,6 +64,10 @@ export class RegisterPatientFormComponent implements OnInit {
         this.isAuthenticating = false;
     }
 
+    public onChange(value) {
+        value == 0 ? this.patient.gender = "Female" : this.patient.gender = "Male";
+    }
+
     submit() {
         this.isAuthenticating = true;
         this.patient.firstName = this.userFirstNameControl.value;
@@ -63,8 +76,22 @@ export class RegisterPatientFormComponent implements OnInit {
         let datePicker = this.page.getViewById<DatePicker>("datePicker");
         this.patient.dateOfBirth = new Date(datePicker.year, datePicker.month - 1, datePicker.day);
 
-        alert("Backend implementation in-progress");
-        this.isAuthenticating = false;
+        this.registerService.registerPatient(this.patient).subscribe(
+            (result) => {
+                this.isAuthenticating = false;
+                this.registerSuccess();
+            },
+            (error) => {
+                alert("here");
+                this.isAuthenticating = false;
+                this.error = "Error with registering patient";
+            }
+        )
+    }
+
+    registerSuccess() {
+        alert("Patient successfully registered!");
+        this.routerExtensions.navigate(["/home"], {clearHistory: true});
     }
 
     focusLastName() {

@@ -32,10 +32,10 @@ router.post('/register', function(req, res, next){
 
 // Authenticate
 router.post('/authenticate', function(req, res, next){
-    const username = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
 
-    User.getUserByUsername(username, function(err, user){
+    User.getUserByEmail(email, function(err, user){
         if (err) {
             throw err;
         }

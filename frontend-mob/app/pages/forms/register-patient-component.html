@@ -1,3 +1,4 @@
+<ActionBar title=""></ActionBar>
 <GridLayout #formControls [formGroup]="registerPatientForm"
             class="my-background"
             width="100%"
@@ -8,7 +9,10 @@
         <ScrollView height="100%">
             <StackLayout>
                 <StackLayout (tap)="clearTextFieldFocus()">
-                    <Label horizontalAlignment="center" style="margin-top:100; margin-bottom: 20" text="Register Patient Form"></Label>
+                    <Label horizontalAlignment="center"
+                           class="register-form-title";
+                           text="Register Patient Form">
+                    </Label>
                 </StackLayout>
                 <StackLayout>
                     <TextField  #firstName id="firstName"
@@ -31,9 +35,13 @@
                                 autocapitalizationType="words"
                                 style="margin-top:10">
                     </TextField>
+                    <SegmentedBar class="gender-bar" #sb [items]="genderOptions" selectedIndex=null
+                                (selectedIndexChange)="onChange(sb.selectedIndex)"
+                                selectedBackgroundColor="#d3d3d3">
+                    </SegmentedBar>
                     <DatePicker #dp id="datePicker"
                                 class="m-15"
-                                style="width:300px;height:100px">
+                                style="width:300px;height:100px;margin-top: 20;">
                     </DatePicker>
                     <ActivityIndicator [busy]="isAuthenticating" [visibility]="isAuthenticating ? 'visible' : 'collapse'"
                                        row="2" style="color:#ffffff;">
