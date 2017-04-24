@@ -53,18 +53,19 @@ export class LoginComponent implements OnInit {
         this.page.actionBarHidden = true;
 
         //Attempt to sign in if the token exists and also skip the tutorial:
-        if (securityService.isToken()) {
-            carerService.getProfile().subscribe(
-                (result) => {
-                    this.isAuthenticating = false;
-                    applicationSettings.setString("user", JSON.stringify(result.user));
-                    this.routerExtensions.navigate(["/home"], {clearHistory: true});
-                },
-                (error) => {
-                    //do nothing
-                }
-            )
-        }
+        // TODO: currently commented out in order to test tutorial
+        // if (securityService.isToken()) {
+        //     carerService.getProfile().subscribe(
+        //         (result) => {
+        //             this.isAuthenticating = false;
+        //             applicationSettings.setString("user", JSON.stringify(result.user));
+        //             this.routerExtensions.navigate(["/home"], {clearHistory: true});
+        //         },
+        //         (error) => {
+        //             //do nothing
+        //         }
+        //     )
+        // }
 
         this.carer = new Carer();
         this.loginSignupForm = formBuilder.group({
@@ -116,7 +117,6 @@ export class LoginComponent implements OnInit {
         //TODO: implement this
         // alert("We will send you an email with instructions to reset your password");
         this.routerExtensions.navigate(["/home"], {clearHistory: true});
-
     }
 
     login() {
@@ -182,10 +182,6 @@ export class LoginComponent implements OnInit {
 
     focusLastName() {
         this.lastName.nativeElement.focus();
-    }
-
-    focusDateOfBirth() {
-        this.dateOfBirth.nativeElement.focus();
     }
 
     clearTextfieldFocus() {

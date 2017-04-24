@@ -14,7 +14,7 @@ export class SecurityService {
     loggedInHeader(): Headers {
         let headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append('Authorization', 'JWT ' + applicationSettings.getString("token"));
+        headers.append("Authorization", applicationSettings.getString("token"));
         return headers;
     }
 
