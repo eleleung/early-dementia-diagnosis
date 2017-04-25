@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {GlobalVariable} from '../globals';
-import {LoginModel, LoginResponse} from "../models/user";
+import {LoginModel} from "../models/user";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 
