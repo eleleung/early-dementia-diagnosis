@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 
 const User = require('../models/user');
+const Patient = require('../models/patient');
 
 // Register
 router.post('/register', function(req, res, next){
@@ -41,7 +42,7 @@ router.post('/authenticate', function(req, res, next){
         }
 
         if (!user) {
-            return res.json({success: false, msg: 'User not found'});
+            return res.status(400).json({success: false, msg: 'User not found'});
         }
 
         User.comparePassword(password, user.password, function(err, isMatch){
@@ -59,16 +60,28 @@ router.post('/authenticate', function(req, res, next){
                     token: 'JWT ' + token,
                     user: {
                         id: user._id,
-                        name: user.name,
-                        username: user.username,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
                         email: user.email
                     }
                 })
             }
             else {
-                return res.json({success: false, msg: 'Wrong password'});
+                return res.status(400).json({success: false, msg: 'Wrong password'});
             }
         });
+    });
+});
+
+router.get('/getPatients', passport.authenticate('jwt', {session:false}), function(req, res, next) {
+    Patient.getPatientsByCarer(req.user.id, function(err, patients){
+        if (err) {
+            res.status(400);
+            res.json({success: false, msgs: 'Failed to fetch patients associated with this carer'});
+        }
+        else {
+            res.json({success: true, msg: 'Success', carerPatients: patients});
+        }
     });
 });
 
