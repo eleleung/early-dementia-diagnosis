@@ -21,4 +21,10 @@ export class CarerService {
         let headers = this.securityService.loggedInHeader();
         return this.http.get(url, {headers: headers}).map(res => res.json());
     }
+
+    getCarersPatients() {
+        let url = GlobalVariable.BASE_API_URL + "/users/getPatients";
+        let headers = this.securityService.loggedInHeader();
+        return this.http.get(url, {headers: headers}).map(res => res.json());
+    }
 }

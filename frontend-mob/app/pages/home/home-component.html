@@ -1,5 +1,6 @@
 <GridLayout rows="60, auto, 60" columns="*" exampleTitle toggleNavButton>
-    <ActionBar title="{{tab}}">
+    <ActionBar>
+        <Label *ngIf="selectedPatient != null" text="{{selectedPatient.firstName}} {{selectedPatient.lastName}}"></Label>
     </ActionBar>
     <FlexboxLayout row="0" flexDirection="row">
         <Button flexGrow="1" class="icon" [ngClass]="{'icon-selected': tab == 'Home'}" margin="0" text="&#xf015;" (tap)="goHome()"></Button>
@@ -18,7 +19,9 @@
             <recordings-list></recordings-list>
         </GridLayout>
         <GridLayout *ngSwitchCase="'Settings'" backgroundColor="#d3d3d3">
-            <settings></settings>
+            <settings   [listOfPatients]="carerPatients"
+                        [selectedPatient]="selectedPatient"
+                        (onSelectingNewPatient)="onSelectingNewPatient($event)"></settings>
         </GridLayout>
         <GridLayout *ngSwitchDefault backgroundColor="#d3d3d3"></GridLayout>
     </GridLayout>

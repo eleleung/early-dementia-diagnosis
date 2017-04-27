@@ -1,12 +1,14 @@
 /**
  * Created by EleanorLeung on 25/03/2017.
  */
-import {Component, ViewChild} from "@angular/core";
+import {Component, ViewChild, AfterViewInit, Input} from "@angular/core";
 import {RouterExtensions} from "nativescript-angular";
 import {RecordingsListComponent} from "../recordings-list/recordings-list-component";
 import {SettingsComponent} from "../settings/settings-component";
 import {InformationComponent} from "../information/information-component";
 import {Page} from "ui/page";
+import {CarerService} from "../../services/carer.service";
+import {Patient} from "../../models/patient";
 
 //Records to a .caf file and saves it on the device
 var fs = require('file-system');
@@ -25,14 +27,34 @@ export class HomeComponent {
     @ViewChild(InformationComponent) informationComponent: InformationComponent;
 
     recorder: any;
-
     isRecording: boolean;
-
     duration: number = 0;
     timerId: number;
 
-    constructor(private routerExtensions: RouterExtensions, private page: Page) {
+    carerPatients: Array<Patient> = [];
+    selectedPatient: Patient;
+
+    constructor(private routerExtensions: RouterExtensions, private page: Page,
+                private carerService: CarerService) {
         this.page.actionBarHidden = false;
+
+        this.carerService.getCarersPatients().subscribe(
+            (result) => {
+                this.carerPatients = result.carerPatients;
+
+                // select default patient at random, could allow user to pick default later
+                if (this.carerPatients.length > 0) {
+                    this.selectedPatient = this.carerPatients[0];
+                }
+            },
+            (error) => {
+                console.log(error);
+            }
+        )
+    }
+
+    onSelectingNewPatient(patient: Patient) {
+        this.selectedPatient = patient;
     }
 
     public tab: string = "Home";

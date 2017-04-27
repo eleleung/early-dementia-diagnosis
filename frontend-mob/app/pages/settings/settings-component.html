@@ -1,3 +1,23 @@
-<StackLayout>
-    <Button style="background-color:#ae0503;color:white" (tap)="logout()" text="Sign Out"></Button>
+<GridLayout width="100%"
+            height="100%"
+            columns="*"
+            rows="*, auto">
+<StackLayout verticalAlignment="center" row="0">
+    <StackLayout style="height:400;">
+        <Label class="first-heading" text="Current Account"></Label>
+        <Label *ngIf="selectedPatient != null" class="labels" text="{{selectedPatient.firstName}} {{selectedPatient.lastName}}"></Label>
+        <Button class="labels" text="&#xf067; Add Patient" (tap)="addPatient()"></Button>
+        <Button text="&#xf2bd; Change Patient Account" (tap)="changeSelectedPatient()"></Button>
+    </StackLayout>
+    <!--<StackLayout *ngIf="listOfPatients != null && selectedPatient != null">-->
+        <!--<ListPicker #picker class="p-15"-->
+                    <!--[items]="listOfPatients"-->
+                    <!--[selectedIndex]="selectedPatient"-->
+                    <!--(selectedIndexChange)="selectedIndexChanged(picker)">-->
+        <!--</ListPicker>-->
+    <!--</StackLayout>-->
+    <StackLayout>
+        <Button style="background-color:#ae0503;color:white;width: 100;" (tap)="logout()" text="Sign Out"></Button>
+    </StackLayout>
 </StackLayout>
+</GridLayout>
