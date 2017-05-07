@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
+
   "dependencies":{
     "express":"*",
     "mongoose":"*",
@@ -16,7 +17,10 @@
     "body-parser":"*",
     "passport":"*",
     "passport-jwt":"*",
-    "mongoose-relationship":"*"
+    "mongoose-relationship":"*",
+    "watson-developer-cloud": "^2.28.1",
+    "mocha": "2.3.4"
+
   },
   "author": "Ele Leung",
   "license": "ISC"
