@@ -26,6 +26,7 @@ const app = express();
 
 const users = require('./routes/users');
 const patients = require('./routes/patients');
+const doctors = require('./routes/doctors');
 
 // Port number
 const port = 3000;
@@ -48,6 +49,7 @@ app.use(bodyParser.json());
 // Available routes
 app.use('/users', users);
 app.use('/patients', patients);
+app.use('/doctors', doctors);
 
 // Index Route
 app.get('/', function(req, res){
