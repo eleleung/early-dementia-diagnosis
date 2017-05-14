@@ -27,6 +27,7 @@ const app = express();
 const users = require('./routes/users');
 const patients = require('./routes/patients');
 const doctors = require('./routes/doctors');
+const audio = require('./routes/transcriber');
 
 // Port number
 const port = 3000;
@@ -50,6 +51,7 @@ app.use(bodyParser.json());
 app.use('/users', users);
 app.use('/patients', patients);
 app.use('/doctors', doctors);
+app.use('/transcriber', audio);
 
 // Index Route
 app.get('/', function(req, res){
@@ -65,8 +67,4 @@ app.listen(port, function(){
     console.log('Server started on port ' + port);
 });
 
-//transcribe file
-//app.post("/transcribe", function(req, res)
-//{
-//    res.send(res.message);
-//});
+module.exports = app

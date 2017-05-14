@@ -7,20 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
-
-  "dependencies":{
-    "express":"*",
-    "mongoose":"*",
-    "bcrypt":"*",
-    "cors":"*",
-    "jsonwebtoken":"*",
-    "body-parser":"*",
-    "passport":"*",
-    "passport-jwt":"*",
-    "mongoose-relationship":"*",
-    "watson-developer-cloud": "^2.28.1",
-    "mocha": "2.3.4"
-
+  "dependencies": {
+    "bcrypt": "*",
+    "body-parser": "*",
+    "cors": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "linear16": "^1.0.1",
+    "mocha": "2.3.4",
+    "mongoose": "*",
+    "mongoose-relationship": "*",
+    "passport": "*",
+    "passport-jwt": "*",
+    "watson-developer-cloud": "^2.28.1"
   },
   "author": "Ele Leung",
   "license": "ISC"

@@ -17,6 +17,7 @@ import {SettingsComponent} from "./pages/settings/settings-component";
 import {InformationComponent} from "./pages/information/information-component";
 import {RecordingsListComponent} from "./pages/recordings-list/recordings-list-component";
 import {SecurityService} from "./services/security.service";
+import {AudioService} from "./services/audio-service";
 import {CarerService} from "./services/carer.service";
 import {DurationPipe} from "./pipes/duration.pipe";
 import {RegisterPatientFormComponent} from "./pages/forms/register-patient-component";
@@ -27,7 +28,7 @@ import {RegisterPatientFormComponent} from "./pages/forms/register-patient-compo
   bootstrap: [AppComponent],
   imports: [NativeScriptModule, NativeScriptHttpModule, NativeScriptFormsModule, ReactiveFormsModule, NativeScriptRouterModule,
             NativeScriptRouterModule.forRoot(routes), RouterModule],
-  providers: [LoginService, RegisterService, CarerService, SecurityService],
+  providers: [LoginService, RegisterService, CarerService, SecurityService, AudioService],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule {

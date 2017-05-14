@@ -8,6 +8,7 @@ import {SettingsComponent} from "../settings/settings-component";
 import {InformationComponent} from "../information/information-component";
 import {Page} from "ui/page";
 import {CarerService} from "../../services/carer.service";
+import {AudioService} from "../../services/audio-service";
 import {Patient} from "../../models/patient";
 
 //Records to a .caf file and saves it on the device
@@ -35,7 +36,7 @@ export class HomeComponent {
     selectedPatient: Patient;
 
     constructor(private routerExtensions: RouterExtensions, private page: Page,
-                private carerService: CarerService) {
+                private carerService: CarerService, private  audioService: AudioService) {
         this.page.actionBarHidden = false;
 
         this.carerService.getCarersPatients().subscribe(
@@ -82,19 +83,18 @@ export class HomeComponent {
             this.recorder = new audio.TNSRecorder();
 
             let audioFolder = fs.knownFolders.currentApp().getFolder("audio");
-            // let audioFolder = "/Users/nathanstanley/Desktop";
 
             let recorderOptions = {
+                filename: audioFolder.path + '/recording.ulaw',
 
-                //filename: audioFolder.path + '/recording.caf',
-                filename: audioFolder + '/recording_' + new Date().getTime() + '.caf',
+                //filename: audioFolder + '/recording_' + new Date().getTime() + '.caf',
                 infoCallback: () => {
                     console.log('infoCallback');
                 },
                 errorCallback: () => {
                     console.log('errorCallback');
                     alert('Error recording.');
-                }
+                },
             };
 
             console.log('RECORDER OPTIONS: ' + recorderOptions);
@@ -139,17 +139,27 @@ export class HomeComponent {
 
     getFile() {
         try {
-            // let audioFolder = fs.knownFolders.currentApp().getFolder("audio");
-            // let recordedFile = audioFolder.getFile('recording.caf');
-            // console.log(recordedFile.path);
-            // this.filePath = recordedFile.path;
+             let audioFolder = fs.knownFolders.currentApp().getFolder("audio");
+             let recordedFile = audioFolder.getFile('recording.ulaw');
+             console.log(recordedFile.path);
+             return recordedFile
         } catch (ex) {
             console.log(ex);
         }
     }
 
     uploadAudio() {
-        // need to implement
+        var audio = this.getFile()
+        this.audioService.getTranscription(audio).subscribe(
+            (result) => {
+                console.log('success')
+                console.log(result.msg)
+            },
+            (error) => {
+                console.log('error')
+                console.log(error)
+            })
+
     }
 }
 

@@ -9,7 +9,7 @@ var speech_to_text = new SpeechToTextV1({
 
 var params = {
     // From file
-    audio: fs.createReadStream('speech.wav'),
+    //audio: fs.createReadStream('speech.wav'),
     content_type: 'audio/wav; rate=44100'
 };
 
