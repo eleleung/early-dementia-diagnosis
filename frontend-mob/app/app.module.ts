@@ -8,7 +8,6 @@ import {RouterModule} from "@angular/router";
 
 import {AppComponent} from "./app.component";
 import {HomeComponent} from "./pages/home/home-component";
-import {AppService} from "./services/app.service";
 import {LoginService} from "./services/login-service";
 import {RegisterService} from "./services/register-service";
 import {routes} from "./app.routes";
@@ -17,14 +16,19 @@ import {TutorialComponent} from "./pages/tutorial/tutorial-component";
 import {SettingsComponent} from "./pages/settings/settings-component";
 import {InformationComponent} from "./pages/information/information-component";
 import {RecordingsListComponent} from "./pages/recordings-list/recordings-list-component";
+import {SecurityService} from "./services/security.service";
+import {AudioService} from "./services/audio-service";
+import {CarerService} from "./services/carer.service";
+import {DurationPipe} from "./pipes/duration.pipe";
+import {RegisterPatientFormComponent} from "./pages/forms/register-patient-component";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LoginComponent, TutorialComponent, SettingsComponent, InformationComponent,
-                RecordingsListComponent],
+                RecordingsListComponent, DurationPipe, RegisterPatientFormComponent],
   bootstrap: [AppComponent],
   imports: [NativeScriptModule, NativeScriptHttpModule, NativeScriptFormsModule, ReactiveFormsModule, NativeScriptRouterModule,
             NativeScriptRouterModule.forRoot(routes), RouterModule],
-  providers: [AppService, LoginService, RegisterService],
+  providers: [LoginService, RegisterService, CarerService, SecurityService, AudioService],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule {

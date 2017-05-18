@@ -11,6 +11,8 @@ import {RegisterService} from "../../services/register-service";
 import {Carer} from "../../models/carer";
 import observable = require("data/observable");
 import applicationSettings = require("application-settings");
+import {CarerService} from "../../services/carer.service";
+import {SecurityService} from "../../services/security.service";
 
 @Component({
     selector: "login",
@@ -41,8 +43,30 @@ export class LoginComponent implements OnInit {
     @ViewChild("dateOfBirth") dateOfBirth: ElementRef;
 
 
-    constructor(private loginService: LoginService, private registerService: RegisterService,
-                private page: Page, @Inject(FormBuilder) formBuilder: FormBuilder, private routerExtensions: RouterExtensions) {
+    constructor(private loginService: LoginService,
+                private registerService: RegisterService,
+                private page: Page, @Inject(FormBuilder) formBuilder: FormBuilder,
+                private routerExtensions: RouterExtensions,
+                private carerService: CarerService,
+                private securityService: SecurityService)
+    {
+        this.page.actionBarHidden = true;
+
+        //Attempt to sign in if the token exists and also skip the tutorial:
+        // TODO: currently commented out in order to test tutorial
+        // if (securityService.isToken()) {
+        //     carerService.getProfile().subscribe(
+        //         (result) => {
+        //             this.isAuthenticating = false;
+        //             applicationSettings.setString("user", JSON.stringify(result.user));
+        //             this.routerExtensions.navigate(["/home"], {clearHistory: true});
+        //         },
+        //         (error) => {
+        //             //do nothing
+        //         }
+        //     )
+        // }
+
         this.carer = new Carer();
         this.loginSignupForm = formBuilder.group({
             email: ['', [Validators.required, Validators.maxLength(60), Validators.pattern('[A-Za-z,. :0-9/()-_@]*')]],
@@ -91,7 +115,8 @@ export class LoginComponent implements OnInit {
 
     forgotPassword() {
         //TODO: implement this
-        alert("We will send you an email with instructions to reset your password");
+        // alert("We will send you an email with instructions to reset your password");
+        this.routerExtensions.navigate(["/home"], {clearHistory: true});
     }
 
     login() {
@@ -113,7 +138,10 @@ export class LoginComponent implements OnInit {
 
     loginSuccess(result) {
         applicationSettings.setString("token", result.token);
-        this.routerExtensions.navigate(["/home"]), {clearHistory: true};
+        applicationSettings.setString("user", JSON.stringify(result.user));
+
+        // run tutorial for first time logging in
+        this.routerExtensions.navigate(["/tutorial"], {clearHistory: true});
     }
 
     register() {
@@ -156,16 +184,18 @@ export class LoginComponent implements OnInit {
         this.lastName.nativeElement.focus();
     }
 
-    focusDateOfBirth() {
-        this.dateOfBirth.nativeElement.focus();
-    }
-
     clearTextfieldFocus() {
         this.page.getViewById<TextField>("email").dismissSoftInput();
         this.page.getViewById<TextField>("password").dismissSoftInput();
-        this.page.getViewById<TextField>("firstname").dismissSoftInput();
-        this.page.getViewById<TextField>("lastname").dismissSoftInput();
-        this.page.getViewById<TextField>("confirmPassword").dismissSoftInput();
+
+        let $firstname = this.page.getViewById<TextField>("firstname");
+        if ($firstname != null) $firstname.dismissSoftInput();
+
+        let $lastname = this.page.getViewById<TextField>("lastname");
+        if ($lastname != null) $lastname.dismissSoftInput();
+
+        let $confirm = this.page.getViewById<TextField>("confirmPassword");
+        if ($confirm != null) $confirm.dismissSoftInput();
     }
 
     getPasswordClass() {

@@ -9,22 +9,25 @@ import {Carer} from "../models/carer";
 
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
+import {SecurityService} from "./security.service";
+import {Patient} from "../models/patient";
+import applicationSettings = require("application-settings");
 
 @Injectable()
 export class RegisterService {
     
-    constructor (private http: Http) {
+    constructor (private http: Http, private securityService: SecurityService) {
     }
 
     registerCarer(carer: Carer) {
-        let url = GlobalVariable.BASE_API_URL + "/api/v1/auth/register/";
-        let headers = this.createRequestHeader();
+        let url = GlobalVariable.BASE_API_URL + "/users/register";
+        let headers = this.securityService.loggedOutHeader();
         return this.http.post(url, JSON.stringify(carer), {headers: headers}).map(res => res.json());
     }
 
-    private createRequestHeader() {
-        let headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        return headers;
+    registerPatient(patient: Patient) {
+        let url = GlobalVariable.BASE_API_URL + "/patients/register";
+        let headers = this.securityService.loggedInHeader();
+        return this.http.post(url, JSON.stringify(patient), {headers: headers}).map(res => res.json());
     }
 }

@@ -1,30 +1,64 @@
-<GridLayout rows="60, auto,*" columns="*" exampleTitle toggleNavButton>
-    <ActionBar title="Logo">
+<GridLayout rows="60, auto, 60" columns="*" exampleTitle toggleNavButton>
+    <ActionBar>
+        <Label *ngIf="selectedPatient != null" text="{{selectedPatient.firstName}} {{selectedPatient.lastName}}"></Label>
     </ActionBar>
     <FlexboxLayout row="0" flexDirection="row">
-        <Button flexGrow="1" class="icon" margin="0" text="&#xf015;" (tap)="goHome()"></Button>
-        <Button flexGrow="1" class="icon" margin="0" text="&#xf05a;" (tap)="goInformation()"></Button>
-        <Button flexGrow="1" class="icon" margin="0" text="&#xf0ae;" (tap)="goRecordingsList()"></Button>
-        <Button flexGrow="1" class="icon" margin="0" text="&#xf013;" (tap)="goSettings()"></Button>
+        <Button flexGrow="1" class="icon" [ngClass]="{'icon-selected': tab == 'Home'}" margin="0" text="&#xf015;" (tap)="goHome()"></Button>
+        <Button flexGrow="1" class="icon" [ngClass]="{'icon-selected': tab == 'Information'}" margin="0" text="&#xf05a;" (tap)="goInformation()"></Button>
+        <Button flexGrow="1" class="icon" [ngClass]="{'icon-selected': tab == 'My Recordings'}" margin="0" text="&#xf0ae;" (tap)="goRecordingsList()"></Button>
+        <Button flexGrow="1" class="icon" [ngClass]="{'icon-selected': tab == 'Settings'}" margin="0" text="&#xf013;" (tap)="goSettings()"></Button>
     </FlexboxLayout>
-    <GridLayout row="1" [ngSwitch]="page" height="480" flexGrow="1">
-        <GridLayout *ngSwitchCase="'home'" backgroundColor="#d3d3d3">
+    <GridLayout row="1" [ngSwitch]="tab" height="480" flexGrow="1">
+        <GridLayout *ngSwitchCase="'Home'" backgroundColor="#d3d3d3">
+            <StackLayout></StackLayout>
         </GridLayout>
-        <GridLayout *ngSwitchCase="'information'" backgroundColor="#d3d3d3">
+        <GridLayout *ngSwitchCase="'Information'" backgroundColor="#d3d3d3">
             <information></information>
         </GridLayout>
-        <GridLayout *ngSwitchCase="'recordingsList'" backgroundColor="#d3d3d3">
+        <GridLayout *ngSwitchCase="'My Recordings'" backgroundColor="#d3d3d3">
             <recordings-list></recordings-list>
         </GridLayout>
-        <GridLayout *ngSwitchCase="'settings'" backgroundColor="#d3d3d3">
-            <settings></settings>
+        <GridLayout *ngSwitchCase="'Settings'" backgroundColor="#d3d3d3">
+            <settings   [listOfPatients]="carerPatients"
+                        [selectedPatient]="selectedPatient"
+                        (onSelectingNewPatient)="onSelectingNewPatient($event)"></settings>
         </GridLayout>
         <GridLayout *ngSwitchDefault backgroundColor="#d3d3d3"></GridLayout>
     </GridLayout>
-    <FlexboxLayout row="2" flexDirection="row">
-        <Button flexGrow="1" class="icon" margin="0" text="&#xf1f8;"></Button>
-        <Button flexGrow="1" class="icon" margin="0" text="&#xf0c7;"></Button>
-        <Button flexGrow="1" class="icon" margin="0" text="00:00"></Button>
-        <Button flexGrow="1" class="icon" margin="0" text="&#xf093;"></Button>
-    </FlexboxLayout>
+    <GridLayout row="2" columns="*,*,*,*,*">
+        <Button col="0" width="70" height="60" class="icon" margin="0" text="&#xf1f8;"></Button>
+        <Button col="1" width="70" height="60" class="icon" margin="0" text="&#xf0c7;"></Button>
+        <Button col="2"
+                *ngIf="!isRecording"
+                (tap)="startRecording()"
+                class="icon"
+                margin="0"
+                width="58"
+                height="58"
+                style="border-radius: 29;background-color: #67c581;color:white"
+                text="&#xf130;"></Button>
+        <Button col="2"
+                *ngIf="isRecording"
+                (tap)="stopRecording()"
+                class="icon"
+                margin="0"
+                width="58"
+                height="58"
+                style="border-radius: 29;background-color: #67c581;color:white"
+                text="&#xf04c;"></Button>
+        <Label col="3"
+               class="icon"
+               width="60"
+               height="60"
+               margin="0"
+               style="font-size: 20"
+               text="{{ duration | durationPipe }}"></Label>
+        <Button col="4"
+                class="icon"
+                margin="0"
+                width="70"
+                height="60"
+                text="&#xf093;"
+                (tap)="uploadAudio()"></Button>
+    </GridLayout>
 </GridLayout>
