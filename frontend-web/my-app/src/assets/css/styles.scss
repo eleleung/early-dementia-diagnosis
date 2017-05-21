@@ -1,0 +1,41 @@
+$color1: rgb(150,200,255);
+$colour-secondary: rgb(255,255,255);
+$colour-tertiary: rgb(220,220,220);
+
+.main-section {
+    min-width: 800px;
+    margin: auto;
+    margin-top: 40px;
+    display:inline-block;
+}
+
+#content-section {
+    display:inline-block;
+
+}
+
+.item {
+    cursor: pointer;
+}
+
+.item:hover {
+    border-left: solid 5px $color1!important;
+    color: $color1!important;
+    background-color: $colour-secondary!important;
+
+}
+
+.item:active {
+    border-left: solid 5px $color1!important;
+    color: $color1!important;
+    background-color: $colour-secondary!important;
+
+}
+
+.item.active {
+    border-left: solid 5px $color1!important;
+    color: $color1!important;
+    background-color: $colour-secondary!important;
+}
+
+

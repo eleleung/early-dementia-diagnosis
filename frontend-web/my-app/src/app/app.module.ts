@@ -12,13 +12,17 @@ import {LoginComponent} from "./pages/login/login.component";
 import {SidePanelComponent} from "./side-panel/side-panel.component";
 import {routing} from "./routes";
 import {HomeComponent} from "./pages/home/home.component";
+import {PatientsComponent} from "./pages/patients/patients.component";
+import {TestsComponent} from "./pages/tests/tests.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
         SidePanelComponent,
-        HomeComponent
+        HomeComponent,
+        PatientsComponent,
+        TestsComponent
     ],
     imports: [
         BrowserModule,

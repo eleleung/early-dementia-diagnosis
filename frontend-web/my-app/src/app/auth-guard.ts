@@ -5,6 +5,8 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '
 const routesSecurityRoles = {
     'home': ["all"],
     'login': ["all"],
+    'patients': ["all"],
+    'tests': ["all"],
 };
 
 @Injectable()

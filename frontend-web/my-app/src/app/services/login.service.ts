@@ -26,13 +26,12 @@ export class LoginService {
     }
 
     checkLogin() {
-        // if (localStorage.getItem("user") != "" && localStorage.getItem("user") != null
-        //     && localStorage.getItem("token") != "" && localStorage.getItem("token") != null) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
-        return false;
+        if (localStorage.getItem("user") != "" && localStorage.getItem("user") != null
+            && localStorage.getItem("token") != "" && localStorage.getItem("token") != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     logout() {
