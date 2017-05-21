@@ -8,6 +8,7 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
+const ffmpeg = require('fluent-ffmpeg');
 
 'use strict';
 

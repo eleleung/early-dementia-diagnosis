@@ -9,5 +9,4 @@ export class Doctor {
     confirm_password: string;
     firstName: string;
     lastName: string;
-    patients: Patient[]
 }

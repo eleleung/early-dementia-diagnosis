@@ -5,7 +5,6 @@ import {Component, Input, OnChanges, Output, EventEmitter} from "@angular/core";
 import {LoginService} from "../../services/login-service";
 import {Patient} from "../../models/patient";
 import {RouterExtensions} from "nativescript-angular";
-// import {SelectedIndexChangedEventData} from "nativescript-drop-down";
 
 @Component({
     selector: "settings",
@@ -23,15 +22,12 @@ export class SettingsComponent {
     }
 
     changeSelectedPatient() {
-        if (this.listOfPatients != null) {
-            this.selectedPatient = this.listOfPatients[2];
-            this.onSelectingNewPatient.emit(this.selectedPatient);
-        }
+        this.routerExtensions.navigate(["/patient-list"]);
     }
 
     addPatient() {
         // how to return from this?
-        // this.routerExtensions.navigate(["/register-patient-form"]);
+        this.routerExtensions.navigate(["/register-patient-form"]);
     }
 
     logout() {

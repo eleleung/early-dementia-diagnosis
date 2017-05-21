@@ -30,7 +30,15 @@ export class LoginService {
     logout() {
         applicationSettings.setString("token", "");
         applicationSettings.setString("user","");
-        this.routerExtensions.navigate(["/login"], {clearHistory: true});
+        this.routerExtensions.navigate(["/login"],
+            {
+                clearHistory: true,
+                transition: {
+                    name: "fade",
+                    duration: 300,
+                    curve: "linear"
+                }
+            });
     }
 
     validate() {

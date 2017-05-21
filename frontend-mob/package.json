@@ -6,28 +6,33 @@
   "nativescript": {
     "id": "org.nativescript.frontendmob",
     "tns-android": {
-      "version": "2.5.0"
+      "version": "3.0.0"
     },
     "tns-ios": {
-      "version": "2.5.0"
+      "version": "3.0.1"
     }
   },
   "dependencies": {
-    "@angular/common": "2.4.3",
-    "@angular/compiler": "2.4.3",
-    "@angular/core": "2.4.3",
-    "@angular/forms": "2.4.3",
-    "@angular/http": "2.4.3",
-    "@angular/platform-browser": "2.4.3",
-    "@angular/platform-browser-dynamic": "2.4.3",
-    "@angular/router": "3.4.3",
-    "nativescript-angular": "1.4.0",
-    "nativescript-audio": "*",
+    "@angular/common": "~4.1.0",
+    "@angular/compiler": "~4.1.0",
+    "@angular/core": "~4.1.0",
+    "@angular/forms": "~4.1.0",
+    "@angular/http": "~4.1.0",
+    "@angular/platform-browser": "~4.1.0",
+    "@angular/platform-browser-dynamic": "~4.1.0",
+    "@angular/router": "~4.1.0",
+    "angular2-http-file-upload": "^1.0.6",
+    "nativescript-angular": "~3.0.0",
+    "nativescript-audio": "^3.3.0",
+    "nativescript-background-http": "^3.0.0",
+    "nativescript-drop-down": "^1.5.5",
     "nativescript-iqkeyboardmanager": "^1.0.1",
+    "nativescript-telerik-ui": "2.0.0",
     "nativescript-theme-core": "~1.0.2",
     "reflect-metadata": "~0.1.8",
-    "rxjs": "~5.0.1",
-    "tns-core-modules": "2.5.0"
+    "rxjs": "~5.3.1",
+    "tns-core-modules": "^3.0.0",
+    "zone.js": "^0.8.2"
   },
   "devDependencies": {
     "babel-traverse": "6.23.1",
@@ -35,8 +40,7 @@
     "babylon": "6.16.1",
     "lazy": "1.0.11",
     "nativescript-dev-android-snapshot": "^0.*.*",
-    "nativescript-dev-typescript": "^0.3.5",
-    "typescript": "~2.1.0",
-    "zone.js": "~0.7.2"
+    "nativescript-dev-typescript": "^0.4.0",
+    "typescript": "2.3.2"
   }
 }

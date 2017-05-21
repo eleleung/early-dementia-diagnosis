@@ -19,7 +19,7 @@ export class TutorialComponent {
     }
 
     skipTutorial() {
-        this.routerExtensions.navigate(["/home"]);
+        this.routerExtensions.navigate(["/home"], {clearHistory: true});
     }
 
     patientForm() {

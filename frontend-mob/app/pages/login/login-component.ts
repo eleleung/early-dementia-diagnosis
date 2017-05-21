@@ -13,6 +13,7 @@ import observable = require("data/observable");
 import applicationSettings = require("application-settings");
 import {CarerService} from "../../services/carer.service";
 import {SecurityService} from "../../services/security.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: "login",
@@ -47,25 +48,25 @@ export class LoginComponent implements OnInit {
                 private registerService: RegisterService,
                 private page: Page, @Inject(FormBuilder) formBuilder: FormBuilder,
                 private routerExtensions: RouterExtensions,
+                private router: Router,
                 private carerService: CarerService,
-                private securityService: SecurityService)
-    {
+                private securityService: SecurityService) {
         this.page.actionBarHidden = true;
 
         //Attempt to sign in if the token exists and also skip the tutorial:
         // TODO: currently commented out in order to test tutorial
-        // if (securityService.isToken()) {
-        //     carerService.getProfile().subscribe(
-        //         (result) => {
-        //             this.isAuthenticating = false;
-        //             applicationSettings.setString("user", JSON.stringify(result.user));
-        //             this.routerExtensions.navigate(["/home"], {clearHistory: true});
-        //         },
-        //         (error) => {
-        //             //do nothing
-        //         }
-        //     )
-        // }
+        if (securityService.isToken()) {
+            carerService.getProfile().subscribe(
+                (result) => {
+                    this.isAuthenticating = false;
+                    applicationSettings.setString("user", JSON.stringify(result.user));
+                    this.routerExtensions.navigate(["/home"], {clearHistory: true});
+                },
+                (error) => {
+                    //do nothing
+                }
+            )
+        }
 
         this.carer = new Carer();
         this.loginSignupForm = formBuilder.group({
@@ -115,8 +116,8 @@ export class LoginComponent implements OnInit {
 
     forgotPassword() {
         //TODO: implement this
-        // alert("We will send you an email with instructions to reset your password");
-        this.routerExtensions.navigate(["/home"], {clearHistory: true});
+        alert("We will send you an email with instructions to reset your password");
+        // this.routerExtensions.navigate(["/home"], {clearHistory: true});
     }
 
     login() {

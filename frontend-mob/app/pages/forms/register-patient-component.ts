@@ -10,6 +10,8 @@ import {TextField} from "ui/text-field";
 import {DatePicker} from "ui/date-picker";
 import {RegisterService} from "../../services/register-service";
 import {SegmentedBarItem} from "ui/segmented-bar";
+import {Router} from "@angular/router";
+import {CarerService} from "../../services/carer.service";
 
 @Component({
     selector: "register-patient-form",
@@ -34,7 +36,8 @@ export class RegisterPatientFormComponent implements OnInit {
     @ViewChild("dateOfBirth") dateOfBirth: ElementRef;
 
     constructor(private routerExtensions: RouterExtensions, private page: Page,
-                @Inject(FormBuilder) formBuilder: FormBuilder, private registerService: RegisterService) {
+                @Inject(FormBuilder) formBuilder: FormBuilder, private registerService: RegisterService,
+                private carerService: CarerService, private router: Router) {
         this.page.actionBarHidden = false;
         this.genderOptions = [];
 
@@ -90,8 +93,10 @@ export class RegisterPatientFormComponent implements OnInit {
     }
 
     registerSuccess() {
-        alert("Patient successfully registered!");
+        this.carerService.selectedPatient = this.patient;
+
         this.routerExtensions.navigate(["/home"], {clearHistory: true});
+        // this.router.navigate(["home"]);
     }
 
     focusLastName() {
