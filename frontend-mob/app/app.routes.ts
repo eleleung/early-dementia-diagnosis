@@ -5,6 +5,7 @@ import {InformationComponent} from "./pages/information/information-component";
 import {SettingsComponent} from "./pages/settings/settings-component";
 import {TutorialComponent} from "./pages/tutorial/tutorial-component";
 import {RegisterPatientFormComponent} from "./pages/forms/register-patient-component";
+import {PatientListComponent} from "./pages/settings/patient-list-component";
 
 /**
  * Created by EleanorLeung on 25/03/2017.
@@ -15,5 +16,6 @@ export const routes = [
     {path: "login", component: LoginComponent},
     {path: "home", component: HomeComponent},
     {path: "tutorial", component: TutorialComponent},
-    {path: "register-patient-form", component: RegisterPatientFormComponent}
+    {path: "register-patient-form", component: RegisterPatientFormComponent},
+    {path: "patient-list", component: PatientListComponent}
 ]

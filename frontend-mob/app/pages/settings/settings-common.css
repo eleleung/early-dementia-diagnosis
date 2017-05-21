@@ -1,0 +1,44 @@
+.my-background{
+    background-color: #f1f1f1;
+}
+
+.first-heading{
+    margin-left:10;
+    margin-bottom: 5;
+    font-family: "Helvetica Neue", Helvetica, serif;
+    color: grey;
+    background-color: grey;
+    font: bold;
+    font-size: 14px;
+}
+
+.labels{
+    margin-left: 10;
+    margin-right: 10;
+    border-radius: 3px;
+    height: 40;
+    border-width:1;
+    border-color: #f5f5f5;
+    background-color: white;
+    font-size: 13px;
+    padding-left:10;
+}
+
+.chosenPatient{
+    color: green;
+}
+
+Button{
+    margin-left: 10;
+    margin-right: 10;
+    border-radius: 3px;
+    height: 40;
+    border-width:1;
+    border-color: #f5f5f5;
+    background-color: white;
+    font-family: 'FontAwesome';
+    font-size: 13px;
+    padding-left:10;
+    text-align: left;
+    color: black;
+}

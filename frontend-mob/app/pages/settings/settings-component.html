@@ -1,3 +1,15 @@
-<StackLayout>
-    <Button style="background-color:#ae0503;color:white" (tap)="logout()" text="Sign Out"></Button>
+<StackLayout verticalAlignment="center">
+    <ScrollView height="100%">
+        <StackLayout>
+            <StackLayout style="margin-top: 5">
+                <Label class="first-heading" text="Current Account"></Label>
+                <Label *ngIf="selectedPatient != null" class="labels" text="{{selectedPatient.firstName}} {{selectedPatient.lastName}}"></Label>
+                <Button class="labels" text="&#xf067; Add Patient" (tap)="addPatient()"></Button>
+                <Button text="&#xf2bd; Change Patient Account" (tap)="changeSelectedPatient()"></Button>
+            </StackLayout>
+            <StackLayout style="margin-top:250">
+                <Button style="background-color:#ae0503;color:white;width: 100;" (tap)="logout()" text="Sign Out"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </StackLayout>

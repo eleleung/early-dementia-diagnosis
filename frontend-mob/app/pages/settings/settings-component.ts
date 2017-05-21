@@ -1,16 +1,33 @@
 /**
  * Created by EleanorLeung on 25/03/2017.
  */
-import {Component} from "@angular/core";
+import {Component, Input, OnChanges, Output, EventEmitter} from "@angular/core";
 import {LoginService} from "../../services/login-service";
+import {Patient} from "../../models/patient";
+import {RouterExtensions} from "nativescript-angular";
 
 @Component({
     selector: "settings",
     templateUrl: "./pages/settings/settings-component.html",
-    styleUrls: ["styles/custom.css"]
+    styleUrls: ["styles/custom.css", "./pages/settings/settings-common.css"]
 })
 export class SettingsComponent {
-    constructor(private loginService: LoginService) {
+    @Input() selectedPatient: Patient;
+    @Input() listOfPatients: Array<Patient> = [];
+
+    @Output() onSelectingNewPatient = new EventEmitter<Patient>();
+
+    constructor(private loginService: LoginService, private routerExtensions: RouterExtensions) {
+
+    }
+
+    changeSelectedPatient() {
+        this.routerExtensions.navigate(["/patient-list"]);
+    }
+
+    addPatient() {
+        // how to return from this?
+        this.routerExtensions.navigate(["/register-patient-form"]);
     }
 
     logout() {

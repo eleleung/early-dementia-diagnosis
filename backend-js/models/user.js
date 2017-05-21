@@ -55,14 +55,18 @@ UserSchema.pre('save', true, function(next, done){
 const User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.getUserById = function(id, callback){
-    const query = {_id: id}
+    const query = {_id: id};
     User.findOne(query, callback);
-}
+};
+
+module.exports.getAllUsers = function(callback){
+    User.find();
+};
 
 module.exports.getUserByEmail = function(email, callback){
-    const query = {email: email}
+    const query = {email: email};
     User.findOne(query, callback);
-}
+};
 
 module.exports.addUser = function(newUser, callback){
     // generate salt i.e. random key to hash password
@@ -76,7 +80,7 @@ module.exports.addUser = function(newUser, callback){
            newUser.save(callback);
        });
     });
-}
+};
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){
     bcrypt.compare(candidatePassword, hash, function(err, isMatch){
@@ -85,4 +89,4 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
         }
         callback(null, isMatch);
     });
-}
+};
