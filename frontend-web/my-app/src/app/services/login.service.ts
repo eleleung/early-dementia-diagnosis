@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {GlobalVariable} from '../globals';
-import {LoginModel, LoginResponse} from "../models/user";
+import {LoginModel} from "../models/user";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 
@@ -26,13 +26,12 @@ export class LoginService {
     }
 
     checkLogin() {
-        // if (localStorage.getItem("user") != "" && localStorage.getItem("user") != null
-        //     && localStorage.getItem("token") != "" && localStorage.getItem("token") != null) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
-        return false;
+        if (localStorage.getItem("user") != "" && localStorage.getItem("user") != null
+            && localStorage.getItem("token") != "" && localStorage.getItem("token") != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     logout() {
