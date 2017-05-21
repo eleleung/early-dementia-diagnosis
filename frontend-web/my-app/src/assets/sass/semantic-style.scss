@@ -1,0 +1,29 @@
+.main-section {
+    min-width: 800px;
+    margin: auto;
+    margin-top: 40px;
+    display:inline-block;
+}
+
+#content-section {
+    display:inline-block;
+
+}
+
+.item {
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: lightgray !important;
+}
+
+.item:active {
+    border-left: solid 5px red;
+    color: deepskyblue;
+}
+.item .active {
+    border-left: solid 5px red;
+    color: deepskyblue;
+}
+

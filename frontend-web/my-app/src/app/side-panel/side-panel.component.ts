@@ -10,8 +10,9 @@ import {LoginService} from '../services/login.service';
 
 export class SidePanelComponent {
 
-    constructor (private loginService: LoginService,
-                 private router: Router) {
+    constructor(private loginService: LoginService,
+                private router: Router) {
 
     }
+
 }
