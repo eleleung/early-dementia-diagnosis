@@ -44,6 +44,7 @@ export class HomeComponent {
         this.page.actionBarHidden = false;
 
         this.carerService.getCarersPatients();
+        console.log(this.carerService.patients);
         this.carerPatients = this.carerService.patients;
 
     }
@@ -80,7 +81,7 @@ export class HomeComponent {
             // let audioFolder = "/Users/EleanorLeung/Desktop";
 
             let recorderOptions = {
-                filename: audioFolder.path + '/testaudio.m4a',
+                filename: audioFolder.path + '/frontend.m4a',
 
                 // filename: audioFolder.path + '/recording.caf',
                 infoCallback: () => {
@@ -133,7 +134,7 @@ export class HomeComponent {
     getFile() {
         try {
             let audioFolder = fs.knownFolders.currentApp().getFolder("audio");
-            let recordedFile = audioFolder.getFile('testaudio.m4a');
+            let recordedFile = audioFolder.getFile('frontend.m4a');
             return recordedFile;
         } catch (ex) {
             console.log(ex);
@@ -153,25 +154,6 @@ export class HomeComponent {
             }
         );
     }
-
-    // sendAudioFile() {
-    //     let audio = this.getFile();
-    //     let formData = new FormData();
-    //     formData.append('file', {
-    //         uri: 'file://' ,
-    //         name: 'nineteen.m4a',
-    //         type: 'audio/m4a',
-    //     });
-    //     http.request({
-    //         url: GlobalVariable.BASE_API_URL + "/transcriber/SendAudioFile",
-    //         method: "POST",
-    //         headers: {"Content-Type": "audio/MP4A-LATM"},
-    //         body: formData
-    //     }).then(function(response) {
-    //         console.log(response.content);
-    //     });
-    //     console.log('here');
-    // }
 
     sendAudioFile() {
         let audio = this.getFile();

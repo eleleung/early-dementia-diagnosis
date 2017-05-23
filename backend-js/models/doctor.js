@@ -6,29 +6,11 @@ const bcrypt = require('bcrypt');
 const config = require('../config/database');
 const relationship = require('../node_modules/mongoose-relationship');
 
-const Patient = require('../models/patient');
+const UserSchema = require('../models/user');
 
+// schema not in use atm, combining with user
 const DoctorSchema = mongoose.Schema({
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    patients: [{
-        type: mongoose.Schema.ObjectId, ref : 'Patient'
-    }]
+    user: [UserSchema]
 });
 
 DoctorSchema.pre('save', true, function(next, done){
@@ -53,7 +35,7 @@ const Doctor = module.exports = mongoose.model('Doctor', DoctorSchema);
 
 module.exports.getDoctorById = function(id, callback){
     const query = {_id: id};
-    User.findOne(query, callback);
+    Doctor.findOne(query, callback);
 };
 
 module.exports.getAllDoctors = function(callback){
@@ -61,28 +43,12 @@ module.exports.getAllDoctors = function(callback){
 };
 
 module.exports.getDoctorByEmail = function(email, callback){
-    const query = {email: email};
+    const query = {'user.email': email};
     Doctor.findOne(query, callback);
 };
 
 module.exports.addDoctor = function(newDoctor, callback){
-    bcrypt.genSalt(10, function(err, salt){
-        bcrypt.hash(newDoctor.password, salt, function(err, hash){
-            if (err) {
-                throw err;
-            }
+    newDoctor.save(callback);
 
-            newDoctor.password = hash;
-            newDoctor.save(callback);
-        });
-    });
 };
 
-module.exports.comparePassword = function(candidatePassword, hash, callback){
-    bcrypt.compare(candidatePassword, hash, function(err, isMatch){
-        if (err) {
-            throw err;
-        }
-        callback(null, isMatch);
-    });
-};

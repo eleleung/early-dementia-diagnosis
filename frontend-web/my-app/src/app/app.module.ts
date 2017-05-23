@@ -14,6 +14,8 @@ import {routing} from "./routes";
 import {HomeComponent} from "./pages/home/home.component";
 import {PatientsComponent} from "./pages/patients/patients.component";
 import {TestsComponent} from "./pages/tests/tests.component";
+import {PatientService} from "./services/patient.service";
+import {SecurityService} from "./services/security.service";
 
 @NgModule({
     declarations: [
@@ -36,8 +38,13 @@ import {TestsComponent} from "./pages/tests/tests.component";
         ReactiveFormsModule,
         L_SEMANTIC_UI_MODULE
     ],
-    providers: [AuthGuard, LoginService,
-        {provide: LocationStrategy, useClass: HashLocationStrategy}],
+    providers: [
+        AuthGuard,
+        LoginService,
+        PatientService,
+        SecurityService,
+        {provide: LocationStrategy, useClass: HashLocationStrategy}
+    ],
 
     bootstrap: [AppComponent]
 })

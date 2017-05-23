@@ -3,13 +3,14 @@ import {Http, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {GlobalVariable} from '../globals';
 import {LoginModel} from "../models/user";
+import {Router} from "@angular/router";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 
 @Injectable()
 export class LoginService {
 
-    constructor (private http: Http) {}
+    constructor (private http: Http, private router: Router) {}
 
     login(model: LoginModel) {
         let tokenUrl = GlobalVariable.BASE_API_URL + 'users/authenticate/';
@@ -37,6 +38,7 @@ export class LoginService {
     logout() {
         localStorage.setItem("token", "");
         localStorage.setItem("user", "");
+        this.router.navigate(['/login']);
     }
 
     resetPassword(email: string) {

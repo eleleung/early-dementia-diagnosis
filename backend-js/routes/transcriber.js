@@ -1,5 +1,3 @@
-
-//const converter = require("../recogniser/transcriber");
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -21,34 +19,25 @@ var storage =   multer.diskStorage({
 var upload = multer({ storage : storage}).single('upload_file');
 
 router.post('/SendAudio', passport.authenticate('jwt', {session:false}), function(req, res) {
-    console.log('rec');
     console.log('audiopath: ', req.body._path);
 
-    // TODO: change this destFile
-    var destFile =  "/Users/EleanorLeung/Desktop/output.flac";
+    // TODO: implement sending of audio
+    var fileName = './backend.flac';
+    fs.createWriteStream(fileName);
 
     var proc = new ffmpeg({ source: req.body._path})
         .toFormat('flac')
-        .saveToFile(destFile, function(stdout, stderr){
+        .saveToFile(fileName, function(stdout, stderr){
             console.log("file been converted");
         });
 
     proc.on('end', function () {
-        var transcription = recognize(destFile);
+        var transcription = recognize(fileName);
         res.json({success: true, msg: transcription });
     });
 });
 
 router.post('/SendAudioFile', function(req, res){
-    // *Ignore for now* For multi-part data
-    // upload(req,res,function(err) {
-    //     console.log('here');
-    //     if(err) {
-    //         return res.end("Error uploading file.");
-    //     }
-    //     res.end("File is uploaded");
-    // });
-
     // Only use one method
     fs.writeFile('sample.m4a', function(err) {
         res.sendStatus(err ? 500 : 200);
@@ -72,27 +61,8 @@ recognize = function(path) {
     var params = {
         audio: fs.createReadStream(path),
         transfer_encoding: 'chunked',
-        content_type: 'audio/flac'
+        content_type: 'audio/flac',
     };
-
-    // var params = {
-    //     model: 'en-US_BroadbandModel',
-    //     content_type: 'audio/flac',
-    //     transfer_encoding: 'chunked',
-    //     continuous: true,
-    //     'interim_results': true,
-    //     'max_alternatives': 3,
-    //     'word_confidence': false,
-    //     timestamps: false,
-    //
-    // };
-    //
-    // // Create the stream.
-    // var recognizeStream = speech_to_text.createRecognizeStream(params);
-    //
-    // // Pipe in the audio.
-    // fs.createReadStream(path).pipe(recognizeStream);
-
 
     speech_to_text.recognize(params, function (err, res) {
         if (err)

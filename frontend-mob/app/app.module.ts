@@ -22,14 +22,41 @@ import {CarerService} from "./services/carer.service";
 import {DurationPipe} from "./pipes/duration.pipe";
 import {RegisterPatientFormComponent} from "./pages/forms/register-patient-component";
 import {PatientListComponent} from "./pages/settings/patient-list-component";
+import {PhotoComponent} from "./pages/photos/photo-component";
+import {PhotoService} from "./services/photo-service";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, TutorialComponent, SettingsComponent, InformationComponent,
-                RecordingsListComponent, DurationPipe, RegisterPatientFormComponent, PatientListComponent],
+  declarations: [
+        AppComponent,
+        HomeComponent,
+        LoginComponent,
+        TutorialComponent,
+        SettingsComponent,
+        InformationComponent,
+        RecordingsListComponent,
+        DurationPipe,
+        RegisterPatientFormComponent,
+        PatientListComponent,
+        PhotoComponent
+  ],
   bootstrap: [AppComponent],
-  imports: [NativeScriptModule, NativeScriptHttpModule, NativeScriptFormsModule, ReactiveFormsModule, NativeScriptRouterModule,
-            NativeScriptRouterModule.forRoot(routes), RouterModule],
-  providers: [LoginService, RegisterService, CarerService, SecurityService, AudioService],
+  imports: [
+      NativeScriptModule,
+      NativeScriptHttpModule,
+      NativeScriptFormsModule,
+      ReactiveFormsModule,
+      NativeScriptRouterModule,
+      NativeScriptRouterModule.forRoot(routes),
+      RouterModule
+  ],
+  providers: [
+      LoginService,
+      RegisterService,
+      CarerService,
+      SecurityService,
+      AudioService,
+      PhotoService
+  ],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule {

@@ -27,7 +27,7 @@ const UserSchema = mongoose.Schema({
         required: true
     },
     dateOfBirth: {
-        type: Date,
+        type: Date
     },
     patients: [{
         type: mongoose.Schema.ObjectId, ref : 'Patient'

@@ -1,3 +1,33 @@
-<div class="container">
-
+<div class="container" style="max-width: 800px;">
+    <table id="example" class="ui celled table" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+        </tr>
+        </tfoot>
+        <tbody *ngIf="patients != null && patients.length > 0">
+        <tr *ngFor="let patient of patients">
+            <td>{{patient.firstName}}</td>
+            <td>{{patient.lastName}}</td>
+            <td>{{patient.gender}}</td>
+            <td>{{patient.dateOfBirth | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+<!--<script>-->
+    <!--$(document).ready(function() {-->
+        <!--$('#example').DataTable();-->
+    <!--})-->
+<!--</script>-->

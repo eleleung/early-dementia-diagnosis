@@ -25,6 +25,7 @@
     "nativescript-angular": "~3.0.0",
     "nativescript-audio": "^3.3.0",
     "nativescript-background-http": "^3.0.0",
+    "nativescript-camera": "^3.0.0",
     "nativescript-drop-down": "^1.5.5",
     "nativescript-iqkeyboardmanager": "^1.0.1",
     "nativescript-telerik-ui": "2.0.0",

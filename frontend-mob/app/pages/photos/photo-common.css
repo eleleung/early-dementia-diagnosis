@@ -1,0 +1,11 @@
+
+Button {
+    margin-left: 40;
+    margin-right: 40;
+    margin-bottom: 10;
+    margin-top: 10;
+    border-radius: 5px;
+    height: 40;
+    color:white;
+    border-width:0;
+}

@@ -32,6 +32,12 @@ router.post('/register', passport.authenticate('jwt', {session:false}), function
     });
 });
 
+// Add Doctor
+router.post('/register', passport.authenticate('jwt', {session:false}), function(req, res, next){
+    // in request body get patient and doctor ID
+
+});
+
 // Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), function(req, res, next){
     res.json({user: req.user});

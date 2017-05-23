@@ -28,7 +28,6 @@ export class LoginComponent {
         this.loading = true;
         this.loginService.login(this.model).subscribe(
             (result) => {
-                console.log(result);
                 if (result.success) {
                     localStorage.setItem("token", result.token);
                     localStorage.setItem("user", JSON.stringify(result.user));
