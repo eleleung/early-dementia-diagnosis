@@ -7,6 +7,7 @@ const config = require('../config/database');
 const relationship = require('../node_modules/mongoose-relationship');
 
 const Patient = require('../models/patient');
+const Test = require('../models/test');
 
 const UserSchema = mongoose.Schema({
     firstName: {
@@ -31,6 +32,9 @@ const UserSchema = mongoose.Schema({
     },
     patients: [{
         type: mongoose.Schema.ObjectId, ref : 'Patient'
+    }],
+    tests: [{
+        type: mongoose.Schema.ObjectId, ref: 'Test'
     }]
 });
 

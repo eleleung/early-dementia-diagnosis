@@ -6,6 +6,8 @@ const passport = require('passport');
 const ffmpeg = require('fluent-ffmpeg');
 const multer  = require('multer');
 
+const Test = require('../models/test');
+
 // Multer options
 var storage =   multer.diskStorage({
     destination: function (req, file, callback) {
@@ -15,29 +17,34 @@ var storage =   multer.diskStorage({
         callback(null,Date.now()+file.originalname);
     }
 });
-
 var upload = multer({ storage : storage}).single('upload_file');
 
+var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1');
+var fs = require('fs');
+var speech_to_text = new SpeechToTextV1({
+    username: 'e50a070e-bfa5-42e5-a89c-23de30b76671',
+    password: 'K0Swn0d2rLkD'
+});
+
 router.post('/SendAudio', passport.authenticate('jwt', {session:false}), function(req, res) {
-    console.log('audiopath: ', req.body._path);
 
     // TODO: implement sending of audio
     var fileName = './backend.flac';
     fs.createWriteStream(fileName);
 
-    var proc = new ffmpeg({ source: req.body._path})
+    var proc = new ffmpeg({ source: req.body.fileName._path})
         .toFormat('flac')
         .saveToFile(fileName, function(stdout, stderr){
-            console.log("file been converted");
         });
 
     proc.on('end', function () {
-        var transcription = recognize(fileName);
+        var transcription = recognize(fileName, req.user, req.body.patientId);
         res.json({success: true, msg: transcription });
     });
 });
 
 router.post('/SendAudioFile', function(req, res){
+
     // Only use one method
     fs.writeFile('sample.m4a', function(err) {
         res.sendStatus(err ? 500 : 200);
@@ -46,17 +53,8 @@ router.post('/SendAudioFile', function(req, res){
     request.pipe(fs.createWriteStream("out_file.m4a", { flags: 'w', encoding: null, fd: null, mode: 0666 }));
 });
 
-module.exports = router;
 
-var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1');
-var fs = require('fs');
-
-var speech_to_text = new SpeechToTextV1({
-    username: 'e50a070e-bfa5-42e5-a89c-23de30b76671',
-    password: 'K0Swn0d2rLkD'
-});
-
-recognize = function(path) {
+recognize = function(path, creator, patientId) {
 
     var params = {
         audio: fs.createReadStream(path),
@@ -65,10 +63,27 @@ recognize = function(path) {
     };
 
     speech_to_text.recognize(params, function (err, res) {
-        if (err)
+        if (err) {
             console.log(err);
-        else
-            console.log(JSON.stringify(res, null, 2));
-            return JSON.stringify(res, null, 2);
+        }
+        else {
+            var transcribedString =  res.results[0].alternatives[0].transcript;
+            var newTest = new Test({
+                fileName: path,
+                transcribedText: transcribedString,
+                creator: creator,
+                patient: patientId
+            });
+            Test.addTest(newTest, function(err, test){
+                if (err) {
+                    throw err;
+                }
+                else {
+                    return JSON.stringify(res, null, 2);
+                }
+            });
+        }
     });
 };
+
+module.exports = router;

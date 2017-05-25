@@ -30,6 +30,7 @@ const patients = require('./routes/patients');
 const doctors = require('./routes/doctors');
 const audio = require('./routes/transcriber');
 const pictures = require('./routes/pictures');
+const tests = require('./routes/tests');
 
 // Port number
 const port = 3000;
@@ -55,6 +56,7 @@ app.use('/patients', patients);
 app.use('/doctors', doctors);
 app.use('/transcriber', audio);
 app.use('/pictures', pictures);
+app.use('/tests', tests);
 
 // Index Route
 app.get('/', function(req, res){
@@ -70,4 +72,4 @@ app.listen(port, function(){
     console.log('Server started on port ' + port);
 });
 
-module.exports = app
+module.exports = app;

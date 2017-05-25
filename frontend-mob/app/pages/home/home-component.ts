@@ -13,6 +13,7 @@ import {AudioService} from "../../services/audio-service";
 import {TNSRecorder} from "nativescript-audio";
 import {GlobalVariable} from "../../global";
 import * as bghttp from 'nativescript-background-http';
+import {Test} from "../../models/test";
 
 var fs = require('file-system');
 var audio = require("nativescript-audio");
@@ -143,10 +144,14 @@ export class HomeComponent {
 
     uploadAudio() {
         let audio = this.getFile();
-        this.audioService.getTranscription(audio).subscribe(
+        let test = new Test();
+        test.fileName = audio;
+        test.patientId = this.carerService.selectedPatient._id;
+
+        this.audioService.getTranscription(test).subscribe(
             (result) => {
                 console.log('success');
-                console.log(result.msg);
+                console.log(result);
             },
             (error) => {
                 console.log('error');

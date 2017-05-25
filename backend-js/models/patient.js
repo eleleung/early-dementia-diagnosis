@@ -1,15 +1,14 @@
 /**
  * Created by EleanorLeung on 7/04/2017.
  */
-const mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    relationship = require("mongoose-relationship");
+const mongoose = require('mongoose');
+const relationship = require('../node_modules/mongoose-relationship');
 const config = require('../config/database');
 
 const User = require('./user');
 const Doctor = require('./doctor');
 
-const PatientSchema = Schema({
+const PatientSchema = mongoose.Schema({
     firstName: {
         type: String,
         required: true
@@ -25,13 +24,13 @@ const PatientSchema = Schema({
         type: Date
     },
     carers: [{
-        type: Schema.ObjectId, ref : "User", childPath : "patients"
+        type: mongoose.Schema.ObjectId, ref : 'User', childPath : 'patients'
     }],
-    doctors: [{
-        type: Schema.ObjectId, ref: "Doctor", childPath: "patients"
+    tests: [{
+        type: mongoose.Schema.ObjectId, ref: 'Test', childPath: 'patient'
     }]
 });
-PatientSchema.plugin(relationship, {relationshipPathName: ["carers", "doctors"]});
+PatientSchema.plugin(relationship, {relationshipPathName: ['carers', 'tests']});
 const Patient = module.exports = mongoose.model('Patient', PatientSchema);
 
 module.exports.getPatientById = function(id, callback){
@@ -40,7 +39,7 @@ module.exports.getPatientById = function(id, callback){
 
 module.exports.getPatientsByCarer = function(id, callback){
     const query = {carers: id};
-    Patient.find(query, 'firstName lastName gender dateOfBirth -_id',  callback);
+    Patient.find(query, 'firstName lastName gender dateOfBirth',  callback);
 }
 
 module.exports.getAllPatients = function(callback){

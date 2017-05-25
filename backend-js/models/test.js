@@ -6,18 +6,26 @@ const bcrypt = require('bcrypt');
 const config = require('../config/database');
 const relationship = require('../node_modules/mongoose-relationship');
 
-const UserSchema = require('../models/user');
+const User = require('../models/user');
+const Patient = require('../models/patient');
 
 const TestSchema = mongoose.Schema({
-    title: {
+    fileName: {
         type: String,
         required: true
     },
-    creator: {
-        user: [UserSchema]
-    }
+    transcribedText: {
+        type: String,
+        required: true
+    },
+    creator: [{
+        type: mongoose.Schema.ObjectId, ref : 'User', childPath : "tests"
+    }],
+    patient: [{
+        type: mongoose.Schema.ObjectId, ref: 'Patient', childPath: 'tests'
+    }]
 });
-
+TestSchema.plugin(relationship, {relationshipPathName: ["creator", "patient"]});
 const Test = module.exports = mongoose.model('Test', TestSchema);
 
 module.exports.getTestById = function(id, callback){
@@ -25,8 +33,12 @@ module.exports.getTestById = function(id, callback){
     Test.findOne(query, callback);
 };
 
-module.exports.getTestByCreatorId = function(creatorId, callback){
-
+module.exports.getTestByCreatorAndPatient = function(creatorId, patientId, callback){
+    const query = {
+        creator: creatorId,
+        patient: patientId
+    };
+    User.find(query, callback);
 };
 
 module.exports.getAllTests = function(callback){
@@ -34,5 +46,5 @@ module.exports.getAllTests = function(callback){
 };
 
 module.exports.addTest = function(newTest, callback){
-    newTest.save();
+    newTest.save(callback);
 };
