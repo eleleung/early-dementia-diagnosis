@@ -6,14 +6,27 @@ import {Http} from "@angular/http";
 import {SecurityService} from "./security.service";
 import {GlobalVariable} from "../global";
 import {Test} from "../models/test";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class PatientService {
 
-    patientTests: Array<Test>;
+    public _patientTests: BehaviorSubject<Test[]> = new BehaviorSubject([]);
+
+    get patientTests(): Observable<Test[]> {
+        return this._patientTests.asObservable();
+    }
 
     constructor (private http: Http, private securityService: SecurityService) {
-        this.patientTests = [];
+    }
+
+    getPatientTestsBad(patientId: string) {
+        let url = GlobalVariable.BASE_API_URL + "/tests/getPatientTests";
+        let headers = this.securityService.loggedInHeader();
+
+        return this.http.post(url, JSON.stringify({"_id" : patientId}), {headers: headers})
+            .map(res => res.json());
     }
 
     getPatientTests(patientId: string) {
@@ -24,7 +37,7 @@ export class PatientService {
             .map(res => res.json())
             .subscribe(
                 data => {
-                    this.patientTests = data.tests;
+                    this._patientTests.next(data.tests);
                 },
                 err => {
                     console.log(err);

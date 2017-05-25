@@ -4,7 +4,7 @@
             <StackLayout>
                 <Label class="recording-list-heading" text="Recent tests"></Label>
             </StackLayout>
-            <StackLayout *ngFor="let test of patientService.patientTests">
+            <StackLayout *ngFor="let test of testList">
                 <GridLayout rows="auto" columns="180,150,auto" class="labels">
                         <Label col="0" text="{{test.date | date: 'dd/MM/yyyy'}}"></Label>
                         <Label col="1" text="Audio Recording"></Label>

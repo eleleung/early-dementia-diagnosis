@@ -4,6 +4,7 @@ import {CarerService} from "../../services/carer.service";
 import {Page} from "ui/page";
 import { Observable as RxObservable } from 'rxjs/Observable';
 import {RouterExtensions} from "nativescript-angular";
+import {PatientService} from "../../services/patient-service";
 
 /**
  * Created by EleanorLeung on 19/05/2017.
@@ -20,7 +21,8 @@ export class PatientListComponent implements OnInit {
     carerPatients: Array<Patient>;
     selectedPatient: Patient;
 
-    constructor(private carerService: CarerService, private page: Page, private routerExtensions: RouterExtensions) {
+    constructor(private carerService: CarerService, private page: Page,
+                private routerExtensions: RouterExtensions, private patientService: PatientService) {
         this.page.actionBarHidden = false;
 
         this.carerPatients = this.carerService.patients;
@@ -34,6 +36,7 @@ export class PatientListComponent implements OnInit {
 
     public onItemTap(args) {
         this.carerService.selectedPatient = this.carerPatients[args.index];
+        this.patientService.getPatientTests(this.carerService.selectedPatient._id);
         this.routerExtensions.backToPreviousPage();
     }
 }
