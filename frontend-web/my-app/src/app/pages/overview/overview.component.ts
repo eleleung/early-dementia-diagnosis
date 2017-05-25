@@ -13,7 +13,9 @@ import {PatientService} from "../../services/patient.service";
 export class OverviewComponent {
 
     public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-    public doughnutChartData:number[] = [350, 450, 100];
+    public doughnutChartData1:number[] = [350, 450, 100];
+    public doughnutChartData2:number[] = [150, 700, 200];
+    public doughnutChartData3:number[] = [600, 450, 100];
     public doughnutChartType:string = 'doughnut';
     public options = {
         legend: {
