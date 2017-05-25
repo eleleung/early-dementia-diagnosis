@@ -24,6 +24,7 @@ import {RegisterPatientFormComponent} from "./pages/forms/register-patient-compo
 import {PatientListComponent} from "./pages/settings/patient-list-component";
 import {PhotoComponent} from "./pages/photos/photo-component";
 import {PhotoService} from "./services/photo-service";
+import {RecordingComponent} from "./pages/recordings-list/record-component";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {PhotoService} from "./services/photo-service";
         DurationPipe,
         RegisterPatientFormComponent,
         PatientListComponent,
-        PhotoComponent
+        PhotoComponent,
+        RecordingComponent
   ],
   bootstrap: [AppComponent],
   imports: [

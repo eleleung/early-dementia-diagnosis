@@ -38,7 +38,7 @@ router.post('/SendAudio', passport.authenticate('jwt', {session:false}), functio
         });
 
     proc.on('end', function () {
-        var transcription = recognize(fileName, req.user, req.body.patientId);
+        var transcription = recognize(fileName, req.user, req.body.patientId, req.body.date);
         res.json({success: true, msg: transcription });
     });
 });
@@ -54,7 +54,7 @@ router.post('/SendAudioFile', function(req, res){
 });
 
 
-recognize = function(path, creator, patientId) {
+recognize = function(path, creator, patientId, date) {
 
     var params = {
         audio: fs.createReadStream(path),
@@ -72,7 +72,8 @@ recognize = function(path, creator, patientId) {
                 fileName: path,
                 transcribedText: transcribedString,
                 creator: creator,
-                patient: patientId
+                patient: patientId,
+                date: date
             });
             Test.addTest(newTest, function(err, test){
                 if (err) {

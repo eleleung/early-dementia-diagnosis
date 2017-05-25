@@ -10,4 +10,5 @@ export class Test {
     transcribedTest: string;
     creator: Carer;
     patientId: string;
+    date: Date;
 }

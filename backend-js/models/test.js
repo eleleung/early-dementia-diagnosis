@@ -18,6 +18,10 @@ const TestSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    date: {
+        type: Date,
+        required: true
+    },
     creator: [{
         type: mongoose.Schema.ObjectId, ref : 'User', childPath : "tests"
     }],

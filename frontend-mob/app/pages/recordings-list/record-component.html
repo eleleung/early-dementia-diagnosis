@@ -1,0 +1,50 @@
+<GridLayout rows="*, 60" columns="*">
+    <StackLayout row="0" flexGrow="1" style="background-color: #f5f5f5">
+        <StackLayout>
+            <Label class="instruction-heading" text="Instructions"></Label>
+        </StackLayout>
+        <StackLayout>
+            <Label text="Read this aloud"></Label>
+        </StackLayout>
+        <StackLayout>
+            <Label text="Content"></Label>
+            <Label text="The quick brown fox jumps over the lazy dog"></Label>
+        </StackLayout>
+    </StackLayout>
+    <GridLayout row="1" columns="*,*,*,*,*">
+        <Button col="0" width="70" height="60" class="icon" margin="0" text="&#xf1f8;"></Button>
+        <Button col="1" width="70" height="60" class="icon" margin="0" text="&#xf0c7;"></Button>
+        <Button col="2"
+                *ngIf="!isRecording"
+                (tap)="startRecording()"
+                class="icon"
+                margin="0"
+                width="58"
+                height="58"
+                style="border-radius: 29;background-color: #67c581;color:white"
+                text="&#xf130;"></Button>
+        <Button col="2"
+                *ngIf="isRecording"
+                (tap)="stopRecording()"
+                class="icon"
+                margin="0"
+                width="58"
+                height="58"
+                style="border-radius: 29;background-color: #67c581;color:white"
+                text="&#xf04c;"></Button>
+        <Label col="3"
+               class="icon"
+               width="60"
+               height="60"
+               margin="0"
+               style="font-size: 20"
+               text="{{ duration | durationPipe }}"></Label>
+        <Button col="4"
+                class="icon"
+                margin="0"
+                width="70"
+                height="60"
+                text="&#xf093;"
+                (tap)="uploadAudio()"></Button>
+    </GridLayout>
+</GridLayout>

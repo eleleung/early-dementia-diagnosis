@@ -10,4 +10,5 @@ export class Test {
     transcribedText: string;
     creator: string;
     patient: string;
+    date: Date;
 }

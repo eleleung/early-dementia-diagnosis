@@ -6,6 +6,7 @@ import {SettingsComponent} from "./pages/settings/settings-component";
 import {TutorialComponent} from "./pages/tutorial/tutorial-component";
 import {RegisterPatientFormComponent} from "./pages/forms/register-patient-component";
 import {PatientListComponent} from "./pages/settings/patient-list-component";
+import {RecordingComponent} from "./pages/recordings-list/record-component";
 
 /**
  * Created by EleanorLeung on 25/03/2017.
@@ -17,5 +18,6 @@ export const routes = [
     {path: "home", component: HomeComponent},
     {path: "tutorial", component: TutorialComponent},
     {path: "register-patient-form", component: RegisterPatientFormComponent},
-    {path: "patient-list", component: PatientListComponent}
+    {path: "patient-list", component: PatientListComponent},
+    {path: "recording", component: RecordingComponent}
 ]
