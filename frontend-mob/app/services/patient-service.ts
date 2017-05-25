@@ -13,6 +13,7 @@ import {Observable} from "rxjs/Observable";
 export class PatientService {
 
     public _patientTests: BehaviorSubject<Test[]> = new BehaviorSubject([]);
+    patientTest: Array<Test> = [];
 
     get patientTests(): Observable<Test[]> {
         return this._patientTests.asObservable();
@@ -37,7 +38,7 @@ export class PatientService {
             .map(res => res.json())
             .subscribe(
                 data => {
-                    this._patientTests.next(data.tests);
+                    this.patientTest = data.tests;
                 },
                 err => {
                     console.log(err);

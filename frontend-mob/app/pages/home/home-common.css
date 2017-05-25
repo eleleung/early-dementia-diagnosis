@@ -39,3 +39,14 @@
     color: black;
     padding-bottom: 5;
 }
+
+.home-heading{
+    margin-left:10;
+    margin-bottom: 5;
+    margin-top: 10;
+    font-family: "Helvetica Neue", Helvetica, serif;
+    font-size: 15px;
+    text-align: left;
+    padding-left: 10;
+    font:bold;
+}

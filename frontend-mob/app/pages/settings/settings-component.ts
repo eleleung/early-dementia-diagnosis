@@ -5,6 +5,7 @@ import {Component, Input, OnChanges, Output, EventEmitter} from "@angular/core";
 import {LoginService} from "../../services/login-service";
 import {Patient} from "../../models/patient";
 import {RouterExtensions} from "nativescript-angular";
+import {CarerService} from "../../services/carer.service";
 
 @Component({
     selector: "settings",
@@ -17,7 +18,8 @@ export class SettingsComponent {
 
     @Output() onSelectingNewPatient = new EventEmitter<Patient>();
 
-    constructor(private loginService: LoginService, private routerExtensions: RouterExtensions) {
+    constructor(private loginService: LoginService, private routerExtensions: RouterExtensions,
+                private carerService: CarerService) {
 
     }
 
@@ -30,6 +32,7 @@ export class SettingsComponent {
     }
 
     logout() {
+        this.carerService.selectedPatient = null;
         this.loginService.logout();
     }
 }

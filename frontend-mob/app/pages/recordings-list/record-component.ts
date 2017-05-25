@@ -35,6 +35,7 @@ export class RecordingComponent {
                 private page: Page, private patientService: PatientService) {
         this.page.actionBarHidden = false;
 
+        this.carerService.getCarersPatients();
     }
 
     startRecording() {
@@ -114,6 +115,7 @@ export class RecordingComponent {
         test.fileName = audio;
         test.patientId = this.carerService.selectedPatient._id;
 
+        console.dir(test);
         this.audioService.getTranscription(test).subscribe(
             (result) => {
                 console.log('success');

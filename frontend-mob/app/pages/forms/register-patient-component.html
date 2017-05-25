@@ -40,12 +40,8 @@
                                 selectedBackgroundColor="#d3d3d3">
                     </SegmentedBar>
                     <DatePicker #dp id="datePicker"
-                                class="m-15"
-                                style="width:300px;height:100px;margin-top: 20;">
+                                style="width:300;height:100;margin-top: 20;">
                     </DatePicker>
-                    <ActivityIndicator [busy]="isAuthenticating" [visibility]="isAuthenticating ? 'visible' : 'collapse'"
-                                       row="2" style="color:#ffffff;">
-                    </ActivityIndicator>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

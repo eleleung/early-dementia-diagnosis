@@ -42,7 +42,7 @@ export class CarerService {
                 this.patients = data.carerPatients;
 
                 // select default patient at random, could allow user to pick default later
-                if (this.selectedPatient == null && this.patients.length > 0) {
+                if (this.patients.length > 0) {
                     this.selectedPatient = this.patients[0];
                 }
 
