@@ -6,9 +6,9 @@
             <input type="text" placeholder="Search...">
             <i class="circular search link icon"></i>
         </div>
-        <button class="ui button" style="float:right" [disabled]="selectedPatient._id == null" [routerLink]="['/patient', selectedPatient._id]">View</button>
+        <button class="ui button primary-button" style="float:right" [disabled]="selectedPatient._id == null" [routerLink]="['/patient', selectedPatient._id]">View</button>
     </div>
-    <table id="example" class="ui celled table" cellspacing="0" width="100%">
+    <table id="example" class="ui table" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>First Name</th>

@@ -31,7 +31,13 @@ export class PatientComponent {
 
         patientService.getPatientTests(id).subscribe(
             data => {
-                this.tests = data.tests;
+                this.tests = [];
+
+                if (data.tests != null && data.tests.length > 0) {
+                    for (let i = data.tests.length-1; i >= 0; i--) {
+                        this.tests.push(data.tests[i]);
+                    }
+                }
             },
             error => {
 

@@ -2,28 +2,70 @@
     <h1 class="ui header">Overview</h1>
     <div class="ui divider"></div>
 
+    <br/>
     <div id="graphPanel">
-        <div style="display: inline-block">
+        <div style="display: inline-block;">
             <canvas baseChart
-                    [data]="doughnutChartData"
+                    [data]="doughnutChartData1"
                     [labels]="doughnutChartLabels"
                     [chartType]="doughnutChartType"
                     [options]="options"></canvas>
+            <h3 style="margin-left:80px;">Test Distribution</h3>
         </div>
+
         <div style="display: inline-block">
             <canvas baseChart
-                    [data]="doughnutChartData"
+                    [data]="doughnutChartData2"
                     [labels]="doughnutChartLabels"
                     [chartType]="doughnutChartType"
                     [options]="options"></canvas>
+            <h3 style="margin-left:70px;">Patient Distribution</h3>
         </div>
         <div style="display: inline-block">
             <canvas baseChart
-                    [data]="doughnutChartData"
+                    [data]="doughnutChartData3"
                     [labels]="doughnutChartLabels"
                     [chartType]="doughnutChartType"
-                    [options]="options">
-            </canvas>
+                    [options]="options"></canvas>
+            <h3 style="margin-left:120px;">Usage</h3>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div id="statsPanel">
+        <div class="ui segment" style="width: 45%;display: inline-block;">
+            <h4>Quick Statistics</h4>
+            <table class="ui table">
+                <tr>
+                    <td>Patients</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>Tests</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>Test Completion</td>
+                    <td>85%</td>
+                </tr>
+            </table>
+        </div>
+        <div class="ui segment" style="width: 45%; display: inline-block; margin-left: 20px">
+            <h4>Weekly Updates</h4>
+            <table class="ui table">
+                <tr>
+                    <td>4</td>
+                    <td>Other doctors started using your test</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>New patient sign ups</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>Completed tests</td>
+                </tr>
+            </table>
         </div>
     </div>
 

@@ -1,3 +1,54 @@
 <div class="container">
-
+    <h1 class="ui header">Tests</h1>
+    <div class="ui divider"></div>
+    <br/>
+    <div style="width:48%; display: inline-block; margin-right: 20px;">
+        <div>
+            <h3 style="display: inline-block;">My Tests</h3>
+            <button class="ui icon button primary-button" style="float: right; display: inline-block" lsu-popup [trigger]="'hover'" [content]="'Create a new test'">
+                <i class="plus icon"></i>
+            </button>
+        </div>
+        <table class="ui table">
+            <thead>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Patients</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Basic Conversation</td>
+                    <td>Recorded audio from a conversation</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>Clock Drawing</td>
+                    <td>The patient tries to draw a clock face</td>
+                    <td>11</td>
+                </tr>
+                <tr>
+                    <td>Memory Test</td>
+                    <td>Several Questions aimed at testing memory</td>
+                    <td>4</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="width:48%; display:inline-block; ">
+        <h3>Popular Tests</h3>
+        <table class="ui table" style="margin-top:28px">
+            <thead>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Patients</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Montreal Cognitive Assessment</td>
+                    <td>30 point memory check used as a standard across the world</td>
+                    <td>105</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
