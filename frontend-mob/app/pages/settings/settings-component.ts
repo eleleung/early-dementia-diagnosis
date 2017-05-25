@@ -26,7 +26,6 @@ export class SettingsComponent {
     }
 
     addPatient() {
-        // how to return from this?
         this.routerExtensions.navigate(["/register-patient-form"]);
     }
 

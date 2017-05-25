@@ -149,8 +149,8 @@ export class LoginComponent implements OnInit {
         this.carer.email = this.userEmailControl.value;
         this.carer.password = this.userPasswordControl.value;
         this.carer.confirm_password = this.userConfirmPasswordControl.value;
-        this.carer.firstname = this.userFirstNameControl.value;
-        this.carer.lastname = this.userLastNameControl.value;
+        this.carer.firstName = this.userFirstNameControl.value;
+        this.carer.lastName = this.userLastNameControl.value;
 
         let datePicker = this.page.getViewById<DatePicker>("datePicker");
         this.carer.dateOfBirth  = new Date(datePicker.year, datePicker.month - 1, datePicker.day);
