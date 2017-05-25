@@ -2,13 +2,15 @@ import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {GlobalVariable} from '../globals';
-import {LoginModel} from "../models/user";
+import {LoginModel, User} from "../models/user";
 import {Router} from "@angular/router";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 
 @Injectable()
 export class LoginService {
+
+    user: User;
 
     constructor (private http: Http, private router: Router) {}
 
@@ -27,17 +29,12 @@ export class LoginService {
     }
 
     checkLogin() {
-        if (localStorage.getItem("user") != "" && localStorage.getItem("user") != null
-            && localStorage.getItem("token") != "" && localStorage.getItem("token") != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return (this.user && localStorage.getItem("token") != "" && localStorage.getItem("token") != null);
     }
 
     logout() {
         localStorage.setItem("token", "");
-        localStorage.setItem("user", "");
+        this.user = null;
         this.router.navigate(['/login']);
     }
 

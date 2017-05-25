@@ -1,27 +1,28 @@
-<div class="container" style="max-width: 800px;">
+<div>
+    <h1 class="ui header">Patients</h1>
+    <div class="ui divider"></div>
+
     <table id="example" class="ui celled table" cellspacing="0" width="100%">
         <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Gender</th>
-            <th>Date of Birth</th>
-        </tr>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Date of Birth</th>
+                <th>Actions</th>
+            </tr>
         </thead>
-        <tfoot>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Gender</th>
-            <th>Date of Birth</th>
-        </tr>
-        </tfoot>
-        <tbody *ngIf="patients != null && patients.length > 0">
-        <tr *ngFor="let patient of patients">
+        <tbody>
+        <tr *ngFor="let patient of patientService.patients | async">
             <td>{{patient.firstName}}</td>
             <td>{{patient.lastName}}</td>
             <td>{{patient.gender}}</td>
             <td>{{patient.dateOfBirth | date: 'dd/MM/yyyy' }}</td>
+            <td>
+                <button class="ui icon button">
+                    <i class="unmute icon"></i>
+                </button>
+            </td>
         </tr>
         </tbody>
     </table>

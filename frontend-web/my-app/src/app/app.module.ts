@@ -11,18 +11,19 @@ import {AuthGuard} from "./auth-guard";
 import {LoginComponent} from "./pages/login/login.component";
 import {SidePanelComponent} from "./side-panel/side-panel.component";
 import {routing} from "./routes";
-import {HomeComponent} from "./pages/home/home.component";
+import {OverviewComponent} from "./pages/overview/overview.component";
 import {PatientsComponent} from "./pages/patients/patients.component";
 import {TestsComponent} from "./pages/tests/tests.component";
 import {PatientService} from "./services/patient.service";
 import {SecurityService} from "./services/security.service";
+import {ChartsModule} from "ng2-charts";
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
         SidePanelComponent,
-        HomeComponent,
+        OverviewComponent,
         PatientsComponent,
         TestsComponent
     ],
@@ -36,7 +37,8 @@ import {SecurityService} from "./services/security.service";
         FormsModule,
         CommonModule,
         ReactiveFormsModule,
-        L_SEMANTIC_UI_MODULE
+        L_SEMANTIC_UI_MODULE,
+        ChartsModule
     ],
     providers: [
         AuthGuard,

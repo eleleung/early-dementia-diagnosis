@@ -1,6 +1,15 @@
-<table class="ui table" style="width:200px;margin-left: 20px;margin-right:20px">
-    <tr><td class="item" routerLink="/home" routerLinkActive="active">Home</td></tr>
-    <tr><td class="item" routerLink="/patients" routerLinkActive="active">Patients</td></tr>
-    <tr><td class="item" routerLink="/tests" routerLinkActive="active">Tests</td></tr>
-    <tr><td class="item" (click)="loginService.logout()">Log out</td></tr>
-</table>
+<div class="avatar-box" style="border-radius: 5px">
+    <img class="ui avatar image" style="width:50px;height:50px;margin-left:10px;margin-top:5px" src="/assets/images/male-icon.jpg">
+    <span *ngIf="loginService.user" style="color:white;vertical-align: middle; margin-left: 10px">{{loginService.user.firstName}} {{loginService.user.lastName}}</span>
+</div>
+<div class="ui icon input search-bar">
+    <input type="text" placeholder="Search...">
+    <i class="search icon"></i>
+</div>
+<div class="ui link list" style="margin-top:30px">
+    <a class="item menu-item" routerLink="/overview" routerLinkActive="active"><span style="margin-left:10px">Overview</span></a>
+    <a class="item menu-item" routerLink="/patients" routerLinkActive="active"><span style="margin-left:10px">Patients</span></a>
+    <a class="item menu-item" routerLink="/tests" routerLinkActive="active"><span style="margin-left:10px">Tests</span></a>
+    <a class="item menu-item" (click)="loginService.logout()"><span style="margin-left:10px">Log out</span></a>
+</div>
+

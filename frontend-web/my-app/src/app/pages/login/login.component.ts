@@ -30,11 +30,11 @@ export class LoginComponent {
             (result) => {
                 if (result.success) {
                     localStorage.setItem("token", result.token);
-                    localStorage.setItem("user", JSON.stringify(result.user));
+                    this.loginService.user = result.user;
 
                     this.model.email = "";
                     this.model.password = "";
-                    this.router.navigate(['/home']);
+                    this.router.navigate(['/overview']);
                 }
                 else {
                     this.messageClass = "error";

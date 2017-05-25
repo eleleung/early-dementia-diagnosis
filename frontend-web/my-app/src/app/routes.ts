@@ -1,14 +1,14 @@
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from './auth-guard';
 import {LoginComponent} from "./pages/login/login.component";
-import {HomeComponent} from "./pages/home/home.component";
 import {PatientsComponent} from "./pages/patients/patients.component";
 import {TestsComponent} from "./pages/tests/tests.component";
+import {OverviewComponent} from "./pages/overview/overview.component";
 
 export const appRoutes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
-    {path: 'home', component: HomeComponent, canActivate:[AuthGuard]},
+    {path: 'overview', component: OverviewComponent, canActivate:[AuthGuard]},
     {path: 'patients', component: PatientsComponent, canActivate:[AuthGuard]},
     {path: 'tests', component: TestsComponent, canActivate:[AuthGuard]},
 ];

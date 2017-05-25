@@ -1,7 +1,7 @@
 .main-section {
     min-width: 800px;
-    margin: auto;
-    margin-top: 40px;
+    margin-left: 60px;
+    margin-top: 60px;
     display:inline-block;
 }
 
@@ -18,31 +18,35 @@
 
 #content-section {
     display:inline-block;
+    vertical-align: top;
+    margin-left: 40px;
+    min-width:900px;
+}
+
+
+.menu-item:hover {
 
 }
 
-.item {
-    cursor: pointer;
+.menu-item {
+    width:200px;
+    height: 35px;
+    padding-top: 10px!important;
+    vertical-align: middle;
 }
 
-.item:hover {
-    border-left: solid 5px #96c8ff;!important;
-    color: #96c8ff;!important;
-    background-color: #ffffff!important;
-
+.menu-item.active {
+    background-color: #3494bb;
+    border-radius: 5px;
+    color: #fff!important;
 }
 
-.item:active {
-    border-left: solid 5px #96c8ff;!important;
-    color: #96c8ff;!important;
-    background-color: #ffffff;!important;
-
+.search-bar {
+    margin-top: 40px;
 }
 
-.item.active {
-    border-left: solid 5px #96c8ff;!important;
-    color: #96c8ff;!important;
-    background-color: #ffffff;!important;
+.avatar-box {
+    background-color: #3494bb;
+    height: 60px;
 }
-
 
