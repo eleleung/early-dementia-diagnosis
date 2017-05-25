@@ -3,6 +3,8 @@
  */
 import {Component} from '@angular/core';
 import {PatientService} from "../../services/patient.service";
+import {Patient} from "../../models/patient";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -12,26 +14,15 @@ import {PatientService} from "../../services/patient.service";
 
 export class PatientsComponent {
 
-    constructor(private patientService: PatientService) {
+    selectedPatient: Patient = new Patient();
+
+    constructor(private patientService: PatientService,
+                private router: Router) {
+
     }
 
-    // ngAfterViewInit() {
-    //     this.patientService.getPatients().subscribe(
-    //         data => {
-    //             this.patients = data.carerPatients;
-    //
-    //             // hacky, maybe only use this for the demo
-    //             setTimeout(() =>
-    //                 $(document).ready(function() {
-    //                 $('#example').DataTable();
-    //             },100));
-    //         },
-    //         err => {
-    //             console.log(err);
-    //         },
-    //         () => {
-    //             // on complete
-    //         }
-    //     );
+    selectPatient(patient: Patient) {
+        this.selectedPatient = patient;
+    }
 
 }

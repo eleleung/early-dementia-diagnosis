@@ -17,6 +17,7 @@ import {TestsComponent} from "./pages/tests/tests.component";
 import {PatientService} from "./services/patient.service";
 import {SecurityService} from "./services/security.service";
 import {ChartsModule} from "ng2-charts";
+import {PatientComponent} from "./pages/patient/patient.component";
 
 @NgModule({
     declarations: [
@@ -25,7 +26,8 @@ import {ChartsModule} from "ng2-charts";
         SidePanelComponent,
         OverviewComponent,
         PatientsComponent,
-        TestsComponent
+        TestsComponent,
+        PatientComponent
     ],
     imports: [
         BrowserModule,

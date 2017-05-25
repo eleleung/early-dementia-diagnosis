@@ -6,13 +6,25 @@ import {LoginModel, User} from "../models/user";
 import {Router} from "@angular/router";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
+import {SecurityService} from "./security.service";
 
 @Injectable()
 export class LoginService {
 
     user: User;
 
-    constructor (private http: Http, private router: Router) {}
+    constructor (private http: Http, private router: Router, private securityService: SecurityService) {
+        if (this.user == null && localStorage.getItem("token") != null && localStorage.getItem("token") != "") {
+            this.validate().subscribe(
+                data => {
+                    this.user = data.user;
+                },
+                error => {
+                    console.log(error);
+                }
+            )
+        }
+    }
 
     login(model: LoginModel) {
         let tokenUrl = GlobalVariable.BASE_API_URL + 'users/authenticate/';
@@ -21,11 +33,9 @@ export class LoginService {
         return this.http.post(tokenUrl, JSON.stringify(model), {headers: headers1}).map(res => res.json());
     }
 
-    validate(token: string) {
+    validate() {
         let userUrl = GlobalVariable.BASE_API_URL + 'users/validate/';
-        let headers2 = new Headers({'Authorization': 'JWT ' + token});
-
-        return this.http.get(userUrl, {headers: headers2}).map(res => res.json());
+        return this.http.get(userUrl, {headers: this.securityService.loggedInHeader()}).map(res => res.json());
     }
 
     checkLogin() {

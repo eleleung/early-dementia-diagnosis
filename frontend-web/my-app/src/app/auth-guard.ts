@@ -7,6 +7,7 @@ const routesSecurityRoles = {
     'login': ["all"],
     'patients': ["all"],
     'tests': ["all"],
+    'patient':["all"]
 };
 
 @Injectable()

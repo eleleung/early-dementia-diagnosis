@@ -43,4 +43,17 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), function(r
     res.json({user: req.user});
 });
 
+router.post('/getPatientById', passport.authenticate('jwt', {session:false}), function(req, res, next){
+    console.log(req.body._id);
+    Patient.getPatientById(req.body._id, function(err, patient) {
+        if (err) {
+            res.status(400);
+            res.json({success: false, msg: 'Failed to find patient'});
+        }
+        else {
+            res.json({success: true, patient: patient, msg: 'Patient Found'});
+        }
+    })
+});
+
 module.exports = router;

@@ -89,7 +89,7 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), function(r
 });
 
 router.get('/validate',passport.authenticate('jwt', {session:false}), function(req, res, next){
-    res.send('Validate');
+    res.json({user: req.user});
 });
 
 module.exports = router;

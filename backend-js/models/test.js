@@ -42,7 +42,7 @@ module.exports.getTestByCreatorAndPatient = function(creatorId, patientId, callb
         creator: creatorId,
         patient: patientId
     };
-    User.find(query, callback);
+    Test.find(query, callback);
 };
 
 module.exports.getAllTests = function(callback){

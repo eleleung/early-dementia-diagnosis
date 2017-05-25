@@ -13,6 +13,11 @@ export class PatientService {
 
     public _patients: BehaviorSubject<Patient[]> = new BehaviorSubject([]);
 
+
+    get patients(): Observable<Patient[]> {
+        return this._patients.asObservable();
+    }
+
     constructor(private http: Http, private securityService: SecurityService) {
         this.getPatients();
     }
@@ -29,15 +34,19 @@ export class PatientService {
             });
     }
 
-    get patients(): Observable<Patient[]> {
-        return this._patients.asObservable();
+    getPatientById(patientId: string) {
+        let url = GlobalVariable.BASE_API_URL + "patients/getPatientById";
+        let headers = this.securityService.loggedInHeader();
+
+        return this.http.post(url, JSON.stringify({"_id" : patientId}), {headers: headers})
+            .map(res => res.json());
     }
 
     getPatientTests(patientId: string) {
-        let url = GlobalVariable.BASE_API_URL + "users/getPatientTests";
+        let url = GlobalVariable.BASE_API_URL + "tests/getPatientTests";
         let headers = this.securityService.loggedInHeader();
 
-        return this.http.post(url, JSON.stringify(patientId), {headers: headers})
+        return this.http.post(url, JSON.stringify({"_id" : patientId}), {headers: headers})
             .map(res => res.json());
     }
 }

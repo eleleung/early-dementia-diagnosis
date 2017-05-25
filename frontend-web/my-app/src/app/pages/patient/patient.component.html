@@ -1,0 +1,70 @@
+<div id="overview-content">
+    <h1 class="ui header">{{patient.firstName}} {{patient.lastName}}</h1>
+    <div class="ui divider"></div>
+
+    <lsu-tabset type="'pointing'">
+        <lsu-tab [headerText]="'Recent Tests'" [active]="'true'">
+            <br/>
+            <div style="display:inline-block; width: 100%">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search...">
+                    <i class="circular search link icon"></i>
+                </div>
+            </div>
+            <table class="ui table">
+                <thead>
+                    <th>Date</th>
+                    <th>Test Name</th>
+                    <th>Transcribed Text</th>
+                    <th>Audio</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let test of tests">
+                        <td>{{test.date | date: 'dd/MM/yyyy'}}</td>
+                        <td>Audio Recording</td>
+                        <td>{{test.transcribedText}}</td>
+                        <td>Play</td>
+                    </tr>
+                </tbody>
+            </table>
+        </lsu-tab>
+        <lsu-tab [headerText]="'Assigned Tests'">
+            <br/>
+            <div style="display:inline-block; width: 100%">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search...">
+                    <i class="circular search link icon"></i>
+                </div>
+                <button class="ui icon button selected" style="float: right" lsu-popup [trigger]="'hover'" [content]="'Assign a new test'">
+                    <i class="plus icon"></i>
+                </button>
+            </div>
+            <table class="ui table">
+                <thead>
+                    <th>Name</th>
+                    <th>Assigned by</th>
+                    <th>Created by</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Audio Recording</td>
+                        <td>Dr Roberts</td>
+                        <td>Dr Panegryes</td>
+                    </tr>
+                    <tr>
+                        <td>Photo</td>
+                        <td>Dr Smith</td>
+                        <td>Dr Panegryes</td>
+                    </tr>
+                    <tr>
+                        <td>Dementia Assessment</td>
+                        <td>Dr Roberts</td>
+                        <td>Dr Jameson</td>
+                    </tr>
+                </tbody>
+            </table>
+        </lsu-tab>
+        <lsu-tab [headerText]="'Patient Details'">
+        </lsu-tab>
+    </lsu-tabset>
+</div>

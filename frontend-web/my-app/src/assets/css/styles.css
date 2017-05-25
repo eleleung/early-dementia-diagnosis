@@ -54,3 +54,8 @@
     height: 60px;
 }
 
+.selected {
+    background-color: #3494bb;
+    color: #fff!important;
+}
+

@@ -9,7 +9,7 @@ const passport = require('passport');
 
 const Test = require('../models/test');
 
-router.post('/GetTest', passport.authenticate('jwt', {session:false}), function(req, res){
+router.post('/getPatientTests', passport.authenticate('jwt', {session:false}), function(req, res){
     console.log(req.body);
     console.log(req.user);
 

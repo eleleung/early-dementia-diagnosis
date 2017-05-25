@@ -34,7 +34,8 @@ PatientSchema.plugin(relationship, {relationshipPathName: ['carers', 'tests']});
 const Patient = module.exports = mongoose.model('Patient', PatientSchema);
 
 module.exports.getPatientById = function(id, callback){
-    Patient.findById(id, callback);
+    const query = {_id: id};
+    Patient.findOne(query, callback);
 }
 
 module.exports.getPatientsByCarer = function(id, callback){
