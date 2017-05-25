@@ -2,10 +2,10 @@
     <ScrollView height="100%">
         <StackLayout>
             <StackLayout style="margin-top: 5">
-                <Label class="first-heading" text="Current Account"></Label>
+                <Label class="settings-heading" text="Current Account"></Label>
                 <Label *ngIf="selectedPatient != null" class="labels" text="{{selectedPatient.firstName}} {{selectedPatient.lastName}}"></Label>
                 <Button class="labels" text="&#xf067; Add Patient" (tap)="addPatient()"></Button>
-                <Button text="&#xf2bd; Change Patient Account" (tap)="changeSelectedPatient()"></Button>
+                <Button class="labels" text="&#xf2bd; Change Patient Account" (tap)="changeSelectedPatient()"></Button>
             </StackLayout>
             <StackLayout style="margin-top:300">
                 <Button style="background-color:darkred;color:white;

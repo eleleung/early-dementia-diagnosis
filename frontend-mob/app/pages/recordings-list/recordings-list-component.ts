@@ -3,6 +3,7 @@
 */
 import {Component} from "@angular/core";
 import {RouterExtensions} from "nativescript-angular";
+import {PatientService} from "../../services/patient-service";
 
 @Component({
     selector: "recordings-list",
@@ -11,11 +12,7 @@ import {RouterExtensions} from "nativescript-angular";
 })
 export class RecordingsListComponent {
 
-    constructor(private routerExtensions: RouterExtensions) {
-
+    constructor(private routerExtensions: RouterExtensions, private patientService: PatientService) {
     }
 
-    navigateToRecord() {
-        this.routerExtensions.navigate(["/recording"]);
-    }
 }

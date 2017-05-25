@@ -9,15 +9,16 @@ import {PhotoService} from "../../services/photo-service";
 
 @Component({
     selector: "photo",
-    templateUrl: "./pages/photos/photo-component.html"
+    templateUrl: "./pages/photos/photo-component.html",
+    styleUrls: ["./pages/photos/photo-common.css"]
 })
 
 export class PhotoComponent {
 
     picture: any;
 
-    constructor(private  photoService: PhotoService) {
-        this.picture = "https://placehold.it/200x200";
+    constructor(private photoService: PhotoService) {
+        this.picture = "";
 
     }
 
@@ -32,10 +33,9 @@ export class PhotoComponent {
     uploadPhoto(){
         this.photoService.uploadPicture(this.picture).subscribe(
             (result) => {
-                console.log('success')
+                alert("Photo successfully uploaded!");
             },
             (error) => {
-                console.log('error');
                 console.log(error)
             })
 

@@ -3,25 +3,38 @@
 }
 
 .first-heading{
+     margin-left:10;
+     margin-bottom: 5;
+     font-family: "Helvetica Neue", Helvetica, serif;
+     color: grey;
+     background-color: grey;
+     font: bold;
+     font-size: 14px;
+ }
+
+.settings-heading{
     margin-left:10;
     margin-bottom: 5;
+    margin-top: 10;
     font-family: "Helvetica Neue", Helvetica, serif;
-    color: grey;
-    background-color: grey;
-    font: bold;
-    font-size: 14px;
+    font-size: 15px;
+    text-align: left;
+    padding-left: 10;
+    font:bold;
 }
 
 .labels{
     margin-left: 10;
     margin-right: 10;
     border-radius: 3px;
-    height: 40;
+    height: 45;
     border-width:1;
     border-color: #f5f5f5;
     background-color: white;
     font-size: 13px;
     padding-left:10;
+    padding-bottom: 5;
+    padding-top: 10;
 }
 
 .chosenPatient{

@@ -12,14 +12,13 @@
         <GridLayout *ngSwitchCase="'Home'" backgroundColor="#f5f5f5">
             <StackLayout>
                 <StackLayout style="margin-top: 5">
-                    <Button class="label menu-button" text="Record Speech" (tap)="navigateToRecord()"></Button>
-                    <Button class="labels menu-button" text="Take Photo"></Button>
+                    <Button class="labels menu-button" text="Record Speech" (tap)="navigateToRecord()"></Button>
+                    <Button class="labels menu-button" text="Take Photo" (tap)="navigateToPhoto()"></Button>
                 </StackLayout>
             </StackLayout>
         </GridLayout>
         <GridLayout *ngSwitchCase="'Information'" backgroundColor="#f5f5f5">
-            <!--<information></information>-->
-            <photo></photo>
+            <information></information>
         </GridLayout>
         <GridLayout *ngSwitchCase="'My Recordings'" backgroundColor="#f5f5f5">
             <recordings-list></recordings-list>
@@ -32,40 +31,4 @@
         </GridLayout>
         <GridLayout *ngSwitchDefault backgroundColor="#f5f5f5"></GridLayout>
     </GridLayout>
-    <!--<GridLayout row="2" columns="*,*,*,*,*">-->
-        <!--<Button col="0" width="70" height="60" class="icon" margin="0" text="&#xf1f8;"></Button>-->
-        <!--<Button col="1" width="70" height="60" class="icon" margin="0" text="&#xf0c7;"></Button>-->
-        <!--<Button col="2"-->
-                <!--*ngIf="!isRecording"-->
-                <!--(tap)="startRecording()"-->
-                <!--class="icon"-->
-                <!--margin="0"-->
-                <!--width="58"-->
-                <!--height="58"-->
-                <!--style="border-radius: 29;background-color: #67c581;color:white"-->
-                <!--text="&#xf130;"></Button>-->
-        <!--<Button col="2"-->
-                <!--*ngIf="isRecording"-->
-                <!--(tap)="stopRecording()"-->
-                <!--class="icon"-->
-                <!--margin="0"-->
-                <!--width="58"-->
-                <!--height="58"-->
-                <!--style="border-radius: 29;background-color: #67c581;color:white"-->
-                <!--text="&#xf04c;"></Button>-->
-        <!--<Label col="3"-->
-               <!--class="icon"-->
-               <!--width="60"-->
-               <!--height="60"-->
-               <!--margin="0"-->
-               <!--style="font-size: 20"-->
-               <!--text="{{ duration | durationPipe }}"></Label>-->
-        <!--<Button col="4"-->
-                <!--class="icon"-->
-                <!--margin="0"-->
-                <!--width="70"-->
-                <!--height="60"-->
-                <!--text="&#xf093;"-->
-                <!--(tap)="uploadAudio()"></Button>-->
-    <!--</GridLayout>-->
 </GridLayout>

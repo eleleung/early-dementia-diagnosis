@@ -25,6 +25,7 @@ import {PatientListComponent} from "./pages/settings/patient-list-component";
 import {PhotoComponent} from "./pages/photos/photo-component";
 import {PhotoService} from "./services/photo-service";
 import {RecordingComponent} from "./pages/recordings-list/record-component";
+import {PatientService} from "./services/patient-service";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {RecordingComponent} from "./pages/recordings-list/record-component";
       CarerService,
       SecurityService,
       AudioService,
-      PhotoService
+      PhotoService,
+      PatientService
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

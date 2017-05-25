@@ -14,6 +14,7 @@ import {TNSRecorder} from "nativescript-audio";
 import {GlobalVariable} from "../../global";
 import * as bghttp from 'nativescript-background-http';
 import {Test} from "../../models/test";
+import {PatientService} from "../../services/patient-service";
 
 var fs = require('file-system');
 var audio = require("nativescript-audio");
@@ -36,17 +37,16 @@ export class HomeComponent {
     selectedPatient: Patient;
 
     constructor(private routerExtensions: RouterExtensions, private page: Page,
-                private carerService: CarerService, private  audioService: AudioService) {
+                private carerService: CarerService) {
         this.page.actionBarHidden = false;
 
         this.carerService.getCarersPatients();
-        console.log(this.carerService.patients);
         this.carerPatients = this.carerService.patients;
-
     }
 
     onSelectingNewPatient(patient: Patient) {
         this.carerService.selectedPatient = patient;
+
     }
 
     public tab: string = "Home";
@@ -69,6 +69,10 @@ export class HomeComponent {
 
     navigateToRecord() {
         this.routerExtensions.navigate(["/recording"]);
+    }
+
+    navigateToPhoto() {
+        this.routerExtensions.navigate(["/photo"]);
     }
 }
 

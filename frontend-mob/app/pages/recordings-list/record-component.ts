@@ -10,6 +10,7 @@ import {GlobalVariable} from "../../global";
 import {CarerService} from "../../services/carer.service";
 import {AudioService} from "../../services/audio-service";
 import {Page} from "ui/page";
+import {PatientService} from "../../services/patient-service";
 
 var fs = require('file-system');
 var audio = require("nativescript-audio");
@@ -30,7 +31,8 @@ export class RecordingComponent {
     duration: number = 0;
     timerId: number;
 
-    constructor(private carerService: CarerService, private audioService: AudioService, private page: Page) {
+    constructor(private carerService: CarerService, private audioService: AudioService,
+                private page: Page, private patientService: PatientService) {
         this.page.actionBarHidden = false;
 
     }
@@ -115,7 +117,8 @@ export class RecordingComponent {
         this.audioService.getTranscription(test).subscribe(
             (result) => {
                 console.log('success');
-                console.log(result);
+                alert("Recording successfully uploaded!");
+                this.patientService.getPatientTests(this.carerService.selectedPatient._id);
             },
             (error) => {
                 console.log('error');

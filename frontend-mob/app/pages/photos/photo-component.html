@@ -1,7 +1,43 @@
-<StackLayout>
-    <StackLayout horizontalAlignment="center" verticalAlignment="center">
-        <Image [src]="picture" width="200" height="200"></Image>
-        <Button text="Capture" (tap)="takePicture()"></Button>
-        <Button text="Upload" (tap)="uploadPhoto()"></Button>
+<GridLayout rows="*, 60" columns="*">
+    <StackLayout row="0" flexGrow="1" style="background-color: #f5f5f5">
+        <StackLayout>
+            <Label class="instruction-heading" text="Instructions"></Label>
+        </StackLayout>
+        <StackLayout>
+            <Label class="instruction" text="Take a photo"></Label>
+        </StackLayout>
+        <StackLayout>
+            <Label class="content-heading" text="Content"></Label>
+            <Label class="content" text="Draw a clock"></Label>
+        </StackLayout>
+        <StackLayout horizontalAlignment="center" verticalAlignment="center">
+            <Image [src]="picture" width="200" height="200"></Image>
+        </StackLayout>
     </StackLayout>
-</StackLayout>
+    <GridLayout row="1" columns="*,*,*,*,*">
+        <Button col="0" width="70" height="60" class="icon" margin="0" text="&#xf1f8;"></Button>
+        <Button col="1" width="70" height="60" class="icon" margin="0" text="&#xf0c7;"></Button>
+        <Button col="2"
+                (tap)="takePicture()"
+                class="icon"
+                margin="0"
+                width="58"
+                height="58"
+                style="border-radius: 29;background-color: #67c581;color:white"
+                text="&#xf030;"></Button>
+        <Label col="3"
+               class="icon"
+               width="60"
+               height="60"
+               margin="0"
+               style="font-size: 20"
+               text=""></Label>
+        <Button col="4"
+                class="icon"
+                margin="0"
+                width="70"
+                height="60"
+                text="&#xf093;"
+                (tap)="uploadPhoto()"></Button>
+    </GridLayout>
+</GridLayout>

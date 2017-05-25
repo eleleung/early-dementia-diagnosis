@@ -1,9 +1,11 @@
 <StackLayout>
         <ListView [items]="carerPatients" class="list-group" (itemTap)="onItemTap($event)">
-            <template let-item="item" let-i="index" >
-                <GridLayout class="list-group-item">
-                    <Label [text]="item.firstName" [ngClass]="{'chosenPatient': isSelectedPatient(item) }"></Label>
-                </GridLayout>
-            </template>
+            <ListView.itemTemplate>
+                <template let-item="item" let-i="index" >
+                    <GridLayout class="list-group-item" style="padding: 10 20;">
+                        <Label [text]="item.firstName" [ngClass]="{'chosenPatient': isSelectedPatient(item) }"></Label>
+                    </GridLayout>
+                </template>
+            </ListView.itemTemplate>
         </ListView>
 </StackLayout>

@@ -4,7 +4,7 @@
 import {Component} from "@angular/core";
 
 @Component({
-    selector: "information-test",
+    selector: "information",
     templateUrl: "./pages/information/information-component.html"
 })
 export class InformationComponent {

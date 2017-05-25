@@ -7,7 +7,7 @@ import {Carer} from "./carer";
 
 export class Test {
     fileName: string;
-    transcribedTest: string;
+    transcribedText: string;
     creator: Carer;
     patientId: string;
     date: Date;
