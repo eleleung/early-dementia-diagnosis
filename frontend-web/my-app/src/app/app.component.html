@@ -1,6 +1,8 @@
-<div class="main-section">
-    <side-panel *ngIf="loginService.checkLogin()" style="display:inline-block"></side-panel>
-    <div id="content-section">
-        <router-outlet></router-outlet>
+<div class="container">
+    <div class="main-section">
+        <side-panel *ngIf="loginService.checkLogin()" style="display:inline-block"></side-panel>
+        <div id="content-section">
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </div>
