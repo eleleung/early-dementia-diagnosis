@@ -10,13 +10,13 @@
                 <StackLayout (tap)="clearTextfieldFocus()">
                     <Image id="logoLarge"
                            horizontalAlignment="center"
-                           style="height:200px;margin-top:100px"
+                           style="height:200;margin-top:100;"
                            src="res://app/images/apple.jpg"
                            *ngIf="isLoggingIn">
                     </Image>
                     <Image id="logoSmall"
                            horizontalAlignment="center"
-                           style="height:100px;margin-top:50px"
+                           style="height:100;margin-top:50;"
                            src="res://app/images/apple.jpg"
                            *ngIf="!isLoggingIn">
                     </Image>
@@ -60,9 +60,8 @@
                                autocapitalizationType="words">
                     </TextField>
                     <DatePicker #dp id="datePicker"
-                                class="m-15"
-                                style="width:300px;height:100px"
-                                [visibility]="!isLoggingIn ? 'visible' : 'collapsed'" >
+                                style="width:500;height:100"
+                                [visibility]="!isLoggingIn ? 'visible' : 'collapse'" >
                     </DatePicker>
                     <TextField #password id="password"
                                formControlName="password"

@@ -32,4 +32,12 @@ export class PatientService {
     get patients(): Observable<Patient[]> {
         return this._patients.asObservable();
     }
+
+    getPatientTests(patientId: string) {
+        let url = GlobalVariable.BASE_API_URL + "users/getPatientTests";
+        let headers = this.securityService.loggedInHeader();
+
+        return this.http.post(url, JSON.stringify(patientId), {headers: headers})
+            .map(res => res.json());
+    }
 }

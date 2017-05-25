@@ -10,7 +10,6 @@ const config = require('../config/database');
 const User = require('../models/user');
 const Patient = require('../models/patient');
 
-// Register
 router.post('/register', function(req, res, next){
     var newUser = new User({
         firstName: req.body.firstName,
@@ -31,7 +30,7 @@ router.post('/register', function(req, res, next){
     })
 });
 
-// Authenticate
+// Login
 router.post('/authenticate', function(req, res, next){
     const email = req.body.email;
     const password = req.body.password;
@@ -85,12 +84,10 @@ router.get('/getPatients', passport.authenticate('jwt', {session:false}), functi
     });
 });
 
-// Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), function(req, res, next){
     res.json({user: req.user});
 });
 
-// Validate
 router.get('/validate',passport.authenticate('jwt', {session:false}), function(req, res, next){
     res.send('Validate');
 });

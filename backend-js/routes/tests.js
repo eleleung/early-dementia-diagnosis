@@ -12,6 +12,16 @@ const Test = require('../models/test');
 router.post('/GetTest', passport.authenticate('jwt', {session:false}), function(req, res){
     console.log(req.body);
     console.log(req.user);
+
+    Test.getTestByCreatorAndPatient(req.user.id, req.body._id, function(err, tests){
+        if (err) {
+            res.status(400);
+            res.json({success: false, msgs: 'Failed to fetch tests'});
+        }
+        else {
+            res.json({success: true, msg: 'Success', tests: tests});
+        }
+    });
 });
 
 module.exports = router;
