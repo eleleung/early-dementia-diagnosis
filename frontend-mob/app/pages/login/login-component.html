@@ -10,18 +10,18 @@
                 <StackLayout (tap)="clearTextfieldFocus()">
                     <Image id="logoLarge"
                            horizontalAlignment="center"
-                           style="height:200;margin-top:100;"
-                           src="res://app/images/apple.jpg"
+                           style="height:200;margin-top:80;"
+                           src="res://app/images/brain3.png"
                            *ngIf="isLoggingIn">
                     </Image>
                     <Image id="logoSmall"
                            horizontalAlignment="center"
                            style="height:100;margin-top:50;"
-                           src="res://app/images/apple.jpg"
+                           src="res://app/images/brain3.png"
                            *ngIf="!isLoggingIn">
                     </Image>
                 </StackLayout>
-                <StackLayout>
+                <StackLayout style="margin-top: 20;">
                     <Label class="error-message"
                            *ngIf="loginError && isLoggingIn"
                            horizontalAlignment="center"
