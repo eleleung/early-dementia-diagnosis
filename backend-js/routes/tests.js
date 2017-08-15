@@ -14,7 +14,7 @@ router.post('/getPatientTests', passport.authenticate('jwt', {session:false}), f
     Test.getTestByCreatorAndPatient(req.user.id, req.body._id, function(err, tests){
         if (err) {
             res.status(400);
-            res.json({success: false, msgs: 'Failed to fetch tests'});
+            res.json({success: false, msgs: 'Failed to fetch test'});
         }
         else {
             res.json({success: true, msg: 'Success', tests: tests});

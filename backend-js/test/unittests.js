@@ -12,17 +12,20 @@ var express = require('express');
 app = express();
 var server = require('../app');
 
+
+
 describe('Routing', function() {
-    // within before() you can run all the operations that are needed to setup your tests. In this case
+    // within before() you can run all the operations that are needed to setup your test. In this case
     // I want to create a connection with the database, and when I'm done, I call done().
     before(function (done) {
-        // In our tests we use the test db
+
+        // In our test we use the test db
         mongoose.connection.on('connected', function () {
             console.log('Connected to db ' + config.database);
         });
+
         done();
     });
-
 
         describe("routes", function () {
             describe("POST register with invalid confirmed password", function () {
@@ -35,7 +38,7 @@ describe('Routing', function() {
                         email: "email",
                         password: "password",
                         confirm_password: "passrd"
-                    }
+                    };
 
                     request(server)
                         .post('/users/register/')
@@ -45,8 +48,8 @@ describe('Routing', function() {
                             if (err) {
                                 throw err;
                             }
-                            // should error because of the incorrect email
-                            assert.equal(400, res.statusCode)
+                            // should error because of the incorrect status code
+                            assert.equal(400, res.statusCode);
                             done();
                         });
                 });
