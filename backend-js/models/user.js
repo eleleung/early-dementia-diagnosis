@@ -94,3 +94,8 @@ module.exports.comparePassword = function(candidatePassword, hash, callback){
         callback(null, isMatch);
     });
 };
+
+//functions made for testing purposes
+module.exports.removeUsers = function(callback){
+    User.remove({}, callback);
+};
