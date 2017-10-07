@@ -9,6 +9,7 @@ const config = require('../config/database');
 
 const User = require('../models/user');
 const Patient = require('../models/patient');
+const Doctor = require('../models/doctor');
 
 router.post('/register', function(req, res, next){
     var newUser = new User({
@@ -54,16 +55,39 @@ router.post('/authenticate', function(req, res, next){
                     expiresIn: 604800   // 1 week
                 });
 
-                res.json({
-                    success: true,
-                    token: 'JWT ' + token,
-                    user: {
-                        id: user._id,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        email: user.email
+                Doctor.getDoctorFromLogin(user._id, function(err, doctor){
+                    if (err) {
+                        throw err;
                     }
-                })
+
+                    if (doctor) {
+                        res.json({
+                            success: true,
+                            token: 'JWT ' + token,
+                            doctor: {
+                                id: doctor._id
+                            },
+                            user: {
+                                id: doctor.user._id,
+                                firstName: doctor.user.firstName,
+                                lastName: doctor.user.lastName,
+                                email: doctor.user.email
+                            }
+                        })
+                    }
+                    else {
+                        res.json({
+                            success: true,
+                            token: 'JWT ' + token,
+                            user: {
+                                id: user._id,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                email: user.email
+                            }
+                        })
+                    }
+                });
             }
             else {
                 return res.status(400).json({success: false, msg: 'Wrong password'});

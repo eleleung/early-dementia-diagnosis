@@ -5,11 +5,12 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const config = require('../config/database');
 const relationship = require('../node_modules/mongoose-relationship');
+const Schema = mongoose.Schema;
 
 const Patient = require('../models/patient');
 const Test = require('../models/test');
 
-const UserSchema = mongoose.Schema({
+const UserSchema = Schema({
     firstName: {
         type: String,
         required: true
@@ -31,10 +32,10 @@ const UserSchema = mongoose.Schema({
         type: Date
     },
     patients: [{
-        type: mongoose.Schema.ObjectId, ref : 'Patient'
+        type: Schema.ObjectId, ref : 'Patient'
     }],
     tests: [{
-        type: mongoose.Schema.ObjectId, ref: 'Test'
+        type: Schema.ObjectId, ref: 'Test'
     }]
 });
 
@@ -52,7 +53,7 @@ UserSchema.pre('save', true, function(next, done){
        else {
            done();
        }
-   })
+   });
     next();
 });
 

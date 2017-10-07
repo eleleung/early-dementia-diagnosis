@@ -10,7 +10,7 @@ const config = require('../config/database');
 const User = require('../models/user');
 const Patient = require('../models/patient');
 
-router.post('/register', passport.authenticate('jwt', {session:false}), function(req, res, next){
+router.post('/register', passport.authenticate('jwt', {session:false}), function(req, res, next){    
     var newPatient = new Patient({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -20,6 +20,8 @@ router.post('/register', passport.authenticate('jwt', {session:false}), function
     });
 
     newPatient.carers.push(req.user);
+
+    console.log(newPatient);
 
     Patient.addPatient(newPatient, function(err, patient){
         if (err) {
@@ -44,7 +46,6 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), function(r
 });
 
 router.post('/getPatientById', passport.authenticate('jwt', {session:false}), function(req, res, next){
-    console.log(req.body._id);
     Patient.getPatientById(req.body._id, function(err, patient) {
         if (err) {
             res.status(400);

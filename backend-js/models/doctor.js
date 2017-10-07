@@ -5,30 +5,15 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const config = require('../config/database');
 const relationship = require('../node_modules/mongoose-relationship');
+const Schema = mongoose.Schema;
 
-const UserSchema = require('../models/user');
+const User = require('../models/user');
 
-// schema not in use atm, combining with user
-const DoctorSchema = mongoose.Schema({
-    user: [UserSchema]
-});
-
-DoctorSchema.pre('save', true, function(next, done){
-    var self = this;
-
-    Doctor.findOne({email: this.email}, 'email', function(err, results){
-        if (err) {
-            done(err);
-        }
-        else if (results) {
-            self.invalidate("email", "Email must be unique");
-            done(new Error("Email must be unique!"));
-        }
-        else {
-            done();
-        }
-    });
-    next();
+const DoctorSchema = Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 const Doctor = module.exports = mongoose.model('Doctor', DoctorSchema);
@@ -42,19 +27,30 @@ module.exports.getAllDoctors = function(callback){
     Doctor.find();
 };
 
-module.exports.getDoctorByEmail = function(email, callback){
-    const query = {'user.email': email};
-    Doctor.findOne(query, callback);
+module.exports.getDoctorFromLogin = function(userId, callback){
+    const query = {user: userId};
+    Doctor
+        .findOne(query)
+        .populate('user')
+        .exec(callback);
 };
 
-module.exports.addDoctor = function(newDoctor, callback){
-    newDoctor.save(callback);
-
+module.exports.getAllPatients = function(userId, callback){
+    const query = {user: userId};
+    Doctor
+        .findOne(query)
+        .populate({
+            path: 'user',
+            populate: {path: 'patients'}
+        })
+        .exec(callback);
 };
-
 
 //functions made for testing purposes
 module.exports.removeDoctors = function(callback) {
     Doctor.remove({}, callback);
 }
 
+module.exports.addDoctor = function(newDoctor, callback){
+    newDoctor.save(callback);
+};

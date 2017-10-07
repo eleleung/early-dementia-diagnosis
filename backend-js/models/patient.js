@@ -36,25 +36,24 @@ const Patient = module.exports = mongoose.model('Patient', PatientSchema);
 module.exports.getPatientById = function(id, callback){
     const query = {_id: id};
     Patient.findOne(query, callback);
-}
+};
 
 module.exports.getPatientsByCarer = function(id, callback){
     const query = {carers: id};
     Patient.find(query, 'firstName lastName gender dateOfBirth',  callback);
-}
+};
 
 module.exports.getAllPatients = function(callback){
     Patient.find(callback);
-}
+};
 
 
 module.exports.addPatient = function(newPatient, callback){
     // need to save patient
     newPatient.save(callback);
-
-}
+};
 
 //functions made for testing purposes
 module.exports.removePatients = function(callback) {
     Patient.remove({}, callback);
-}
+};
