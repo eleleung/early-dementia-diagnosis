@@ -7,6 +7,10 @@ __pycache__/
 *.so
 
 frontend-mob/node_modules
+mobileapp/node_modules
+backend-js/node_modules
+dementia-detect-react-app/node_modules
+
 
 # Distribution / packaging
 .Python

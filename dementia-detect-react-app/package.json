@@ -1,0 +1,46 @@
+{
+  "name": "dementia-detect-react-app",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "jest-expo": "^21.0.2",
+    "react-test-renderer": "16.0.0-alpha.12"
+  },
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "test": "node node_modules/jest/bin/jest.js --watch"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-react-native-stage-0": "^1.0.1",
+    "date-fns": "^1.28.5",
+    "eslint": "^4.8.0",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-react": "^7.1.0",
+    "eslint_d": "^5.1.0",
+    "mobx": "3.1.15",
+    "mobx-form-validate": "^1.0.2",
+    "mobx-persist": "^0.3.3",
+    "mobx-react": "4.2.1",
+    "prettier": "^1.5.3",
+    "react": "16.0.0-alpha.12",
+    "react-native": "^0.48.4",
+    "react-native-audio": "^3.2.2",
+    "react-native-code-push": "^5.0.0-beta",
+    "react-native-elements": "^0.17.0",
+    "react-native-modal-datetime-picker": "^4.11.0",
+    "react-native-navigation": "1.1.134",
+    "react-native-radio-buttons": "^1.0.0",
+    "react-native-sound": "^0.10.4",
+    "react-native-vector-icons": "^4.4.0",
+    "styled-components": "^2.1.1",
+    "urijs": "^1.18.12"
+  }
+}

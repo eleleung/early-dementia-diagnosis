@@ -46,11 +46,6 @@ module.exports.getAllPatients = function(userId, callback){
         .exec(callback);
 };
 
-//functions made for testing purposes
-module.exports.removeDoctors = function(callback) {
-    Doctor.remove({}, callback);
-};
-
 module.exports.addDoctor = function(newDoctor, callback){
     newDoctor.save(callback);
 };

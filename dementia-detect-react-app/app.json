@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "sdkVersion": "21.0.0",
+    "slug": "dementia-detect-react-app",
+    "name": "dementia-detect-react-app"
+  },
+  "name": "DementiaDetect",
+  "displayName": "Dementia Detect"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "EarlyDementiaDetectionMobileApp",
+  "displayName": "EarlyDementiaDetectionMobileApp",
+  "expo": {
+    "slug": "EarlyDementiaDetectionMobileApp",
+    "name": "EarlyDementiaDetectionMobileApp",
+    "sdkVersion": "19.0.0"
+  }
+}
