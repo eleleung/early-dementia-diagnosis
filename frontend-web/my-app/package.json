@@ -26,6 +26,7 @@
     "chartjs": "^0.3.24",
     "core-js": "^2.4.1",
     "ng2-charts": "^1.5.0",
+    "ng2-drag-drop": "^2.9.2",
     "node-sass": "^4.5.3",
     "rxjs": "^5.1.0",
     "sass-loader": "^6.0.5",
