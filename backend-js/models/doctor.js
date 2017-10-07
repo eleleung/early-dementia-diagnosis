@@ -52,3 +52,9 @@ module.exports.addDoctor = function(newDoctor, callback){
 
 };
 
+
+//functions made for testing purposes
+module.exports.removeDoctors = function(callback) {
+    Doctor.remove({}, callback);
+}
+

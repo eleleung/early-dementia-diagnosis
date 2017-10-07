@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:4200/" />
+<title>ValidLogin_ShouldLoginCorrectly</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ValidLogin_ShouldLoginCorrectly</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>http://localhost:4200</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>email</td>
+	<td>email@email.com</td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>css=div.login</td>
+	<td>Login Email <br /> Password <br /> Login Reset Password</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=email</td>
+	<td>email@email.com</td>
+</tr>
+<tr>
+	<td>waitForValue</td>
+	<td>id=email</td>
+	<td>email@email.com</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>password</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=password</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>waitForValue</td>
+	<td>id=password</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[4]/span</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

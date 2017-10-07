@@ -74,6 +74,7 @@ module.exports.getUserByEmail = function(email, callback){
 
 module.exports.addUser = function(newUser, callback){
     // generate salt i.e. random key to hash password
+    console.log('adding user');
     bcrypt.genSalt(10, function(err, salt){
        bcrypt.hash(newUser.password, salt, function(err, hash){
            if (err) {
@@ -87,10 +88,19 @@ module.exports.addUser = function(newUser, callback){
 };
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){
-    bcrypt.compare(candidatePassword, hash, function(err, isMatch){
-        if (err) {
-            throw err;
-        }
-        callback(null, isMatch);
-    });
+    if (hash ==  "") {
+        callback("The user's hash is empty, no comparisons will be made", false);
+    } else {
+        bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
+            if (err) {
+                throw err;
+            }
+            callback(null, isMatch);
+        });
+    }
+};
+
+//functions made for testing purposes
+module.exports.removeUsers = function(callback){
+    User.remove({}, callback);
 };

@@ -41,7 +41,7 @@ router.post('/authenticate', function(req, res, next){
         }
 
         if (!user) {
-            return res.status(400).json({success: false, msg: 'User not found'});
+            return res.status(400).json({success: false, msg: 'User not found or password is incorrect'});
         }
 
         User.comparePassword(password, user.password, function(err, isMatch){
