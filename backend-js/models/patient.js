@@ -47,7 +47,6 @@ module.exports.getAllPatients = function(callback){
     Patient.find(callback);
 };
 
-
 module.exports.addPatient = function(newPatient, callback){
     // need to save patient
     newPatient.save(callback);

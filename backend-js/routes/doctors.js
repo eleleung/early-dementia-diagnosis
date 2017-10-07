@@ -50,6 +50,21 @@ router.post('/register', function(req, res, next) {
                 }
             }
         });
+        if (user) {
+            var newDoctor = new Doctor({
+                user: user._id
+            });
+
+            Doctor.addDoctor(newDoctor, function(err, doctor){
+                if (err) {
+                    res.status(400);
+                    res.json({success: false, msg: 'Failed to register doctor'});
+                }
+                else {
+                    res.json({success: true, msg: 'Doctor registered', doctor: doctor});
+                }
+            });
+        }
     });
 });
 
