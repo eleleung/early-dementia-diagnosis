@@ -16,8 +16,7 @@ export class LoginComponent {
 
 
     constructor (private loginService: LoginService,
-                 private router: Router)
-    {
+                 private router: Router) {
         window.scrollTo(0,0);
         // if (loginService.checkLogin()) {
         //     userService.redirectLostUser();
@@ -30,6 +29,7 @@ export class LoginComponent {
             (result) => {
                 if (result.success) {
                     localStorage.setItem("token", result.token);
+                    localStorage.setItem("user", result.user);
                     this.loginService.user = result.user;
 
                     this.model.email = "";
