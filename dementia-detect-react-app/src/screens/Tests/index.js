@@ -8,6 +8,8 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
+import { AudioUtils } from 'react-native-audio';
+
 import { inject, observer } from 'mobx-react/native';
 import { List, ListItem } from 'react-native-elements';
 
@@ -19,23 +21,27 @@ class Tests extends Component {
 
     constructor(props: Props) {
         super(props);
+        const filePath = AudioUtils.DocumentDirectoryPath;
 
         this.state = {
-            tests : [
+            filePath: filePath,
+            tests: [
                 {
                     id: 1, 
                     name: 'Record Speech', 
                     icon: 'av-timer', 
                     sections: [
                         {
+                            id: 1,
                             type: "audio",
-                            instruction: "Read the text aloud.",
-                            content: "A quick brown fox jumps over the lazy dog"
+                            instruction: "Press record and read the text aloud",
+                            content: "A quick brown fox jumps over the lazy dog, then runs around in the park before chasing its tail for 20 minutes."
                         },
                         {
+                            id: 2,
                             type: "audio",
                             instruction: "Have a 5 minute conversation.",
-                            content: ""
+                            content: "Aim to ask a similar question at least twice in the five minutes."
                         }
                     ]
                 },
@@ -45,14 +51,16 @@ class Tests extends Component {
                     icon: 'flight-takeoff',
                     sections: [
                         {
+                            id: 3,
                             type: "image",
                             instruction: "Read the text aloud.",
                             content: "A quick brown fox jumps over the lazy dog"
                         },
                         {
+                            id:4,
                             type: "image",
                             instruction: "Have a 5 minute conversation.",
-                            content: ""
+                            content: "Aim to ask a similar question at least twice in the five minutes."
                         }
                     ]
                 },
@@ -62,11 +70,12 @@ class Tests extends Component {
 
     navigateToTest = (test) => {
         const {navigator} = this.props;
+        const {filePath} = this.state;
         
         navigator.push({
             screen: Constants.Screens.TEST_SCREEN.screen,
             title: `Complete ${test.name}`,
-            passProps: {test: test}
+            passProps: {test: test, filePath: filePath}
         });
     }
 

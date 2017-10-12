@@ -3,7 +3,6 @@ import {
     AppRegistry,
     View,
     Text,
-    Button,
     TextInput,
     StyleSheet,
     FlatList,
@@ -12,7 +11,12 @@ import {
     TouchableHighlight,
     Platform,
     PermissionsAndroid,
+    ScrollView,
+    Dimensions,
+    Animated
 } from 'react-native';
+import { Button, Icon, Card, Slider } from 'react-native-elements'
+
 import { inject, observer } from 'mobx-react/native';
 import Sound from 'react-native-sound';
 import {AudioRecorder, AudioUtils} from 'react-native-audio';
@@ -20,18 +24,36 @@ import {AudioRecorder, AudioUtils} from 'react-native-audio';
 import Constants  from '../../../global/Constants';
 import {style} from './style';
 
+const niceGreen = "#2ECC40";
+
+const PLAYING = 'playing';
+const PAUSED = 'paused';
+const STOPPED = 'stopped';
+const RECORDING = 'recording';
+const NONE = 'none';
+
+
 class RecordAudio extends Component {
 
-    state = {
-        currentTime: 0.0,
-        recording: false,
-        stoppedRecording: false,
-        finished: false,
-        audioPath: AudioUtils.DocumentDirectoryPath + '/test.aac',
-        hasPermission: undefined,
-    };
+    constructor(props: Props) {
+        super(props);
 
-    prepareRecordingPath(audioPath){
+        const {section, testId, filePath} = this.props;
+        const {width} = Dimensions.get('window');                        
+        
+        this.state = {
+            currentTime: 0.0,
+            action: NONE,
+            audioPath: filePath + `/id=${testId}-section=${section.id}.aac`,
+            hasPermission: undefined,
+            x: new Animated.Value(0),
+            x2: new Animated.Value(-width),
+            cardX: new Animated.Value(0),
+            sliding: false,
+        };
+    }
+
+    prepareRecordingPath(audioPath) {
         AudioRecorder.prepareRecordingAtPath(audioPath, {
             SampleRate: 22050,
             Channels: 1,
@@ -47,19 +69,21 @@ class RecordAudio extends Component {
 
             if (!hasPermission) return;
 
-            this.prepareRecordingPath(this.state.audioPath);
-
             AudioRecorder.onProgress = (data) => {
-            this.setState({currentTime: Math.floor(data.currentTime)});
+                this.setState({currentTime: Math.floor(data.currentTime)});
             };
 
             AudioRecorder.onFinished = (data) => {
-            // Android callback comes in the form of a promise instead.
-            if (Platform.OS === 'ios') {
-                this._finishRecording(data.status === "OK", data.audioFileURL);
-            }
+                // Android callback comes in the form of a promise instead.
+                if (Platform.OS === 'ios') {
+                    this._finishRecording(data.status === "OK", data.audioFileURL);
+                }
             };
         });
+    }
+
+    componentWillUnmount() {
+        this.clearTimer();
     }
 
     _checkPermission() {
@@ -73,93 +97,135 @@ class RecordAudio extends Component {
         };
 
         return PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.RECORD_AUDIO, rationale)
-            .then((result) => {
-                console.log('Permission result:', result);
-                return (result === true || result === PermissionsAndroid.RESULTS.GRANTED);
-            });
+        .then((result) => {
+            console.log('Permission result:', result);
+            return (result === true || result === PermissionsAndroid.RESULTS.GRANTED);
+        });
     }
 
-    _renderButton(title, onPress, active) {
-    var style = (active) ? styles.activeButtonText : styles.buttonText;
-
-    return (
-        <TouchableHighlight style={styles.button} onPress={onPress}>
-            <Text style={style}>
-                {title}
-            </Text>
-        </TouchableHighlight>
-    );
-    }
-
-    async _pause() {
-        if (!this.state.recording) {
-            console.warn('Can\'t pause, not recording!');
-            return;
-        }
-
-        this.setState({stoppedRecording: true, recording: false});
-
-        try {
-            const filePath = await AudioRecorder.pauseRecording();
-
-            // Pause is currently equivalent to stop on Android.
-            if (Platform.OS === 'android') {
-            this._finishRecording(true, filePath);
+    pause = async () => {
+        if (this.state.action === RECORDING) {
+            this.setState({action: PAUSED});
+            
+            try {
+                const filePath = await AudioRecorder.pauseRecording();
+    
+                // Pause is currently equivalent to stop on Android.
+                if (Platform.OS === 'android') {
+                    this._finishRecording(true, filePath);
+                }
+            } catch (error) {
+                console.error(error);
             }
-        } catch (error) {
-            console.error(error);
         }
     }
 
-    async _stop() {
-        if (!this.state.recording) {
-            console.warn('Can\'t stop, not recording!');
+    stopRecording = async () => {
+        if (this.state.action !== RECORDING) {
             return;
         }
 
-        this.setState({stoppedRecording: true, recording: false});
+        this.setState({action: STOPPED});
 
         try {
             const filePath = await AudioRecorder.stopRecording();
 
             if (Platform.OS === 'android') {
-            this._finishRecording(true, filePath);
+                this._finishRecording(true, filePath);
             }
             return filePath;
         } catch (error) {
             console.error(error);
         }
+    }
+
+    stopPlaying = async () => {
+        const {sound} = this.state;
+        const {width} = Dimensions.get('window');        
+        
+        Animated.spring(this.state.x, {
+            toValue: 0,
+            speed: 10
+        }).start();
+        Animated.spring(this.state.x2, {
+            toValue: -width,
+            speed: 10
+        }).start();
+
+        sound.stop();
+        this.clearTimer();        
+
+        this.setState({action: STOPPED});
+    }
+    
+    clearTimer = () => {
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+    }
+
+    play = async () => {
+        if (this.state.action === RECORDING) {
+            await this.stopRecording();
         }
 
-        async _play() {
-        if (this.state.recording) {
-            await this._stop();
+        if (this.state.action === PLAYING) {
+            return;
         }
 
         // These timeouts are a hacky workaround for some issues with react-native-sound.
         // See https://github.com/zmxv/react-native-sound/issues/89.
         setTimeout(() => {
             var sound = new Sound(this.state.audioPath, '', (error) => {
-            if (error) {
-                console.log('failed to load the sound', error);
-            }
-            });
-
-            setTimeout(() => {
-            sound.play((success) => {
-                if (success) {
-                console.log('successfully finished playing');
-                } else {
-                console.log('playback failed due to audio decoding errors');
+                if (error) {
+                    console.log('failed to load the sound', error);
+                }
+                else {
+                    this.playSuccess();
                 }
             });
+
+            this.setState({sound: sound, currentTime: 0});
+
+            setTimeout(() => {
+                sound.play((success) => {
+                    if (success) {
+                        console.log('successfully finished playing');
+                    } else {
+                        console.log('playback failed due to audio decoding errors');
+                    }
+                    this.setState({action: PLAYING});                    
+                });
             }, 100);
         }, 100);
     }
 
-    async _record() {
-        if (this.state.recording) {
-            console.warn('Already recording!');
+    playSuccess = () => {
+        const {width} = Dimensions.get('window');        
+        
+        this.setState({action: PLAYING});
+        
+        Animated.spring(this.state.x, {
+            toValue: width,
+            speed: 10
+        }).start();
+        Animated.spring(this.state.x2, {
+            toValue: 0,
+            speed: 10
+        }).start();
+        
+        this.timer = setInterval(() => {
+            this.state.sound.getCurrentTime((seconds) => {
+                if (!this.state.sliding) {
+                    this.setState({ currentTime: seconds }); 
+                }
+            });
+        }, 0.5);
+    }
+
+    record = async () => {
+        if (this.state.action === RECORDING) {
             return;
         }
 
@@ -168,11 +234,9 @@ class RecordAudio extends Component {
             return;
         }
 
-        if(this.state.stoppedRecording){
-            this.prepareRecordingPath(this.state.audioPath);
-        }
+        this.prepareRecordingPath(this.state.audioPath);
 
-        this.setState({recording: true});
+        this.setState({action: RECORDING});
 
         try {
             const filePath = await AudioRecorder.startRecording();
@@ -182,19 +246,141 @@ class RecordAudio extends Component {
     }
 
     _finishRecording(didSucceed, filePath) {
-        this.setState({ finished: didSucceed });
+        this.setState({ action: NONE });
         console.log(`Finished recording of duration ${this.state.currentTime} seconds at path: ${filePath}`);
     }
 
+    onSlidingStart(){
+        this.setState({ sliding: true });
+      }
+
+    onSlidingChange(value) {
+        let newPosition = value * this.state.sound.getDuration();
+        this.setState({currentTime: newPosition});
+    }
+    
+    onSlidingComplete() {
+        this.state.sound.setCurrentTime(this.state.currentTime);
+        this.setState({ sliding: false });        
+    }
+
+    next = () => {
+        const {width} = Dimensions.get('window');
+        const {next} = this.props;
+
+        Animated.timing(this.state.cardX, {
+            toValue: -width,
+            duration: 300
+        }).start( () => {
+            next();
+        });
+    }
+
+    back = () => {
+        const {width} = Dimensions.get('window');        
+        const {back} = this.props;
+
+        Animated.timing(this.state.cardX, {
+            toValue: width,
+            speed: 300
+        }).start( () => {
+            back();
+        });
+    }
+
     render() {
+        const {step, next, back, section} = this.props;
+        const {action, sound, currentTime} = this.state;
+        const {width} = Dimensions.get('window');                
+
+        const backBtn = (step > 0) ? 
+            <Icon iconStyle={styles.iconBtn}
+                size={30}
+                name='chevron-left'
+                onPress={() => this.back()}/> : null;
+
+        const recordBtn = action === RECORDING ?
+            <Icon name='pause'
+                containerStyle={{backgroundColor: niceGreen}}
+                underlayColor={'white'}
+                onPress={() => this.stopRecording()}
+                size={26}
+                raised
+                reverse/> :
+            <Icon name='keyboard-voice'
+                containerStyle={{backgroundColor: niceGreen}}
+                underlayColor={'white'}
+                onPress={() => this.record()}
+                size={26}
+                raised
+                reverse/> 
+
+        const playBackValue = (sound != null) ? Math.max(currentTime/sound.getDuration(), 0) : 0;
+    
         return (
-            <View style={styles.container}>
+            <View style={{flex:1}}>
+                <View style={{flex:8}}>
+                    <ScrollView style={{flex:1}}>
+                        <Animated.View style={{transform: [{translateX: this.state.cardX}]}}>
+                            <Card title={section.instruction}>
+                                <Text>{section.content}</Text>
+                            </Card>
+                        </Animated.View>
+                    </ScrollView>
+                </View>
                 <View style={styles.controls}>
-                    {this._renderButton("RECORD", () => {this._record()}, this.state.recording )}
-                    {this._renderButton("PLAY", () => {this._play()} )}
-                    {this._renderButton("STOP", () => {this._stop()} )}
-                    {this._renderButton("PAUSE", () => {this._pause()} )}
-                    <Text style={styles.progressText}>{this.state.currentTime}s</Text>
+                    <Animated.View style={[{width:'100%'},{transform: [{translateX: this.state.x}]}]}>
+                        <View style={{flex:1, flexDirection:'row'}}>
+                            <View style={{flex:1}}>
+                                {backBtn}
+                            </View>
+                            <View style={{flex:4, flexDirection:'row', justifyContent:'space-around', alignItems:'center'}}>
+                                <View style={{flex:1}}>
+                                
+                                </View>
+                                <View style={{flex:1}}>
+                                    {recordBtn}
+                                </View>
+                                <View style={{flex:1}}>
+                                    <Icon name='play-arrow'
+                                        onPress={() => this.play()}
+                                        size={35}
+                                        iconStyle={{color: niceGreen}}
+                                        containerStyle={{flex:1}}
+                                        /> 
+                                </View>
+                            </View>
+                            <View style={{flex:1}}>
+                                <Icon 
+                                    containerStyle={{borderWidth:0}}
+                                    iconStyle={styles.iconBtn}
+                                    size={30}
+                                    name='chevron-right'
+                                    onPress={() => this.next()}/>
+                            </View>
+                        </View>
+                    </Animated.View>
+                    {this.state.action == PLAYING ?  
+                    <Animated.View style={[{left: -width, width:width},{transform: [{translateX: this.state.x2}]}]}>
+                        <View style={{flex:1, flexDirection:'row', alignItems:'center'}}>
+                            <View style={{flex:4}}>
+                                <Slider style={{marginLeft:20, marginRight:10}} 
+                                    thumbTintColor={niceGreen}
+                                    value={playBackValue}
+                                    onSlidingStart={ this.onSlidingStart.bind(this) }
+                                    onSlidingComplete={ this.onSlidingComplete.bind(this) }
+                                    onValueChange={ this.onSlidingChange.bind(this) }/>
+                            </View>
+                            <View style={{flex:1}}>
+                                <Icon name='pause'
+                                        onPress={() => this.stopPlaying()}
+                                        size={35}
+                                        iconStyle={{color: niceGreen}}
+                                        containerStyle={{flex:1}}/> 
+                            </View>
+                        </View>
+                    </Animated.View>
+                    : null }
                 </View>
             </View>
         );
@@ -204,12 +390,12 @@ class RecordAudio extends Component {
 var styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#2b608a",
+        backgroundColor: "white",
     },
     controls: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 1,
+        flex:1, 
+        flexDirection:'row', 
+        backgroundColor:'#f2f2f2'
     },
     progressText: {
         paddingTop: 50,
@@ -217,7 +403,13 @@ var styles = StyleSheet.create({
         color: "#fff"
     },
     button: {
-        padding: 20
+        height:'100%',
+        width:'100%',
+        margin:0
+    },
+    iconBtn: {
+        height:'100%',
+        paddingTop:'27%',
     },
     disabledButtonText: {
         color: '#eee'

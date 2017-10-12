@@ -21,69 +21,59 @@ class Test extends Component {
     constructor (props: Props) {
         super(props);
 
+        let {test, filePath} = this.props;
+
+        let components = []        
+        for (const section of test.sections) {
+            components.push(this.getComponent(section));
+        }
+        components.push(<SubmitTest test={test} filePath={filePath}/>);
+
         this.state = {
             step: 0,
-            component: null
+            components: components
         }
     }
 
-    next = () => {
-        const {test} = this.props;        
-        const {step} = this.state;
+    getComponent = (section) => {
+        const {test, filePath} = this.props;
+        let component = null;        
+        const step = test.sections.indexOf(section);
 
-        this.setState({step: step + 1});
+        if (section.type == 'audio') {
+            component = <RecordAudio key={section.id} testId={test.id} section={section} step={step} next={this.next} back={this.back} filePath={filePath}/>;
+        }
+        else if (section.type == 'image') {
+            component = <ImageCapture key={section.id} testId={test.id} section={section} step={step} next={this.next} back={this.back} filePath={filePath}/>;
+        }
+        else if (section.type == 'question') {
+            component = <AnswerQuestion key={section.id} testId={test.id} section={section} step={step} next={this.next} back={this.back} filePath={filePath}/>;
+        }
+
+        return component;
+    }
+
+    sendTest = () => {
+        const {step, components} = this.state;
+        //TODO: submit new test
+    }
+
+    next = () => {
+        const {step, components} = this.state;
+        this.setState({step: Math.min(step + 1, components.length - 1)});
     }
 
     back = () => {
         const {step} = this.state;
-
-
-        
-        this.setState({step: step - 1});
+        this.setState({step: Math.max(step - 1, 0)});
     }
 
     render() {
-        const {test} = this.props;
-        const {step} = this.state;
-
-        let component = null;        
-
-        if (step < test.sections.length)
-        {
-            const section = test.sections[step];
-            if (section.type == 'audio') {
-                component = <RecordAudio section={section}/>;
-            }
-            else if (section.type == 'image') {
-                component = <ImageCapture section={section}/>;
-            }
-            else if (section.type == 'question') {
-                component = <AnswerQuestion section={section}/>;
-            }
-        }
-        else {
-            component = <SubmitTest test={test}/>;
-        }
-
+        const {step, components} = this.state;
+                
         return (
-            <View style={{flex:1}}>
-                {component}
-                <View style={styles.container}>
-                    <Button 
-                        style={styles.button}
-                        raised
-                        title='Back' 
-                        icon={{name: 'chevron-left'}}
-                        onPress={() => this.back()}
-                    />
-                    <Button 
-                        style={styles.button}
-                        raised
-                        title='Next' 
-                        iconRight={{name: 'chevron-right'}}
-                        onPress={() => this.next()}
-                    />
-                </View>
+            <View style={{flex:1, flexDirection:'column'}}>
+                {components[step]} 
             </View>
         )
     }
@@ -95,7 +85,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     button: {
-        width: '50%',
+        
     }
 });
 

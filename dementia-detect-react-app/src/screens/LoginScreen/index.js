@@ -2,11 +2,11 @@
 
 import React, { Component } from 'react';
 import {
-  View,
-  Text,
-  Button,
-  TextInput,
-  StyleSheet,
+    View,
+    Text,
+    Button,
+    TextInput,
+    StyleSheet,
 } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
 
@@ -15,34 +15,35 @@ import NavBar     from '../../global/NavBar';
 import Constants  from '../../global/Constants';
 
 type Props = {
-  withCancelButton : boolean,
+    withCancelButton : boolean,
 }
 
 type State = {
-  email: string,
-  password: string,
+    email: string,
+    password: string,
 }
 
 @inject('App', 'User') @observer
 class LoginScreen extends Component {
-  static navigatorButtons = NavButtons.Login;
-  static navigatorStyle   = NavBar.Default;
+    static navigatorButtons = NavButtons.Login;
+    static navigatorStyle   = NavBar.Default;
 
-  state: State;
+    state: State;
 
-  constructor(props: Props) {
-    super(props);
+    constructor(props: Props) {
+        super(props);
 
-    this.state = {
-      email: '',
-      password: '',
+        this.state = {
+            email: '',
+            password: '',
+        }
+
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
     }
-
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
-  }
 
     componentDidMount() {
         this.handleVisibilityOfNavButtons();
+        this.login('ele@gmail.com', 'admin');
     }
 
     onNavigatorEvent = (event: { id: string }) => {
@@ -101,8 +102,8 @@ class LoginScreen extends Component {
     const { email, password } = this.state;
 
     return (
-      <View style={styles .container}>
-          <View style={styles.form}>
+        <View style={styles .container}>
+            <View style={styles.form}>
                 <TextInput
                     style={ styles.text_input }
                     keyboardType={'email-address'}
@@ -127,8 +128,8 @@ class LoginScreen extends Component {
                     title={`Create Account`}
                     onPress={ () => this.register() }
                 />
+            </View>
         </View>
-      </View>
     );
   }
 }

@@ -15,7 +15,7 @@ const startTabBasedApp = () => {
     Navigation.startTabBasedApp({
         tabs: [
           {
-            ...Constants.Screens.HOME_SCREEN
+              ...Constants.Screens.HOME_SCREEN
           },
           {
               ...Constants.Screens.INFORMATION_SCREEN
@@ -24,7 +24,7 @@ const startTabBasedApp = () => {
               ...Constants.Screens.TESTS_SCREEN
           },
           {
-            ...Constants.Screens.SETTINGS_SCREEN
+              ...Constants.Screens.SETTINGS_SCREEN
           }
         ],
         ...Platform.select({
