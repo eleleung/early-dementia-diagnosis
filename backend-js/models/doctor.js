@@ -49,3 +49,8 @@ module.exports.getAllPatients = function(userId, callback){
 module.exports.addDoctor = function(newDoctor, callback){
     newDoctor.save(callback);
 };
+
+//functions made for testing purposes
+module.exports.removeDoctors = function(callback) {
+    Doctor.remove({}, callback);
+}

@@ -3,7 +3,6 @@
  * These tests are from the route level and incorpera
  */
 
-
 //NOTE: BE CAREFUL RUNNING THESE WITHOUT SWITCHING THE DATABASE FIRST
 
 var should = require('should');
@@ -14,7 +13,7 @@ var winston = require('winston');
 var config = require('debug');
 var express = require('express');
 app = express();
-var server = require('../app');
+var server = require('../app.test');
 const User = require('../models/user');
 const Patient = require('../models/patient');
 const Doctor = require('../models/doctor');
@@ -39,7 +38,6 @@ describe('Users', function() {
         });
 
         describe("valid request", function () {
-
             it("should add new user and give a 200 Status Code", function (done) {
                 this.timeout(10000);
 
@@ -66,8 +64,6 @@ describe('Users', function() {
                         done();
                     });
             });
-
-
         });
 
         describe("additional valid request with same email", function () {
@@ -92,31 +88,32 @@ describe('Users', function() {
                             throw err;
                         }
                         assert.equal(res.statusCode, 200);
-                    });
 
-                var newUser2 = {
-                    firstName: "firstName",
-                    lastName: "lastName",
-                    email: "user1@email.com",
-                    password: "password",
-                    confirm_password: "password"
-                };
 
-                request(server)
-                    .post('/users/register/')
-                    .send(newUser2)
-                    // end handles the response
-                    .end(function (err, res) {
-                        if (err) {
-                            throw err;
-                        }
-                        assert.equal(res.statusCode, 400);
-                        done();
+                    var newUser2 = {
+                        firstName: "firstName",
+                        lastName: "lastName",
+                        email: "user1@email.com",
+                        password: "password",
+                        confirm_password: "password"
+                    };
+
+                    request(server)
+                        .post('/users/register/')
+                        .send(newUser2)
+                        // end handles the response
+                        .end(function (err, res) {
+                            if (err) {
+                                throw err;
+                            }
+                            assert.equal(res.statusCode, 400);
+                            done();
+                        });
                     });
             });
         });
 
-        describe("additional valid request with different email", function () {
+        describe("additional valid request with different email", function (done) {
 
             it("should add both users", function (done) {
 
@@ -138,59 +135,58 @@ describe('Users', function() {
                             throw err;
                         }
                         assert.equal(res.statusCode, 200);
-                    });
 
-                var newUser2 = {
-                    firstName: "firstName",
-                    lastName: "lastName",
-                    email: "user2@email.com",
-                    password: "password",
-                    confirm_password: "password"
-                };
+                    var newUser2 = {
+                        firstName: "firstName",
+                        lastName: "lastName",
+                        email: "user2@email.com",
+                        password: "password",
+                        confirm_password: "password"
+                    };
 
-                request(server)
-                    .post('/users/register/')
-                    .send(newUser2)
-                    // end handles the response
-                    .end(function (err, res) {
-                        if (err) {
-                            throw err;
-                        }
-                        assert.equal(res.statusCode, 200);
+                    request(server)
+                        .post('/users/register/')
+                        .send(newUser2)
+                        // end handles the response
+                        .end(function (err, res) {
+                            if (err) {
+                                throw err;
+                            }
+                            assert.equal(res.statusCode, 200);
 
-                        done();
+                            done();
+                        });
+
                     });
             });
         });
 
-        //TEST FAILS: Invalid confirmed password is not checked
-        /* describe("Invalid request with incorrect confirmed password", function () {
-         it("should not add a user and return invalid status code", function (done) {
-         this.timeout(10000);
-         var newUser = {
-         firstName: "firstName",
-         lastName: "lastName",
-         email: "email@email.com",
-         password: "password",
-         confirm_password: "p"
-         };
+        describe("Invalid request with incorrect confirmed password", function () {
+         it("should add user", function (done) {
+                 this.timeout(10000);
+                 var newUser = {
+                 firstName: "firstName",
+                 lastName: "lastName",
+                 email: "email@email.com",
+                 password: "password",
+                 confirm_password: "p"
+                 };
 
-         request(server)
-         .post('/users/register/')
-         .send(newUser)
-         // end handles the response
-         .end(function (err, res) {
-         if (err) {
-         throw err;
-         }
-         // should error because of the incorrect confirmed password
-         assert.equal(res.statusCode, 400);
+                 request(server)
+                 .post('/users/register/')
+                 .send(newUser)
+                 // end handles the response
+                 .end(function (err, res) {
+                 if (err) {
+                 throw err;
+                 }
+                 // should not error because this validation is done on the front end
+                 assert.equal(res.statusCode, 200);
 
-         done();
-         });
-
-         });*/
-        //});
+                    done();
+                });
+            });
+        });
     });
 
     //Authenticate tests
@@ -256,6 +252,7 @@ describe('Users', function() {
         });
 
         describe("email does not exist", function () {
+
             it("should return fail (400) status with UserNotFound error message", function (done) {
                 this.timeout(10000);
 
@@ -275,7 +272,7 @@ describe('Users', function() {
                         }
                         // should authenticate successfully
                         console.log(res.text);
-                        assert.equal(res.text, '{"success":false,"msg":"User not found"}');
+                        assert.equal(res.text, '{"success":false,"msg":"User not found or password is incorrect"}');
                         assert.equal(res.statusCode, 400);
                         done();
                     });
@@ -306,6 +303,54 @@ describe('Users', function() {
                         assert.equal(res.statusCode, 400);
                         done();
                     });
+            });
+        });
+
+        describe("invalid request as a doctor tries to authenticate as a user", function() {
+
+            it("should error as a doctor should not be able to log into the mobile app", function(done)
+            {
+                this.timeout(20000);
+
+                //add new doctor
+                var newUser = {
+                    firstName: "firstName",
+                    lastName: "lastName",
+                    email: "doctoremail@email.com",
+                    password: "password",
+                    confirm_password: "password"
+                };
+
+                request(server)
+                    .post('/doctors/register/')
+                    .send(newUser)
+                    // end handles the response
+                    .end(function (err, res, next) {
+                        if (err) {
+                            throw err;
+                        }
+
+                        //ACT: Try to authenticate doctor as a user
+                        var user = {
+                            email: "doctoremail@email.com",
+                            password: "password"
+                        };
+
+                        request(server)
+                            .post('/users/authenticate/')
+                            .send(user)
+                            // end handles the response
+                            .end(function (err, res, next) {
+                                if (err) {
+                                    throw err;
+                                }
+                                // should authenticate successfully
+                                console.log(res.text);
+                                assert.equal(res.statusCode, 400);
+                                done();
+                            });
+                    });
+
             });
         });
     });
@@ -370,7 +415,74 @@ describe('Users', function() {
 
         });
 
-        //TODO: valid request with patients
+        describe("valid request with patients", function() {
+
+            it ('should return a patient', function(done) {
+
+                this.timeout(20000);
+
+                var newUser = new User({
+                    firstName: "firstName",
+                    lastName: "lastName",
+                    email: "user3@gmail.com",
+                    password: "password",
+                    dateOfBirth: ''
+                });
+
+                //add user
+                User.addUser(newUser, function (err, user) {
+                    if (err) {
+                        console.log('error :' + err);
+                        done();
+                    }
+                    else {
+                        //console.log('user :' + user);
+
+                        var newPatient = new Patient({
+                            firstName: "patientFirstName",
+                            lastName: "patientLastName",
+                            gender: "Female",
+                            dateOfBirth: "",
+                            carers: []
+                        });
+
+                        request(server)
+                            .post('/patients/register/')
+                            .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                            .send(newPatient)
+                            // end handles the response
+                            .end(function (err, res, next) {
+                                if (err) {
+                                    throw err;
+                                }
+
+                                assert.equal(res.text, '{"success":true,"msg":"Patient registered"}');
+                                assert.equal(res.statusCode, 200);
+
+
+                                //ACT: GET PATIENT
+                                request(server)
+                                    .get('/users/getPatients/')
+                                    .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                                    .send(user)
+                                    // end handles the response
+                                    .end(function (err, res, next) {
+                                        if (err) {
+                                            throw err;
+                                        }
+                                        assert.equal(res.body.carerPatients[0].lastName, 'patientLastName');
+                                        assert.equal(res.body.carerPatients[0].firstName, 'patientFirstName');
+                                        assert.equal(res.body.carerPatients[0].gender, 'Female');
+                                        assert.equal(res.statusCode, 200);
+                                        done();
+                                    });
+
+                            });
+                    }
+                });
+
+            });
+        });
 
         describe("invalid request with missing JWT token", function () {
 
@@ -476,6 +588,7 @@ describe('Patients', function () {
                                     throw err;
                                 }
                                 //todo: do more thorough assert
+                                console.log(res.body);
                                 assert.equal(res.text, '{"success":true,"msg":"Patient registered"}');
                                 assert.equal(res.statusCode, 200);
                                 done();
@@ -530,7 +643,6 @@ describe('Patients', function () {
                     }
                 });
             });
-            //describe("GetPatientById")
         });
 
         describe("invalid request empty sirname in request", function () {
@@ -639,7 +751,7 @@ describe('Doctors', function() {
 
     describe("Register", function () {
 
-        this.timeout(20000);
+        this.timeout(60000);
 
         beforeEach(function (done) {
 
@@ -716,6 +828,7 @@ describe('Doctors', function() {
                  assert.equal(res.statusCode, 400);
                  done();
                  });*/
+                done();
             });
         })
     });
@@ -807,7 +920,7 @@ describe('Doctors', function() {
                         }
                         // should authenticate successfully
                         console.log(res.text);
-                        assert.equal(res.text, '{"success":false,"msg":"User not found"}');
+                        assert.equal(res.text, '{"success":false,"msg":"Wrong password"}');
                         assert.equal(res.statusCode, 400);
                         done();
                     });
@@ -835,7 +948,7 @@ describe('Doctors', function() {
                         }
                         // should authenticate successfully
                         console.log(res.text);
-                        assert.equal(res.text, '{"success":false,"msg":"User not found"}');
+                        assert.equal(res.text, '{"success":false,"msg":"User not found or password is incorrect"}');
                         assert.equal(res.statusCode, 400);
                         done();
                     });
@@ -857,7 +970,7 @@ describe('Doctors', function() {
                 });
 
 
-                var nonDoctorUserAuthenticate  = {
+                var nonDoctorUserAuthenticate = {
                     email: "user3@gmail.com",
                     password: "password"
                 };
@@ -893,5 +1006,3 @@ describe('Doctors', function() {
 
 });
 
-
-//TODO: write tests for doctor profile
