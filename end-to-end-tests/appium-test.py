@@ -4,14 +4,14 @@ import unittest
 import time
 from appium import webdriver
 
-class ContactAppTestAppium(unittest.TestCase):
+class MobileAppTestAppium(unittest.TestCase):
 
     def setUp(self):
         desired_caps = {}
         desired_caps['platformName'] = 'iOS'
-        desired_caps['platformVersion'] = '10.3'
-        desired_caps['deviceName'] = 'iPhone 6'
-        desired_caps['app'] = './mobileapp/ios/build/Build/Products/Debug-iphonesimulator/ReactNativeNavigationMobxBoilerplate.app'
+        desired_caps['platformVersion'] = '11.0'
+        desired_caps['deviceName'] = 'iPhone 5s'
+        desired_caps['app'] = './dementia-detect-react-app/ios/build/Build/Products/Debug-iphonesimulator/ReactNativeNavigationMobxBoilerplate.app'
         desired_caps['automationName'] = 'XCUITest'
 
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
@@ -41,8 +41,6 @@ class ContactAppTestAppium(unittest.TestCase):
         self.assertTrue(testsbutton.is_displayed())
         self.assertTrue(settingsbutton.is_displayed())
         self.assertFalse(loginbutton.is_displayed())
-
-    #TODO: Defect - no descriptive errors on login
 
     def test_login_invalidemail(self):
         loginbutton = self.driver.find_element_by_name("Log in")
@@ -84,5 +82,5 @@ class ContactAppTestAppium(unittest.TestCase):
         self.driver.quit()
 
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(ContactAppTestAppium)
+    suite = unittest.TestLoader().loadTestsFromTestCase(MobileAppTestAppium)
     unittest.TextTestRunner(verbosity=2).run(suite)
