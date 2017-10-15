@@ -142,6 +142,10 @@ class WebAppTest(unittest.TestCase):
             self.assertTrue(driver.find_element_by_xpath(
                     "//p[contains(.,'Error with login credentials, please check your email and password')]"))
 
+    # Test sidebar
+
+    # Test reset password
+
     def is_element_present(self, how, what):
         try:
             self.driver.find_element(by=how, value=what)
@@ -179,6 +183,7 @@ class WebAppTest(unittest.TestCase):
             });
             print(result)
 
+    def tearDown(self):
         self.driver.quit()
         self.assertEqual([], self.verificationErrors)
 

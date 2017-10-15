@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../AppiumTests-Python/.idea/AppiumTests-Python.iml" filepath="$PROJECT_DIR$/../AppiumTests-Python/.idea/AppiumTests-Python.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/end-to-end-tests.iml" filepath="$PROJECT_DIR$/.idea/end-to-end-tests.iml" />
     </modules>
   </component>
 </project>
