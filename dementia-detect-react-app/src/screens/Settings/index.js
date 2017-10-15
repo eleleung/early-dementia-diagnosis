@@ -5,7 +5,8 @@ import {
     View,
     Text,
     Button,
-    TextInput
+    TextInput,
+    Modal
 } from 'react-native';
 import {inject, observer} from 'mobx-react/native';
 
@@ -19,11 +20,9 @@ class Settings extends Component {
         super(props);
     };
 
-    logout = () => {
-        const {User} = this.props;
-
-        User.logout();
-        Constants.Global.startSingleScreenApp();
+    state = {
+        modalVisible: false,
+        referenceCode: ''
     };
 
     addPatient = () => {
@@ -44,29 +43,96 @@ class Settings extends Component {
         });
     };
 
+    showModal = () => {
+        const {modalVisible} = this.state.modalVisible;
+
+        this.setState({modalVisible: !modalVisible});
+    };
+
+    updateReferenceCode = e => {this.setState({referenceCode: e.target.value})};
+ 
+    submit = async() => {
+        const {User} = this.props;
+        const {referenceCode, modalVisible} = this.state;
+
+        const result = await User.assignDoctor(User.selectedPatient._id, referenceCode);
+        if (result) {
+            alert('Succesfully linked patient to doctor!');
+
+            this.setState({modalVisible: !modalVisible});
+        }
+        else {
+            alert('Error: please check the reference code');
+        }
+    };
+
+    logout = () => {
+        const {User} = this.props;
+
+        User.logout();
+        Constants.Global.startSingleScreenApp();
+    };
+
     render() {
         const {User} = this.props;
+        const {modalVisible, referenceCode} = this.state;
 
         return (
             <View style={style.container}>
-                <Text style={style.settings_heading}>Current Account</Text>
+                <Text style={style.settings_heading}>Patient Account</Text>
                 {
-                    User.current && User.current.firstName 
+                    User.selectedPatient
                     ?
-                    <Text style={style.labels}>{User.current.firstName}</Text>
+                    <Text style={style.labels}>{`${User.selectedPatient.firstName} ${User.selectedPatient.lastName}`}</Text>
                     :
                     null
                 }
                 <Text 
                     style={style.labels}
-                    onPress={ () => this.addPatient()}>
+                    onPress={ () => this.addPatient() }>
                     Add Patient    
                 </Text>
                 <Text
                     style={style.labels}
-                    onPress={ () => this.changeSelectedPatient()}>
+                    onPress={ () => this.changeSelectedPatient() }>
                     Change Patient Account
-                </Text>                
+                </Text>
+                <Text
+                    style={style.labels}
+                    onPress={ () => this.showModal() }>
+                    Assign a Doctor
+                </Text>  
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={modalVisible}>
+                    <View style={style.container}>
+                        <View style={{
+                            flex: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <Text style={{marginBottom: 15}}>Enter in the doctor's reference code below</Text>
+                            <TextInput 
+                                placeholder={'Reference Code'}
+                                style={style.text_input}
+                                value={referenceCode}
+                                autoCapitalize={'none'}
+                                onChangeText={ (referenceCode) => this.setState({ referenceCode }) }
+                            />
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 20}}>
+                            <Button
+                                title={`Cancel`}
+                                onPress={ () => this.setState({modalVisible: !modalVisible}) }
+                            />
+                            <Button
+                                title={`Submit`}
+                                onPress={ () => this.submit() }
+                            />
+                        </View>
+                    </View>
+                </Modal>
                 <Button
                     title={`Log Out`}
                     onPress={ () => this.logout() }

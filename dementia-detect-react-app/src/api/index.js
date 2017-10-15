@@ -28,7 +28,7 @@ function endpoint(path, withAuth = true) {
             const endpointUrl = await url(
                 path,
             );
-
+            
             const result = await fetch(endpointUrl, {
                 method: 'POST',
                 headers: {
@@ -50,3 +50,4 @@ export const getAllPatients = endpoint('/users/getPatients');
 export const getPatientTests = endpoint('/tests/getPatientTests');
 export const login = endpoint('/users/authenticate', false);
 export const register = endpoint('/users/register', false);
+export const assignDoctor = endpoint('/doctors/assign-doctor');

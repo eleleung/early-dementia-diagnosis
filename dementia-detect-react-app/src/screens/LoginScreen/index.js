@@ -155,6 +155,6 @@ const styles = StyleSheet.create({
         borderColor: Constants.Colors.blackColor,
         borderRadius: 20,
     }
-})
+});
 
 export default LoginScreen;

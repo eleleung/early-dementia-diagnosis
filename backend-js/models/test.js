@@ -14,11 +14,11 @@ const TestSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    transcribedText: {
-        type: String,
+    testComponents: {
+        type: Array,
         required: true
     },
-    date: {
+    dateCreated: {
         type: Date,
         required: true
     },

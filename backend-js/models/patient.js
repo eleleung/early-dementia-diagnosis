@@ -6,7 +6,6 @@ const relationship = require('../node_modules/mongoose-relationship');
 const config = require('../config/database');
 
 const User = require('./user');
-const Doctor = require('./doctor');
 
 const PatientSchema = mongoose.Schema({
     firstName: {
@@ -48,9 +47,13 @@ module.exports.getAllPatients = function(callback){
 };
 
 module.exports.addPatient = function(newPatient, callback){
-    // need to save patient
     newPatient.save(callback);
 };
+
+module.exports.updatePatient = function(patient, callback){
+    patient.save(callback);
+};
+
 
 //functions made for testing purposes
 module.exports.removePatients = function(callback) {

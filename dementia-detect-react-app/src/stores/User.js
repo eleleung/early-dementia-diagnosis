@@ -74,7 +74,7 @@ class Store {
                         this.selectedPatient = responseJson.carerPatients[0];
 
                         // then get patient tests?
-                        this.selectedPatient.tests = await getPatientTests(this.selectedPatient._id);
+                        // this.selectedPatient.tests = await getPatientTests.post(this.selectedPatient._id);
                     }
                     return true;
                 } else {
@@ -101,6 +101,22 @@ class Store {
             console.log(error);
         }
     };
+
+    assignDoctor = async (patientId: string, referenceCode: string) => {
+        try {
+            let response = await api.assignDoctor.post({"patientId": patientId, "referenceCode": referenceCode});
+            let responseJson = await response.json();
+
+            if (responseJson.success) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
 }
 
 export default new Store();

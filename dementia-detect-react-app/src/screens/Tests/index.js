@@ -35,7 +35,7 @@ class Tests extends Component {
                             id: 1,
                             type: "audio",
                             instruction: "Press record and read the text aloud",
-                            content: "A quick brown fox jumps over the lazy dog, then runs around in the park before chasing its tail for 20 minutes."
+                            content: "A quick brown fox jumps over the laz y dog, then runs around in the park before chasing its tail for 20 minutes."
                         },
                         {
                             id: 2,

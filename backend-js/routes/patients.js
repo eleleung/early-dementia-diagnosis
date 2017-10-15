@@ -21,8 +21,6 @@ router.post('/register', passport.authenticate('jwt', {session:false}), function
 
     newPatient.carers.push(req.user);
 
-    console.log(newPatient);
-
     Patient.addPatient(newPatient, function(err, patient){
         if (err) {
             res.status(400);
@@ -34,13 +32,6 @@ router.post('/register', passport.authenticate('jwt', {session:false}), function
     });
 });
 
-// Add Doctor
-router.post('/register', passport.authenticate('jwt', {session:false}), function(req, res, next){
-    // in request body get patient and doctor ID
-
-});
-
-// Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), function(req, res, next){
     res.json({user: req.user});
 });
