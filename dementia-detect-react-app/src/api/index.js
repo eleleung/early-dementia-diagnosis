@@ -45,7 +45,7 @@ function endpoint(path, withAuth = true) {
 }
 
 export const resetPassword = endpoint('/users/reset-password', false);
-export const registerPatient = endpoint('/users/add-patient');
+export const registerPatient = endpoint('/patients/register');
 export const getAllPatients = endpoint('/users/getPatients');
 export const getPatientTests = endpoint('/tests/getPatientTests');
 export const login = endpoint('/users/authenticate', false);
