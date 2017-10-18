@@ -25,7 +25,7 @@ class MobileAppTestAppium(unittest.TestCase):
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
 
     # test login
-    def test_login(self):
+    def test_FRC01_login(self):
 
         # add user
         self.helper_add_user()
@@ -55,7 +55,7 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(settingsbutton.is_displayed())
         self.assertFalse(loginbutton.is_displayed())
 
-    def test_login_invalidEmail(self):
+    def test_FRC01_login_invalidEmail(self):
 
         self.helper_add_user();
 
@@ -76,7 +76,7 @@ class MobileAppTestAppium(unittest.TestCase):
         # check that we're still on the login page and the login button is still displayed
         self.assertTrue(loginbutton.is_displayed())
 
-    def test_login_invalidPassword(self):
+    def test_FRC01_login_invalidPassword(self):
 
         #add user
         self.helper_add_user();
@@ -99,7 +99,7 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(loginbutton.is_displayed())
 
     # test sign up
-    def test_signup(self):
+    def test_FRC02_signup(self):
         createaccountbutton = self.driver.find_element_by_name("Create Account")
         createaccountbutton.click()
 
@@ -142,7 +142,7 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(homebutton.is_displayed())
         self.assertFalse(loginbutton.is_displayed())
 
-    def test_signup_incorrectConfirmPassword(self):
+    def test_FRC02_signup_incorrectConfirmPassword(self):
         createaccountbutton = self.driver.find_element_by_name("Create Account");
         createaccountbutton.click()
 
@@ -178,7 +178,7 @@ class MobileAppTestAppium(unittest.TestCase):
         error = self.driver.find_element_by_name("Error")
         self.assertTrue(error.is_displayed())
 
-    def test_signup_missingField(self):
+    def test_FRC02_signup_missingField(self):
         createaccountbutton = self.driver.find_element_by_name("Create Account");
         createaccountbutton.click()
 
@@ -214,7 +214,7 @@ class MobileAppTestAppium(unittest.TestCase):
         error = self.driver.find_element_by_name("Error")
         self.assertTrue(error.is_displayed())
 
-    def test_signup_userAlreadyExists(self):
+    def test_FRC02_signup_userAlreadyExists(self):
         # add user
         self.helper_add_user();
 
@@ -254,7 +254,7 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(error.is_displayed())
 
     # test log out
-    def test_logout(self):
+    def test_FRC01_logout(self):
 
         # add user
         self.helper_add_user()
@@ -292,7 +292,7 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(passwordField.is_displayed())
 
     # test recording test
-    def test_testRecording(self):
+    def test_FRC08A_testRecording(self):
 
         # add user
         self.helper_add_user()
@@ -351,7 +351,7 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(success.is_displayed())
 
     # test patient profiles
-    def test_addNewPatient(self):
+    def test_FRC04_addNewPatient(self):
 
         # add user
         self.helper_add_user()
@@ -409,7 +409,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
      #test switch patient
 
-    def test_addFirstPatient_SetPatientAsDefault(self):
+    def test_FRC04_addFirstPatient_SetPatientAsDefault(self):
 
         # add user
         self.helper_add_user()
@@ -462,7 +462,7 @@ class MobileAppTestAppium(unittest.TestCase):
         defaultpatient = self.driver.find_element_by_name("First Patient")
         self.assertTrue(defaultpatient.is_displayed())
 
-    def test_addPatientWithMissingField_ShouldError(self):
+    def test_FRC04_addPatientWithMissingField_ShouldError(self):
 
         # add user
         self.helper_add_user()
@@ -513,7 +513,7 @@ class MobileAppTestAppium(unittest.TestCase):
         # assert that we have not navigated back to the add patient page
         self.assertFalse(addpatient.is_displayed())
 
-    def test_defaultPatientProfileOnLogin(self):
+    def test_FRC04_defaultPatientProfileOnLogin(self):
 
         # add user and patient
         self.helper_add_user()
@@ -550,7 +550,7 @@ class MobileAppTestAppium(unittest.TestCase):
         selectedpatient = self.driver.find_element_by_name("First ")
         self.assertTrue(selectedpatient.is_displayed())
 
-    def test_switchPatientProfile(self):
+    def test_FRC04_switchPatientProfile(self):
         # add user and patient
         self.helper_add_user()
         self.helper_add_patient()
@@ -595,7 +595,7 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(newselectedPatient.is_displayed())
 
     # test adding doctor
-    def test_assignADoctor(self):
+    def test_FRD05_assignADoctor(self):
 
         self.helper_add_user()
         self.helper_add_doctor()
@@ -635,7 +635,7 @@ class MobileAppTestAppium(unittest.TestCase):
         alert = self.driver.find_element_by_name("Alert")
         self.assertFalse(alert.is_displayed())
 
-    def test_assignADoctor_incorrectReferenceKey(self):
+    def test_FRD05_assignADoctor_incorrectReferenceKey(self):
 
         self.helper_add_user()
         self.helper_add_doctor()

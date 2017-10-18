@@ -30,7 +30,7 @@ class WebAppTest(unittest.TestCase):
         print(result)
 
     #login tests
-    def test_valid_login_should_login_correctly(self):
+    def test_FRD03A_valid_login_should_login_correctly(self):
 
         self.helper_add_doctor()
 
@@ -81,7 +81,7 @@ class WebAppTest(unittest.TestCase):
         #assert that we have hit the overview page
         self.assertTrue(driver.find_element_by_xpath("//h1[contains(.,'Overview')]"));
 
-    def test_invalid_login_doctor_does_not_exist_should_error(self):
+    def test_FRD03B_invalid_login_doctor_does_not_exist_should_error(self):
         driver = self.driver
         driver.get("http://localhost:4200")
         driver.find_element_by_id("email").clear()
@@ -100,7 +100,7 @@ class WebAppTest(unittest.TestCase):
             self.fail("time out")
         self.assertTrue(driver.find_element_by_xpath("//p[contains(.,'Error with login credentials, please check your email and password')]"))
 
-    def test_invalid_login_no_password_entered_should_error(self):
+    def test_FRD03B_invalid_login_no_password_entered_should_error(self):
 
             self.helper_add_doctor()
 
@@ -121,7 +121,7 @@ class WebAppTest(unittest.TestCase):
             self.assertTrue(driver.find_element_by_xpath(
                     "//p[contains(.,'Error with login credentials, please check your email and password')]"))
 
-    def test_invalid_login_no_email_entered_should_error(self):
+    def test_FRD03B_invalid_login_no_email_entered_should_error(self):
 
             self.helper_add_doctor()
 
@@ -144,7 +144,7 @@ class WebAppTest(unittest.TestCase):
                     "//p[contains(.,'Error with login credentials, please check your email and password')]"))
 
     # test view patients
-    def test_view_doctor_patient_list(self):
+    def test_FRD07_view_doctor_patient_list(self):
 
         self.addDoctorWithPatient()
 

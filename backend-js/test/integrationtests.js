@@ -36,9 +36,9 @@ describe('Users', function () {
             done();
         });
 
-        describe("valid request", function () {
+        describe("FRC01 valid request", function () {
 
-            it("should add new user and give a 200 Status Code", function (done) {
+            it("FRC01 should add new user and give a 200 Status Code", function (done) {
                 this.timeout(10000);
 
                 var newUser = {
@@ -66,9 +66,9 @@ describe('Users', function () {
             });
         });
 
-        describe("additional valid request with same email", function () {
+        describe("FRC01 additional valid request with same email", function () {
 
-            it("should only add first user", function (done) {
+            it("FRC03B should only add first user", function (done) {
                 this.timeout(10000);
 
                 var newUser = {
@@ -113,9 +113,9 @@ describe('Users', function () {
             });
         });
 
-        describe("additional valid request with different email", function (done) {
+        describe("FRC01 additional valid request with different email", function (done) {
 
-            it("should add both users", function (done) {
+            it("FRC03B should add both users", function (done) {
 
                 this.timeout(10000);
                 var newUser = {
@@ -161,8 +161,8 @@ describe('Users', function () {
             });
         });
 
-        describe("Invalid request with incorrect confirmed password", function () {
-            it("should add user", function (done) {
+        describe("FRC01 Invalid request with incorrect confirmed password", function () {
+            it("FRC03B should add user", function (done) {
                 this.timeout(10000);
                 var newUser = {
                     firstName: "firstName",
@@ -225,8 +225,8 @@ describe('Users', function () {
 
         });
 
-        describe("valid request", function () {
-            it("should authenticate the new user", function (done) {
+        describe("FRC02 valid request", function () {
+            it("FRC02 should authenticate the new user", function (done) {
                 this.timeout(20000);
 
                 var user = {
@@ -251,9 +251,9 @@ describe('Users', function () {
             });
         });
 
-        describe("email does not exist", function () {
+        describe("FRC02 email does not exist", function () {
 
-            it("should return fail (400) status with UserNotFound error message", function (done) {
+            it("FRC02 should return fail (400) status with UserNotFound error message", function (done) {
                 this.timeout(10000);
 
                 //authenticate the user
@@ -279,8 +279,8 @@ describe('Users', function () {
             });
         });
 
-        describe("incorrect password", function () {
-            it("should return fail (400) with IncorrectPassword error message", function (done) {
+        describe("FRC02 incorrect password", function () {
+            it("FRC02 should return fail (400) with IncorrectPassword error message", function (done) {
                 this.timeout(10000);
 
                 //authenticate the user
@@ -306,9 +306,9 @@ describe('Users', function () {
             });
         });
 
-        describe("invalid request as a doctor tries to authenticate as a user", function () {
+        describe("FRC02 invalid request as a doctor tries to authenticate as a user", function () {
 
-            it("should error as a doctor should not be able to log into the mobile app", function (done) {
+            it("FRC02 should error as a doctor should not be able to log into the mobile app", function (done) {
                 this.timeout(20000);
 
                 //add new doctor
@@ -374,9 +374,9 @@ describe('Users', function () {
             done();
         });
 
-        describe("valid request with no patients", function () {
+        describe("FRC05 valid request with no patients", function () {
 
-            it('should return a 200 response with no patients', function (done) {
+            it('FRC05 should return a 200 response with no patients', function (done) {
                 this.timeout(20000);
 
                 var newUser = new User({
@@ -414,9 +414,9 @@ describe('Users', function () {
 
         });
 
-        describe("valid request with patients", function () {
+        describe("FRC05 valid request with patients", function () {
 
-            it('should return a patient', function (done) {
+            it('FRC05 should return a patient', function (done) {
 
                 this.timeout(20000);
 
@@ -483,9 +483,9 @@ describe('Users', function () {
             });
         });
 
-        describe("invalid request with missing JWT token", function () {
+        describe("FRC05 invalid request with missing JWT token", function () {
 
-            it('should return a 401 unauthorised response', function (done) {
+            it('FRC05 should return a 401 unauthorised response', function (done) {
                 this.timeout(20000);
 
                 var newUser = new User({
@@ -521,7 +521,6 @@ describe('Users', function () {
                 });
             });
         });
-
     });
 });
 
@@ -546,9 +545,9 @@ describe('Patients', function () {
             done();
         });
 
-        describe("valid request", function () {
+        describe("FRC04 valid request", function () {
 
-            it("should register patient", function (done) {
+            it("FRC04 should register patient", function (done) {
 
                 this.timeout(20000);
 
@@ -597,9 +596,9 @@ describe('Patients', function () {
             });
         });
 
-        describe("invalid request no sirname in request", function () {
+        describe("FRC04 invalid request no sirname in request", function () {
 
-            it("should return 400 status and not register patient", function (done) {
+            it("FRC04 should return 400 status and not register patient", function (done) {
                 this.timeout(20000);
 
                 var newUser = new User({
@@ -645,9 +644,9 @@ describe('Patients', function () {
             });
         });
 
-        describe("invalid request empty sirname in request", function () {
+        describe("FRC04 invalid request empty sirname in request", function () {
 
-            it("should return 400 status no registered patient", function (done) {
+            it("FRC04 should return 400 status no registered patient", function (done) {
                 this.timeout(20000);
 
                 var newUser = new User({
@@ -694,9 +693,9 @@ describe('Patients', function () {
             });
         });
 
-        describe("invalid request invalid JWT token", function () {
+        describe("FRC04 invalid request invalid JWT token", function () {
 
-            it("should return 401 status with Unauthorised response", function (done) {
+            it("FRC04 should return 401 status with Unauthorised response", function (done) {
                 this.timeout(20000);
 
                 var newUser = new User({
@@ -768,9 +767,9 @@ describe('Doctors', function () {
             done();
         })
 
-        describe("valid request", function () {
+        describe("FRD02 valid request", function () {
 
-            it('should return a 200 response with doctor registered', function (done) {
+            it('FRD02 should return a 200 response with doctor registered', function (done) {
 
                 this.timeout(20000);
 
@@ -799,10 +798,10 @@ describe('Doctors', function () {
             });
         });
 
-        describe("invalid request with incorrect confirm password", function () {
+        describe("FRD02 invalid request with incorrect confirm password", function () {
 
             //TEST FAILS: WRITE DOWN DEFECT
-            it('should return a 400 response with error message', function (done) {
+            it('FRD02 should return a 400 response with error message', function (done) {
 
                 /* this.timeout(20000);
 
@@ -871,9 +870,9 @@ describe('Doctors', function () {
                 });
         });
 
-        describe("valid request", function () {
+        describe("FRD03A valid request", function () {
 
-            it("should authenticate doctor", function (done) {
+            it("FRD03A should authenticate doctor", function (done) {
 
                 this.timeout(20000);
 
@@ -899,9 +898,9 @@ describe('Doctors', function () {
 
         });
 
-        describe("invalid request with incorrect password", function () {
+        describe("FRD03B invalid request with incorrect password", function () {
 
-            it("should return 400 error response and not authenticate doctor", function (done) {
+            it("FRD03B hould return 400 error response and not authenticate doctor", function (done) {
 
                 this.timeout(20000);
 
@@ -927,9 +926,9 @@ describe('Doctors', function () {
             });
         });
 
-        describe("invalid request with incorrect email", function () {
+        describe("FRD03B invalid request with incorrect email", function () {
 
-            it("should return 400 error response and respond with UserNotFound", function (done) {
+            it("FRD03B should return 400 error response and respond with UserNotFound", function (done) {
 
                 this.timeout(20000);
 
@@ -955,9 +954,9 @@ describe('Doctors', function () {
             });
         });
 
-        describe("invalid request as non doctor tries to authenticate as a doctor", function () {
+        describe("FRD03B invalid request as non doctor tries to authenticate as a doctor", function () {
 
-            it("should return 400 status with DoctorNotFound error", function (done) {
+            it("FRD03B should return 400 status with DoctorNotFound error", function (done) {
 
                 this.timeout(20000);
 
@@ -1030,9 +1029,9 @@ describe('Doctors', function () {
 
         });
 
-        describe("valid request", function () {
+        describe("FRD05 valid request", function () {
 
-            it("should assign the patient to the the doctor", function (done) {
+            it("FRD05 should assign the patient to the the doctor", function (done) {
 
                 this.timeout(20000);
 
@@ -1120,8 +1119,8 @@ describe('Doctors', function () {
 
         });
 
-        describe("incorrect doctor reference code", function () {
-            it("should fail to assign patient to the doctor", function (done) {
+        describe("FRD05 incorrect doctor reference code", function () {
+            it("FRD05 should fail to assign patient to the doctor", function (done) {
                 this.timeout(20000);
 
                 //add new doctor
@@ -1207,9 +1206,9 @@ describe('Doctors', function () {
             });
         });
 
-        describe("incorrect patient id", function() {
+        describe("FRD05 incorrect patient id", function() {
 
-            it("should not assign patient to doctor", function(done) {
+            it("FRD05 should not assign patient to doctor", function(done) {
                 this.timeout(20000);
 
                 //add new doctor
