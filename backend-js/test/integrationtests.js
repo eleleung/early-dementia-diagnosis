@@ -4,7 +4,6 @@
  */
 
 //NOTE: BE CAREFUL RUNNING THESE WITHOUT SWITCHING THE DATABASE FIRST
-
 var should = require('should');
 var assert = require('assert');
 var request = require('supertest');
@@ -20,7 +19,7 @@ const Doctor = require('../models/doctor');
 jwt = require('jsonwebtoken');
 
 //For registration / login of a new carer / patient
-describe('Users', function() {
+describe('Users', function () {
 
     //Register tests
     describe("Register", function () {
@@ -38,6 +37,7 @@ describe('Users', function() {
         });
 
         describe("valid request", function () {
+
             it("should add new user and give a 200 Status Code", function (done) {
                 this.timeout(10000);
 
@@ -90,25 +90,25 @@ describe('Users', function() {
                         assert.equal(res.statusCode, 200);
 
 
-                    var newUser2 = {
-                        firstName: "firstName",
-                        lastName: "lastName",
-                        email: "user1@email.com",
-                        password: "password",
-                        confirm_password: "password"
-                    };
+                        var newUser2 = {
+                            firstName: "firstName",
+                            lastName: "lastName",
+                            email: "user1@email.com",
+                            password: "password",
+                            confirm_password: "password"
+                        };
 
-                    request(server)
-                        .post('/users/register/')
-                        .send(newUser2)
-                        // end handles the response
-                        .end(function (err, res) {
-                            if (err) {
-                                throw err;
-                            }
-                            assert.equal(res.statusCode, 400);
-                            done();
-                        });
+                        request(server)
+                            .post('/users/register/')
+                            .send(newUser2)
+                            // end handles the response
+                            .end(function (err, res) {
+                                if (err) {
+                                    throw err;
+                                }
+                                assert.equal(res.statusCode, 400);
+                                done();
+                            });
                     });
             });
         });
@@ -136,55 +136,55 @@ describe('Users', function() {
                         }
                         assert.equal(res.statusCode, 200);
 
-                    var newUser2 = {
-                        firstName: "firstName",
-                        lastName: "lastName",
-                        email: "user2@email.com",
-                        password: "password",
-                        confirm_password: "password"
-                    };
+                        var newUser2 = {
+                            firstName: "firstName",
+                            lastName: "lastName",
+                            email: "user2@email.com",
+                            password: "password",
+                            confirm_password: "password"
+                        };
 
-                    request(server)
-                        .post('/users/register/')
-                        .send(newUser2)
-                        // end handles the response
-                        .end(function (err, res) {
-                            if (err) {
-                                throw err;
-                            }
-                            assert.equal(res.statusCode, 200);
+                        request(server)
+                            .post('/users/register/')
+                            .send(newUser2)
+                            // end handles the response
+                            .end(function (err, res) {
+                                if (err) {
+                                    throw err;
+                                }
+                                assert.equal(res.statusCode, 200);
 
-                            done();
-                        });
+                                done();
+                            });
 
                     });
             });
         });
 
         describe("Invalid request with incorrect confirmed password", function () {
-         it("should add user", function (done) {
-                 this.timeout(10000);
-                 var newUser = {
-                 firstName: "firstName",
-                 lastName: "lastName",
-                 email: "email@email.com",
-                 password: "password",
-                 confirm_password: "p"
-                 };
+            it("should add user", function (done) {
+                this.timeout(10000);
+                var newUser = {
+                    firstName: "firstName",
+                    lastName: "lastName",
+                    email: "email@email.com",
+                    password: "password",
+                    confirm_password: "p"
+                };
 
-                 request(server)
-                 .post('/users/register/')
-                 .send(newUser)
-                 // end handles the response
-                 .end(function (err, res) {
-                 if (err) {
-                 throw err;
-                 }
-                 // should not error because this validation is done on the front end
-                 assert.equal(res.statusCode, 200);
+                request(server)
+                    .post('/users/register/')
+                    .send(newUser)
+                    // end handles the response
+                    .end(function (err, res) {
+                        if (err) {
+                            throw err;
+                        }
+                        // should not error because this validation is done on the front end
+                        assert.equal(res.statusCode, 200);
 
-                    done();
-                });
+                        done();
+                    });
             });
         });
     });
@@ -306,10 +306,9 @@ describe('Users', function() {
             });
         });
 
-        describe("invalid request as a doctor tries to authenticate as a user", function() {
+        describe("invalid request as a doctor tries to authenticate as a user", function () {
 
-            it("should error as a doctor should not be able to log into the mobile app", function(done)
-            {
+            it("should error as a doctor should not be able to log into the mobile app", function (done) {
                 this.timeout(20000);
 
                 //add new doctor
@@ -415,9 +414,9 @@ describe('Users', function() {
 
         });
 
-        describe("valid request with patients", function() {
+        describe("valid request with patients", function () {
 
-            it ('should return a patient', function(done) {
+            it('should return a patient', function (done) {
 
                 this.timeout(20000);
 
@@ -558,7 +557,7 @@ describe('Patients', function () {
                     lastName: "lastName",
                     email: "user3@gmail.com",
                     password: "password",
-                    dateOfBirth: ''
+                    dateOfBirth: '1957-01-09T16:00:00.000Z'
                 });
 
                 //add user
@@ -599,6 +598,7 @@ describe('Patients', function () {
         });
 
         describe("invalid request no sirname in request", function () {
+
             it("should return 400 status and not register patient", function (done) {
                 this.timeout(20000);
 
@@ -622,7 +622,7 @@ describe('Patients', function () {
                         var newPatient = new Patient({
                             firstName: "patientFirstName",
                             gender: "Female",
-                            dateOfBirth: "",
+                            dateOfBirth: "1957-01-09T16:00:00.000Z",
                             carers: []
                         });
 
@@ -704,7 +704,7 @@ describe('Patients', function () {
                     lastName: "lastName",
                     email: "user3@gmail.com",
                     password: "password",
-                    dateOfBirth: ''
+                    dateOfBirth: '1957-01-09T16:00:00.000Z'
                 });
 
                 //add user
@@ -747,7 +747,7 @@ describe('Patients', function () {
 });
 
 //For adding a new doctor to the app and authenticating that doctor
-describe('Doctors', function() {
+describe('Doctors', function () {
 
     describe("Register", function () {
 
@@ -1004,5 +1004,296 @@ describe('Doctors', function() {
         });
     });
 
+    describe("AssignDoctor", function () {
+
+        beforeEach(function (done) {
+
+            this.timeout(20000);
+
+            User.removeUsers(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+            Doctor.removeDoctors(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+            Patient.removePatients(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+
+            done();
+
+        });
+
+        describe("valid request", function () {
+
+            it("should assign the patient to the the doctor", function (done) {
+
+                this.timeout(20000);
+
+                //add new doctor
+                var newUser = {
+                    firstName: "firstName",
+                    lastName: "lastName",
+                    email: "doctoremail@email.com",
+                    password: "password",
+                    confirm_password: "password"
+                };
+
+                request(server)
+                    .post('/doctors/register/')
+                    .send(newUser)
+                    // end handles the response
+                    .end(function (err, res, next) {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log(res.body.doctor.referenceCode);
+                        var doctorRefCode = res.body.doctor.referenceCode;
+
+                        // add a new patient
+                        var newUser = new User({
+                            firstName: "firstName",
+                            lastName: "lastName",
+                            email: "user3@gmail.com",
+                            password: "password",
+                            dateOfBirth: ''
+                        });
+
+                        //add user
+                        User.addUser(newUser, function (err, user) {
+                            if (err) {
+                                console.log('error :' + err);
+                                done();
+                            }
+                            else {
+                                var newPatient = new Patient({
+                                    firstName: "patientFirstName",
+                                    lastName: "patientLastName",
+                                    gender: "Female",
+                                    dateOfBirth: "1957-01-09T16:00:00.000Z",
+                                    carers: []
+                                });
+
+                                request(server)
+                                    .post('/patients/register/')
+                                    .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                                    .send(newPatient)
+                                    // end handles the response
+                                    .end(function (err, res, next) {
+                                        if (err) {
+                                            console.log(err);
+                                            throw err;
+                                        }
+
+                                        Patient.getAllPatients(function (err, patients) {
+
+                                            var patientId = patients[0]._id;
+
+                                            //should assign patient to doctor
+                                            request(server)
+                                                .post('/doctors/assign-doctor/')
+                                                .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                                                .send({"patientId": patientId, "referenceCode": doctorRefCode})
+                                                // end handles the response
+                                                .end(function (err, res, next) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                        throw err;
+                                                    }
+
+                                                    assert.equal(res.text,'{"success":true,"msg":"Successfully linked patient to doctor"}');
+                                                    done();
+                                                });
+                                            });
+                                    });
+
+                            }
+                        });
+                    });
+            });
+
+        });
+
+        describe("incorrect doctor reference code", function () {
+            it("should fail to assign patient to the doctor", function (done) {
+                this.timeout(20000);
+
+                //add new doctor
+                var newUser = {
+                    firstName: "firstName",
+                    lastName: "lastName",
+                    email: "doctoremail@email.com",
+                    password: "password",
+                    confirm_password: "password"
+                };
+
+                request(server)
+                    .post('/doctors/register/')
+                    .send(newUser)
+                    // end handles the response
+                    .end(function (err, res, next) {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log(res.body.doctor.referenceCode);
+                        var doctorRefCode = res.body.doctor.referenceCode;
+
+                        // add a new patient
+                        var newUser = new User({
+                            firstName: "firstName",
+                            lastName: "lastName",
+                            email: "user3@gmail.com",
+                            password: "password",
+                            dateOfBirth: ''
+                        });
+
+                        //add user
+                        User.addUser(newUser, function (err, user) {
+                            if (err) {
+                                console.log('error :' + err);
+                                done();
+                            }
+                            else {
+                                var newPatient = new Patient({
+                                    firstName: "patientFirstName",
+                                    lastName: "patientLastName",
+                                    gender: "Female",
+                                    dateOfBirth: "1957-01-09T16:00:00.000Z",
+                                    carers: []
+                                });
+
+                                request(server)
+                                    .post('/patients/register/')
+                                    .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                                    .send(newPatient)
+                                    // end handles the response
+                                    .end(function (err, res, next) {
+                                        if (err) {
+                                            console.log(err);
+                                            throw err;
+                                        }
+
+                                        Patient.getAllPatients(function (err, patients) {
+
+                                            var patientId = patients[0]._id;
+
+                                            //should NOT assign patient to doctor
+                                            request(server)
+                                                .post('/doctors/assign-doctor/')
+                                                .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                                                .send({"patientId": patientId, "referenceCode": "incorrectrefcode"}) //NOTE incorrect reference code here
+                                                // end handles the response
+                                                .end(function (err, res, next) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                        throw err;
+                                                    }
+
+                                                    assert.equal(res.text,'{"success":false,"msg":"Failed to link patient to doctor"}');
+                                                    done();
+                                                });
+                                        });
+                                    });
+
+                            }
+                        });
+                    });
+            });
+        });
+
+        describe("incorrect patient id", function() {
+
+            it("should not assign patient to doctor", function(done) {
+                this.timeout(20000);
+
+                //add new doctor
+                var newUser = {
+                    firstName: "firstName",
+                    lastName: "lastName",
+                    email: "doctoremail@email.com",
+                    password: "password",
+                    confirm_password: "password"
+                };
+
+                request(server)
+                    .post('/doctors/register/')
+                    .send(newUser)
+                    // end handles the response
+                    .end(function (err, res, next) {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log(res.body.doctor.referenceCode);
+                        var doctorRefCode = res.body.doctor.referenceCode;
+
+                        // add a new patient
+                        var newUser = new User({
+                            firstName: "firstName",
+                            lastName: "lastName",
+                            email: "user3@gmail.com",
+                            password: "password",
+                            dateOfBirth: ''
+                        });
+
+                        //add user
+                        User.addUser(newUser, function (err, user) {
+                            if (err) {
+                                console.log('error :' + err);
+                                done();
+                            }
+                            else {
+                                var newPatient = new Patient({
+                                    firstName: "patientFirstName",
+                                    lastName: "patientLastName",
+                                    gender: "Female",
+                                    dateOfBirth: "1957-01-09T16:00:00.000Z",
+                                    carers: []
+                                });
+
+                                request(server)
+                                    .post('/patients/register/')
+                                    .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                                    .send(newPatient)
+                                    // end handles the response
+                                    .end(function (err, res, next) {
+                                        if (err) {
+                                            console.log(err);
+                                            throw err;
+                                        }
+
+                                        Patient.getAllPatients(function (err, patients) {
+
+                                            var patientId = patients[0]._id;
+
+                                            //should NOT assign patient to doctor
+                                            request(server)
+                                                .post('/doctors/assign-doctor/')
+                                                .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                                                .send({"patientId": "incorrectpatientid", "referenceCode": doctorRefCode}) //NOTE: incorrect patientId
+                                                // end handles the response
+                                                .end(function (err, res, next) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                        throw err;
+                                                    }
+
+                                                    assert.equal(res.text,'{"success":false,"msg":"Failed to link patient to doctor"}');
+                                                    done();
+                                                });
+                                        });
+                                    });
+
+                            }
+                        });
+                    });
+            });
+        });
+    });
 });
 

@@ -100,7 +100,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
     # test sign up
     def test_signup(self):
-        createaccountbutton = self.driver.find_element_by_name("Create Account");
+        createaccountbutton = self.driver.find_element_by_name("Create Account")
         createaccountbutton.click()
 
         time.sleep(1)
@@ -111,17 +111,19 @@ class MobileAppTestAppium(unittest.TestCase):
         email = self.driver.find_element_by_name("Email")
         password = self.driver.find_element_by_name("Password")
         confirmpassword = self.driver.find_element_by_name("Confirm Password")
-        createaccountbutton = self.driver.find_element_by_name("Create Account")
 
-        firstname.send_keys("user first name")
-        lastname.send_keys("user last name")
+        firstname.send_keys("fn")
+        lastname.send_keys("ln")
         email.send_keys("email@email.com")
         password.send_keys("password")
         confirmpassword.send_keys("password")
 
-        createaccountbutton.click()
+        time.sleep(0.2)
 
-        time.sleep(3)
+        createaccount = self.driver.find_element_by_name("Create Account")
+        createaccount.click()
+
+        time.sleep(5)
 
         #assert that we have navigated back to the login screen
         loginbutton = self.driver.find_element_by_name("Log In")
