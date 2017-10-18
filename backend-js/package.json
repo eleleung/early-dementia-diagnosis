@@ -4,7 +4,7 @@
   "description": "Backend for Early Dementia Diagnosis Tool",
   "main": "app.js",
   "scripts": {
-    "test": "/test/unittests.js",
+    "test": "./test/unittests.js",
     "start": "nodemon app.js"
   },
   "dependencies": {
