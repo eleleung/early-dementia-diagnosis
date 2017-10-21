@@ -352,6 +352,31 @@ describe('Users', function () {
 
             });
         });
+
+        describe("FRC02 sql injection attack", function() {
+            it("should sanitise input and prevent sql injection attack", function (done) {
+
+                this.timeout(20000);
+
+                var user = {
+                    email: '{"$ne": null}',
+                    password: '{"$ne": null}'
+                };
+
+                request(server)
+                    .post('/users/authenticate/')
+                    .send(user)
+                    // end handles the response
+                    .end(function (err, res, next) {
+                        if (err) {
+                            throw err;
+                        }
+                        // should not authenticate user
+                        assert.equal(res.statusCode, 400);
+                        done();
+                    });
+            });
+        });
     });
 
     //GetPatients tests
@@ -411,7 +436,6 @@ describe('Users', function () {
                     }
                 });
             });
-
         });
 
         describe("FRC05 valid request with patients", function () {
@@ -765,7 +789,7 @@ describe('Doctors', function () {
                 }
             });
             done();
-        })
+        });
 
         describe("FRD02 valid request", function () {
 
@@ -790,8 +814,6 @@ describe('Doctors', function () {
                             throw err;
                         }
 
-                        //TODO: make assert more verbose
-                        console.log(res.text);
                         assert.equal(res.statusCode, 200);
                         done();
                     });
@@ -895,7 +917,6 @@ describe('Doctors', function () {
                         done();
                     });
             });
-
         });
 
         describe("FRD03B invalid request with incorrect password", function () {
@@ -999,6 +1020,32 @@ describe('Doctors', function () {
                             });
                     }
                 });
+            });
+        });
+
+        describe("FED03B request with SQL injection attack", function() {
+
+            it ("should sanitise input and prevent SQL injection attack", function() {
+
+                this.timeout(20000);
+
+                var user = {
+                    email: '{"$ne": null}',
+                    password: '{"$ne": null}'
+                };
+
+                request(server)
+                    .post('/users/authenticate/')
+                    .send(user)
+                    // end handles the response
+                    .end(function (err, res, next) {
+                        if (err) {
+                            throw err;
+                        }
+                        // should not authenticate successfully
+                        assert.equal(res.statusCode, 400);
+                        done();
+                    });
             });
         });
     });
@@ -1120,6 +1167,7 @@ describe('Doctors', function () {
         });
 
         describe("FRD05 incorrect doctor reference code", function () {
+
             it("FRD05 should fail to assign patient to the doctor", function (done) {
                 this.timeout(20000);
 
