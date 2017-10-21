@@ -15,15 +15,14 @@
 }
 
 .item:hover {
-    background-color: lightgray !important;
+    background-color: #78D1C3!important;
 }
 
 .item:active {
     border-left: solid 5px red;
-    color: deepskyblue;
+    color: #31A795;
 }
 .item .active {
     border-left: solid 5px red;
-    color: deepskyblue;
+    color: #31A795;
 }
-

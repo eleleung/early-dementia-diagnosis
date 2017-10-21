@@ -1,3 +1,7 @@
+body {
+    background: #f6fbfe;
+}
+
 .main-section {
     width: 1200px;
     display: block;
@@ -29,38 +33,76 @@
 
 
 .menu-item:hover {
-
+    background: #78D1C3; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#78D1C3, #1F8377); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#78D1C3, #1F8377); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#78D1C3, #1F8377); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#78D1C3, #1F8377); /* Standard syntax (must be last) */
+    border-radius: 5px;
+    color: #fff!important;
 }
 
 .menu-item {
-    width:200px;
-    height: 35px;
-    padding-top: 10px!important;
+    width:205px;
+    height: 50px;
+    padding-top: 13px!important;
     vertical-align: middle;
+    font-size: 130%;
+    color: #fff!important;
 }
 
 .menu-item.active {
-    background-color: #3494bb;
+    background: #78D1C3; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#78D1C3, #1F8377); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#78D1C3, #1F8377); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#78D1C3, #1F8377); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#78D1C3, #1F8377); /* Standard syntax (must be last) */
     border-radius: 5px;
     color: #fff!important;
 }
 
 .search-bar {
-    margin-top: 40px;
+    margin-bottom: 10px;
 }
 
 .avatar-box {
-    background-color: #3494bb;
+    background-color: #43A295;
     height: 60px;
 }
 
 .selected {
-    background-color: #3494bb;
+    background-color:#78D1C3;
     color: #fff!important;
 }
 
 .primary-button {
-    background-color: #3494bb!important;
+    background-color: #31A795;
     color: #fff!important;
 }
 
+.ui.link.list {
+    background: #31A795;
+    border-radius: 5px;
+}
+
+h3 {
+    font-size: 150%;
+}
+
+h4 {
+    font-size: 150%;
+}
+
+.ui.table {
+    font-size: 110%;
+    background-color: #fbfdfe;
+}
+
+.ui.icon.input.search-bar {
+    width: 205px;
+    border-style: solid;
+    border-width: 10px;
+    border-radius: 5px;
+    border-color: #1F8377;
+    background-color: #1F8377;
+}

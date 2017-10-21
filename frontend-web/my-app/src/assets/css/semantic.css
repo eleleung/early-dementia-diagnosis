@@ -1474,6 +1474,7 @@ input::selection {
 .ui.icon.buttons .button,
 .ui.icon.button {
   padding: 0.78571429em 0.78571429em 0.78571429em;
+  background-color: #31A795;
 }
 
 .ui.icon.buttons .button > .icon,
@@ -1481,6 +1482,7 @@ input::selection {
   opacity: 0.9;
   margin: 0em;
   vertical-align: top;
+  background-color: #31A795;
 }
 
 /*-------------------
@@ -4206,7 +4208,7 @@ input::selection {
 
 .ui.primary.buttons .button,
 .ui.primary.button {
-  background-color: #2185d0;
+  background-color: #31A795;
   color: #ffffff;
   text-shadow: none;
   background-image: none;
@@ -4218,28 +4220,28 @@ input::selection {
 
 .ui.primary.buttons .button:hover,
 .ui.primary.button:hover {
-  background-color: #1678c2;
+  background-color: #31A795;
   color: #ffffff;
   text-shadow: none;
 }
 
 .ui.primary.buttons .button:focus,
 .ui.primary.button:focus {
-  background-color: #0d71bb;
+  background-color: #31A795;
   color: #ffffff;
   text-shadow: none;
 }
 
 .ui.primary.buttons .button:active,
 .ui.primary.button:active {
-  background-color: #1a69a4;
+  background-color: #31A795;
   color: #ffffff;
   text-shadow: none;
 }
 
 .ui.primary.buttons .active.button,
 .ui.primary.active.button {
-  background-color: #1279c6;
+  background-color: #31A795;
   color: #ffffff;
   text-shadow: none;
 }
@@ -10986,6 +10988,7 @@ img.ui.bordered.image {
   width: 2.67142857em;
   opacity: 0.5;
   border-radius: 0em 0.28571429rem 0.28571429rem 0em;
+  border-color: #1F8377;
   -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
 }
@@ -14627,12 +14630,14 @@ ol.ui.horizontal.list li:before,
 
 .ui.segment {
   position: relative;
-  background: #ffffff;
+  background: #78D1C3;
   box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);
   margin: 1rem 0em;
   padding: 1em 1em;
   border-radius: 0.28571429rem;
-  border: 1px solid rgba(34, 36, 38, 0.15);
+  border: 1px solid;
+  border-color: #78D1C3;
+  color: #fff;
 }
 
 .ui.segment:first-child {
@@ -22592,9 +22597,10 @@ Floated Menu / Item
 
 .ui.table thead th {
   cursor: auto;
-  background: #f9fafb;
+  background: #1F8377;
   text-align: inherit;
-  color: rgba(0, 0, 0, 0.87);
+  font-size: 110%;
+  color: #fff;
   padding: 0.92857143em 0.71428571em;
   vertical-align: inherit;
   font-style: none;

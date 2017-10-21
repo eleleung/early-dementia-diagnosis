@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let patient of patientService.patients | async" (click)="selectPatient(patient)" [ngClass]="{'selected': patient == selectedPatient}" style="cursor:pointer;">
+        <tr *ngFor="let patient of patientService.patients | async" (click)="selectPatient(patient)" [ngClass]="{'selected': patient == selectedPatient}" style="cursor:pointer">
             <td>{{patient.firstName}}</td>
             <td>{{patient.lastName}}</td>
             <td>{{patient.gender}}</td>
