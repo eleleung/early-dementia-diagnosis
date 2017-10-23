@@ -30,7 +30,12 @@ class WebAppTest(unittest.TestCase):
         print(result)
 
     #login tests
-    def test_FRD03A_valid_login_should_login_correctly(self):
+    """
+    Test Case: test_FRC03A_validLogin_shouldLoginCorrectly
+    Purpose: test a valid doctor login on the doctor web app
+    Expected Outcome: doctor should be logged in
+    """
+    def test_FRD03A_validLogin_shouldLoginCorrectly(self):
 
         self.helper_add_doctor()
 
@@ -81,7 +86,12 @@ class WebAppTest(unittest.TestCase):
         #assert that we have hit the overview page
         self.assertTrue(driver.find_element_by_xpath("//h1[contains(.,'Overview')]"));
 
-    def test_FRD03B_invalid_login_doctor_does_not_exist_should_error(self):
+    """
+    Test Case: test_FRD03B_invalidLoginDoctorDoesNotExist_shouldError
+    Purpose: test an invalid doctor login where account does not exist in the database
+    Expected Outcome: doctor should not be logged in
+    """
+    def test_FRD03B_invalidLoginDoctorDoesNotExist_shouldError(self):
         driver = self.driver
         driver.get("http://localhost:4200")
         driver.find_element_by_id("email").clear()
@@ -100,7 +110,12 @@ class WebAppTest(unittest.TestCase):
             self.fail("time out")
         self.assertTrue(driver.find_element_by_xpath("//p[contains(.,'Error with login credentials, please check your email and password')]"))
 
-    def test_FRD03B_invalid_login_no_password_entered_should_error(self):
+    """
+    Test Case: test_FRD03B_invalidLoginNoPasswordEntered_shouldError
+    Purpose: test an invalid login where no password is entered
+    Expected Outcome: doctor should not be logged in
+    """
+    def test_FRD03B_invalidLoginNoPasswordEntered_shouldError(self):
 
             self.helper_add_doctor()
 
@@ -121,7 +136,12 @@ class WebAppTest(unittest.TestCase):
             self.assertTrue(driver.find_element_by_xpath(
                     "//p[contains(.,'Error with login credentials, please check your email and password')]"))
 
-    def test_FRD03B_invalid_login_no_email_entered_should_error(self):
+    """
+    Test Case: test_FRD03B_invalidLoginNoEmailEntered_shouldError
+    Purpose: test an invalid login where no email is entered
+    Expected Outcome: doctor should not be logged in
+    """
+    def test_FRD03B_invalidLoginNoEmailEntered_shouldError(self):
 
             self.helper_add_doctor()
 
@@ -144,7 +164,12 @@ class WebAppTest(unittest.TestCase):
                     "//p[contains(.,'Error with login credentials, please check your email and password')]"))
 
     # test view patients
-    def test_FRD07_view_doctor_patient_list(self):
+    """
+    Test Case: test_FRD07_viewDoctorPatientList
+    Purpose: tests that a list of the doctor's patients can be viewed
+    Expected Outcome: doctor should be able to view their patients on this page
+    """
+    def test_FRD07_viewDoctorPatientList(self):
 
         self.addDoctorWithPatient()
 

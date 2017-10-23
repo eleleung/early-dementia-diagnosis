@@ -24,7 +24,12 @@ class MobileAppTestAppium(unittest.TestCase):
 
         self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', desired_caps)
 
-    # test login
+    #test login
+    """
+    Test Case: test_FRC01_login
+    Purpose: Test a valid Carer login
+    Expected Outcome: Should log in the user
+    """
     def test_FRC01_login(self):
 
         # add user
@@ -55,6 +60,11 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(settingsbutton.is_displayed())
         self.assertFalse(loginbutton.is_displayed())
 
+    """
+    Test Case: test_FRC01_login_invalidEmail
+    Purpose: Test an invalid login where email does not exist in database
+    Expected Outcome: Should not log in the user
+    """
     def test_FRC01_login_invalidEmail(self):
 
         self.helper_add_user();
@@ -76,6 +86,11 @@ class MobileAppTestAppium(unittest.TestCase):
         # check that we're still on the login page and the login button is still displayed
         self.assertTrue(loginbutton.is_displayed())
 
+    """
+    Test Case: test_FRC01_login_invalidPassword
+    Purpose: Test an invalid user login where the password is incorrect
+    Expected Outcome: Should not log in the user
+    """
     def test_FRC01_login_invalidPassword(self):
 
         #add user
@@ -99,6 +114,11 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(loginbutton.is_displayed())
 
     # test sign up
+    """
+    Test Case: test_FRC02_signup
+    Purpose: Test a valid user sign up
+    Expected Outcome: Should sign up the user
+    """
     def test_FRC02_signup(self):
         createaccountbutton = self.driver.find_element_by_name("Create Account")
         createaccountbutton.click()
@@ -142,6 +162,11 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(homebutton.is_displayed())
         self.assertFalse(loginbutton.is_displayed())
 
+    """
+    Test Case: test_FRC02_signup_incorrectConfirmPassword
+    Purpose: Test an invalid user sign up when the "Confirm Password" field does not match the "Password" field
+    Expected Outcome: Should not sign up the user
+    """
     def test_FRC02_signup_incorrectConfirmPassword(self):
         createaccountbutton = self.driver.find_element_by_name("Create Account");
         createaccountbutton.click()
@@ -178,6 +203,11 @@ class MobileAppTestAppium(unittest.TestCase):
         error = self.driver.find_element_by_name("Error")
         self.assertTrue(error.is_displayed())
 
+    """
+    Test Case: test_FRC02_signup_missingField
+    Purpose: Test an invalid user sign up when there is an expected field that is missing
+    Expected Outcome: Should not sign up the user
+    """
     def test_FRC02_signup_missingField(self):
         createaccountbutton = self.driver.find_element_by_name("Create Account");
         createaccountbutton.click()
@@ -214,6 +244,11 @@ class MobileAppTestAppium(unittest.TestCase):
         error = self.driver.find_element_by_name("Error")
         self.assertTrue(error.is_displayed())
 
+    """
+    Test Case: test_FRC02_signup_userAlreadyExists
+    Purpose: Test an invalid user sign up when the user already exists in the database
+    Expected Outcome: Should not sign up the user
+    """
     def test_FRC02_signup_userAlreadyExists(self):
         # add user
         self.helper_add_user();
@@ -254,6 +289,11 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(error.is_displayed())
 
     # test log out
+    """
+    Test Case: test_FRC01_logout
+    Purpose: Test user logout when the "logout" button is clicked
+    Expected Outcome: Should logout the user
+    """
     def test_FRC01_logout(self):
 
         # add user
@@ -292,6 +332,11 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(passwordField.is_displayed())
 
     # test recording test
+    """
+    Test Case: test_FRC08A_testRecording
+    Purpose: Test user voice recording and submission
+    Expected Outcome: Should record successfully and submit the recording to the doctor
+    """
     def test_FRC08A_testRecording(self):
 
         # add user
@@ -351,6 +396,11 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(success.is_displayed())
 
     # test patient profiles
+    """
+    Test Case: test_FRC04_addNewPatient
+    Purpose: Test the process of adding a new patient to the carer profile
+    Expected Outcome: Should successfuly add a new patient to the carer profile
+    """
     def test_FRC04_addNewPatient(self):
 
         # add user
@@ -409,6 +459,11 @@ class MobileAppTestAppium(unittest.TestCase):
 
      #test switch patient
 
+    """
+    Test Case: test_FRC04_addFirstPatient_SetPatientAsDefault
+    Purpose: Tests that when first patient is added, it is set as the default patient
+    Expected Outcome: Patient should be set as the default patient
+    """
     def test_FRC04_addFirstPatient_SetPatientAsDefault(self):
 
         # add user
@@ -462,6 +517,11 @@ class MobileAppTestAppium(unittest.TestCase):
         defaultpatient = self.driver.find_element_by_name("First Patient")
         self.assertTrue(defaultpatient.is_displayed())
 
+    """
+    Test Case: test_FRC04_addPatientWithMissingField
+    Purpose: Tests that if a patient is added with a missing field, an error appears and the patient is not added to the carer profile
+    Expected Outcome: Error should appear and patient should not be added to the patient profile
+    """
     def test_FRC04_addPatientWithMissingField_ShouldError(self):
 
         # add user
@@ -513,6 +573,11 @@ class MobileAppTestAppium(unittest.TestCase):
         # assert that we have not navigated back to the add patient page
         self.assertFalse(addpatient.is_displayed())
 
+    """
+    Test Case: test_FRC04_defaultPatientProfileOnLogin
+    Purpose: Tests that a default patient profile appears when the user is logged in
+    Expected Outcome: The last patient that was veiwed by the carer should be the default patient profile
+    """
     def test_FRC04_defaultPatientProfileOnLogin(self):
 
         # add user and patient
@@ -550,6 +615,11 @@ class MobileAppTestAppium(unittest.TestCase):
         selectedpatient = self.driver.find_element_by_name("First ")
         self.assertTrue(selectedpatient.is_displayed())
 
+    """
+    Test case: test_FRC04_switchPatientProfile
+    Purpose: Tests the switching of a patient profile
+    Expected Outcome: The patient profile is switched successfully
+    """
     def test_FRC04_switchPatientProfile(self):
         # add user and patient
         self.helper_add_user()
@@ -595,6 +665,11 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(newselectedPatient.is_displayed())
 
     # test adding doctor
+    """
+    Test Case: test_FRD05_assignADoctor
+    Purpose: Tests assigning a patient to a doctor via the correct reference key
+    Expected Outcome: Patient should be successfully assigned to a doctor
+    """
     def test_FRD05_assignADoctor(self):
 
         self.helper_add_user()
@@ -635,6 +710,11 @@ class MobileAppTestAppium(unittest.TestCase):
         alert = self.driver.find_element_by_name("Alert")
         self.assertFalse(alert.is_displayed())
 
+    """
+    Test Case: test_FRD05_assignADoctor_incorrectReferenceKey
+    Purpose: Tests assigning a patient to a doctor via an incorrect reference key
+    Expected Outcome: The patient should not be assigned to the doctor
+    """
     def test_FRD05_assignADoctor_incorrectReferenceKey(self):
 
         self.helper_add_user()
