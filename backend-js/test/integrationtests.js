@@ -36,6 +36,11 @@ describe('Users', function () {
             done();
         });
 
+        /**
+         * Test Case: Users - Register - FRC01 valid request - FRC01 should add new user and give a 200 Status Code
+         * Purpose: To test a valid user sign up request
+         * Expected outcome: Request is successful and user is signed up
+         */
         describe("FRC01 valid request", function () {
 
             it("FRC01 should add new user and give a 200 Status Code", function (done) {
@@ -66,9 +71,14 @@ describe('Users', function () {
             });
         });
 
+        /**
+         * Test Case: Users - Register - FRC01 additional valid request with same email - FRC01 should only add first user
+         * Purpose: To test that the same user cannot be added twice
+         * Expected outcome: Request is unsuccessful and user is not signed up twice
+         */
         describe("FRC01 additional valid request with same email", function () {
 
-            it("FRC03B should only add first user", function (done) {
+            it("FRC01 should only add first user", function (done) {
                 this.timeout(10000);
 
                 var newUser = {
@@ -113,9 +123,14 @@ describe('Users', function () {
             });
         });
 
+        /**
+         * Test Case: Users - Register - FRC01 additional valid request with different email - FRC01 should add both users
+         * Purpose: To test that a second, different user can be added to the database
+         * Expected outcome: Request is successful and both users are added to the database
+         */
         describe("FRC01 additional valid request with different email", function (done) {
 
-            it("FRC03B should add both users", function (done) {
+            it("FRC01 should add both users", function (done) {
 
                 this.timeout(10000);
                 var newUser = {
@@ -161,8 +176,13 @@ describe('Users', function () {
             });
         });
 
+        /**
+         * Test Case: Users - Register - FRC01 Invalid request with incorrect confirmed password - FRC01 should add user
+         * Purpose: Tests that the user is added regardless, as this validation is done on the front end
+         * Expected Outcome: User is added regardless of incorrect confirm password
+         */
         describe("FRC01 Invalid request with incorrect confirmed password", function () {
-            it("FRC03B should add user", function (done) {
+            it("FRC01 should add user", function (done) {
                 this.timeout(10000);
                 var newUser = {
                     firstName: "firstName",
@@ -225,7 +245,13 @@ describe('Users', function () {
 
         });
 
+        /**
+         * Test Case: Users - Authenticate - FRC02 valid request - FRC02 should authenticate the new user
+         * Purpose: To test that a valid request with the user name and password of a user will authenticate correctly
+         * Expected Outcome: The response will be successful indicating that the user is authenticated
+         */
         describe("FRC02 valid request", function () {
+
             it("FRC02 should authenticate the new user", function (done) {
                 this.timeout(20000);
 
@@ -243,14 +269,17 @@ describe('Users', function () {
                             throw err;
                         }
                         // should authenticate successfully
-                        console.log('in req 2');
-                        console.log(res.text);
                         assert.equal(res.statusCode, 200);
                         done();
                     });
             });
         });
 
+        /**
+         * Test Case: Users - Authenticate - FRC02 email does not exist - FRC02 should return fail (400) status with UserNotFound error message
+         * Purpose: To test that a request with an invalid email will not authenticate the user
+         * Expected Outcome: The response will be unsuccessful (400), the error message will be "User Not Found" and the user will not be authenticated
+         */
         describe("FRC02 email does not exist", function () {
 
             it("FRC02 should return fail (400) status with UserNotFound error message", function (done) {
@@ -277,9 +306,16 @@ describe('Users', function () {
                         done();
                     });
             });
+
         });
 
+        /**
+         * Test Case: Users - Authenticate - FRC02 incorrect password - FRC02 should return fail (400) with IncorrectPassword error message
+         * Purpose: To test that a request with an incorrect password will not authenticate the user
+         * Expected Outcome: The response will be unsuccessful (400), the error message will be "Incorrect Password" and the user will not be authenticated
+         */
         describe("FRC02 incorrect password", function () {
+
             it("FRC02 should return fail (400) with IncorrectPassword error message", function (done) {
                 this.timeout(10000);
 
@@ -304,8 +340,14 @@ describe('Users', function () {
                         done();
                     });
             });
+
         });
 
+        /**
+         * Test Case: Users - Authenticate - FRC02 invalid request as a doctor tries to authenticate as a user - FRC02 should error as a doctor should not be able to log into the mobile app
+         * Purpose: To test that users cannot log into the mobile app with a "Doctor" account
+         * Expected Outcome: Response should be unsuccessful (400) and the user should not be authenticated
+         */
         describe("FRC02 invalid request as a doctor tries to authenticate as a user", function () {
 
             it("FRC02 should error as a doctor should not be able to log into the mobile app", function (done) {
@@ -353,7 +395,13 @@ describe('Users', function () {
             });
         });
 
+        /**
+         * Test Case: Users - Authenticate - FRC02 sql injection attack - should sanitise input and prevent sql injection attack
+         * Purpose: To test that malicious users cannot perform a SQL injection attack to authenticate themselves
+         * Expected Outcome: Response should be unsuccessful (400) and the user should not be authenticated
+         */
         describe("FRC02 sql injection attack", function() {
+
             it("should sanitise input and prevent sql injection attack", function (done) {
 
                 this.timeout(20000);
@@ -399,6 +447,11 @@ describe('Users', function () {
             done();
         });
 
+        /**
+         * Test Case: Users - GetPatients - FRC05 valid request with no patients - FRC05 should return a 200 response with no patients
+         * Purpose: To test that a carer can make a request to "GetPatients", even when they have no patients
+         * Expected outcome: Response should be successful (200) and should return NoPatients
+         */
         describe("FRC05 valid request with no patients", function () {
 
             it('FRC05 should return a 200 response with no patients', function (done) {
@@ -438,6 +491,11 @@ describe('Users', function () {
             });
         });
 
+        /**
+         * Test Case: Users - GetPatients - FRC05 valid request with patients - FRC05 valid request with patients
+         * Purpose: To test that a carer can make a request to "GetPatients"
+         * Expected outcome: Response should be successful (200) and should return a response with patients
+         */
         describe("FRC05 valid request with patients", function () {
 
             it('FRC05 should return a patient', function (done) {
@@ -507,6 +565,11 @@ describe('Users', function () {
             });
         });
 
+        /**
+         * Test Case: Users - GetPatients - FRC05 invalid request with missing JWT token - FRC05 should return a 401 unauthorised response
+         * Purpose: To test that a if an invalid JWT token is passed to GetPatients, an unauthorised response is returned
+         * Expected outcome: An Unauthorised (401) response should be returned
+         */
         describe("FRC05 invalid request with missing JWT token", function () {
 
             it('FRC05 should return a 401 unauthorised response', function (done) {
@@ -569,6 +632,11 @@ describe('Patients', function () {
             done();
         });
 
+        /**
+         * Test Case: Patients - Register - FRC04 valid request - FRC04 should register patient
+         * Purpose: to test that a carer can make a request to register a new patient
+         * Expected Outcome: Successful (200) response is returned and the user is registered
+         */
         describe("FRC04 valid request", function () {
 
             it("FRC04 should register patient", function (done) {
@@ -620,6 +688,11 @@ describe('Patients', function () {
             });
         });
 
+        /**
+         * Test Case: Patients - Register - FRC04 invalid request no sirname in request - FRC04 should return 400 status and not register patient
+         * Purpose: to test that a carer should not be able to send an "AddPatient" request with no sirname
+         * Expected Outcome: Unsuccessful (200) response is returned and the user is not registered
+         */
         describe("FRC04 invalid request no sirname in request", function () {
 
             it("FRC04 should return 400 status and not register patient", function (done) {
@@ -668,6 +741,11 @@ describe('Patients', function () {
             });
         });
 
+        /**
+         * Test Case: Patients - Register - FRC04 invalid request empty sirname in request - FRC04 should return 400 status and not register patient
+         * Purpose: to test that a carer should not be able to send an "AddPatient" request with an empty sirname
+         * Expected Outcome: Unsuccessful (200) response is returned and the user is not registered
+         */
         describe("FRC04 invalid request empty sirname in request", function () {
 
             it("FRC04 should return 400 status no registered patient", function (done) {
@@ -717,6 +795,11 @@ describe('Patients', function () {
             });
         });
 
+        /**
+         * Test Case: Patients - Register - FRC04 invalid request invalid JWT token - FRC04 should return a 401 unauthorised response
+         * Purpose: To test that a if an invalid JWT token is passed to AddPatient, an unauthorised response is returned
+         * Expected outcome: An Unauthorised (401) response should be returned
+         */
         describe("FRC04 invalid request invalid JWT token", function () {
 
             it("FRC04 should return 401 status with Unauthorised response", function (done) {
@@ -791,6 +874,11 @@ describe('Doctors', function () {
             done();
         });
 
+        /**
+         * Test Case: Doctors - Register - FRD02 valid request - FRD02 should return a 200 response with doctor registered
+         * Purpose: To test that a valid request to Register will register a doctor
+         * Expected Outcome: Successful (200) response, and doctor should be registered
+         */
         describe("FRD02 valid request", function () {
 
             it('FRD02 should return a 200 response with doctor registered', function (done) {
@@ -892,6 +980,11 @@ describe('Doctors', function () {
                 });
         });
 
+        /**
+         * Test Case: Doctors - Authenticate - FRD03A valid request - FRD03A should authenticate doctor
+         * Purpose: To test that a valid call to authenticate doctor with the correct username and password will successfuly authenticate the doctor
+         * Expected Outcome: Successful (200) response meaning doctor is authenticated
+         */
         describe("FRD03A valid request", function () {
 
             it("FRD03A should authenticate doctor", function (done) {
@@ -919,9 +1012,14 @@ describe('Doctors', function () {
             });
         });
 
+        /**
+         * Test Case: Doctors - Authenticate - FRD03B invalid request with incorrect password - FRD03B should return 400 error response and not authenticate doctor
+         * Purpose: To test that a invalid call to authenticate doctor with an invalid password will not authenticate doctor
+         * Expected Outcome: Unsuccessful (400) response meaning doctor is not authenticated
+         */
         describe("FRD03B invalid request with incorrect password", function () {
 
-            it("FRD03B hould return 400 error response and not authenticate doctor", function (done) {
+            it("FRD03B should return 400 error response and not authenticate doctor", function (done) {
 
                 this.timeout(20000);
 
@@ -947,6 +1045,11 @@ describe('Doctors', function () {
             });
         });
 
+        /**
+         * Test Case: Doctors - Authenticate - FRD03B invalid request with incorrect email - FRD03B should return 400 error response and respond with UserNotFound
+         * Purpose: To test that a invalid call to authenticate doctor with an invalid email will not authenticate doctor
+         * Expected Outcome: Unsuccessful (400) response meaning doctor is not authenticated and a response of "UserNotFound"
+         */
         describe("FRD03B invalid request with incorrect email", function () {
 
             it("FRD03B should return 400 error response and respond with UserNotFound", function (done) {
@@ -975,6 +1078,11 @@ describe('Doctors', function () {
             });
         });
 
+        /**
+         * Test Case: Users - Authenticate - FRC03B invalid request as a carer tries to authenticate as a doctor - FRC03B should error as a doctor should not be able to log into the mobile app
+         * Purpose: To test that users cannot log into the mobile app with a "Doctor" account
+         * Expected Outcome: Response should be unsuccessful (400) and the user should not be authenticated
+         */
         describe("FRD03B invalid request as non doctor tries to authenticate as a doctor", function () {
 
             it("FRD03B should return 400 status with DoctorNotFound error", function (done) {
@@ -1023,6 +1131,11 @@ describe('Doctors', function () {
             });
         });
 
+        /**
+         * Test Case: Doctors - Authenticate - FRC03B sql injection attack - should sanitise input and prevent sql injection attack
+         * Purpose: To test that malicious users cannot perform a SQL injection attack to authenticate themselves
+         * Expected Outcome: Response should be unsuccessful (400) and the user should not be authenticated
+         */
         describe("FED03B request with SQL injection attack", function() {
 
             it ("should sanitise input and prevent SQL injection attack", function() {
@@ -1076,6 +1189,11 @@ describe('Doctors', function () {
 
         });
 
+        /**
+         * Test Case: Doctors  - Assign Doctor - FRD05 valid request - FRD05 should assign the patient to the doctor
+         * Purpose: To test that a patient can be assigned to a doctor if a valid reference code is sent into the request
+         * Expected outcome: Successful (200) response and patient is assigned to the doctor
+         */
         describe("FRD05 valid request", function () {
 
             it("FRD05 should assign the patient to the the doctor", function (done) {
@@ -1166,6 +1284,11 @@ describe('Doctors', function () {
 
         });
 
+        /**
+         * Test Case: Doctors  - Assign Doctor - FRD05 incorrect doctor reference code - FRD05 should fail to assign patient to the doctor
+         * Purpose: To test that a patient cannot be assigned to a doctor if an invalid reference code is sent into the request
+         * Expected outcome: Unsuccessful (400) response and patient not is assigned to the doctor
+         */
         describe("FRD05 incorrect doctor reference code", function () {
 
             it("FRD05 should fail to assign patient to the doctor", function (done) {
@@ -1254,6 +1377,12 @@ describe('Doctors', function () {
             });
         });
 
+
+        /**
+         * Test Case: Doctors  - Assign Doctor - FRD05 incorrect patient id - FRD05 should not assign patient to doctor
+         * Purpose: To test that a patient cannot be assigned to a doctor if an invalid patientId is sent into the request
+         * Expected outcome: Unsuccessful (400) response and patient not is assigned to the doctor
+         */
         describe("FRD05 incorrect patient id", function() {
 
             it("FRD05 should not assign patient to doctor", function(done) {
