@@ -173,8 +173,6 @@ class WebAppTest(unittest.TestCase):
 
         self.addDoctorWithPatient()
 
-        self.helper_add_doctor()
-
         driver = self.driver
         driver.get(self.base_url)
 
@@ -227,6 +225,316 @@ class WebAppTest(unittest.TestCase):
 
         #assert that first patient is visible
         self.assertTrue(driver.find_element_by_xpath("//h1[contains(.,'First')]"));
+
+    #test construct tests
+    def test_FRD08A_addTestWithRecordSpeechComponent(self):
+
+        self.helper_add_doctor()
+
+        driver = self.driver
+        driver.get(self.base_url)
+
+        for i in range(10):
+            try:
+                if driver.find_element_by_xpath("//div[@class='login']"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        driver.find_element_by_id("email").clear()
+        driver.find_element_by_id("email").send_keys("doctor@email.com")
+        driver.find_element_by_id("password").clear()
+        driver.find_element_by_id("password").send_keys("password")
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+        # ERROR: Caught exception [Error: locator strategy either id or name must be specified explicitly.]
+
+        # enter email
+        self.assertEqual("doctor@email.com", driver.find_element_by_id("email").get_attribute("value"))
+        for i in range(10):
+            try:
+                if "doctor@email.com" == driver.find_element_by_id("email").get_attribute("value"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        # enter password
+        self.assertEqual("password", driver.find_element_by_id("password").get_attribute("value"))
+        for i in range(60):
+            try:
+                if "password" == driver.find_element_by_id("password").get_attribute("value"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        # click submit
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+        time.sleep(2)
+        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[contains(@ng-reflect-content,'Create a new test')]").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[@ng-reflect-content='Add new component']").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//input[@id='content']").send_keys("test");
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[contains(.,'Save Test')]").click();
+        time.sleep(0.2)
+
+        #assert
+        self.assertTrue(driver.find_element_by_xpath("//div[contains(.,'Test successfully created!')]"));
+
+    def test_FRD08B_addTestWithDrawingComponent(self):
+        self.helper_add_doctor()
+
+        driver = self.driver
+        driver.get(self.base_url)
+
+        for i in range(10):
+            try:
+                if driver.find_element_by_xpath("//div[@class='login']"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        driver.find_element_by_id("email").clear()
+        driver.find_element_by_id("email").send_keys("doctor@email.com")
+        driver.find_element_by_id("password").clear()
+        driver.find_element_by_id("password").send_keys("password")
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+        # ERROR: Caught exception [Error: locator strategy either id or name must be specified explicitly.]
+
+        # enter email
+        self.assertEqual("doctor@email.com", driver.find_element_by_id("email").get_attribute("value"))
+        for i in range(10):
+            try:
+                if "doctor@email.com" == driver.find_element_by_id("email").get_attribute("value"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        # enter password
+        self.assertEqual("password", driver.find_element_by_id("password").get_attribute("value"))
+        for i in range(60):
+            try:
+                if "password" == driver.find_element_by_id("password").get_attribute("value"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        # click submit
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+        time.sleep(2)
+        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[contains(@ng-reflect-content,'Create a new test')]").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[@class='ui icon button primary-button']").click()
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//input[@id='content']").send_keys("What is the Date today?");
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[contains(.,'Save Test')]").click();
+        time.sleep(0.2)
+
+        # assert
+        self.assertTrue(driver.find_element_by_xpath("//div[contains(.,'Test successfully created!')]"));
+
+    #TODO: ensure that question component is clicked
+    def test_FRD08C_addTestWithQuestionComponent(self):
+        self.helper_add_doctor()
+
+        driver = self.driver
+        driver.get(self.base_url)
+
+        for i in range(10):
+            try:
+                if driver.find_element_by_xpath("//div[@class='login']"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        driver.find_element_by_id("email").clear()
+        driver.find_element_by_id("email").send_keys("doctor@email.com")
+        driver.find_element_by_id("password").clear()
+        driver.find_element_by_id("password").send_keys("password")
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+        # ERROR: Caught exception [Error: locator strategy either id or name must be specified explicitly.]
+
+        # enter email
+        self.assertEqual("doctor@email.com", driver.find_element_by_id("email").get_attribute("value"))
+        for i in range(10):
+            try:
+                if "doctor@email.com" == driver.find_element_by_id("email").get_attribute("value"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        # enter password
+        self.assertEqual("password", driver.find_element_by_id("password").get_attribute("value"))
+        for i in range(60):
+            try:
+                if "password" == driver.find_element_by_id("password").get_attribute("value"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        # click submit
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+        time.sleep(2)
+        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[contains(@ng-reflect-content,'Create a new test')]").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[contains(@style,'float: right; display: inline-block')]").click()
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//input[@id='content']").send_keys("Draw a clock");
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[contains(.,'Save Test')]").click();
+        time.sleep(0.2)
+
+        # assert
+        self.assertTrue(driver.find_element_by_xpath("//div[contains(.,'Test successfully created!')]"));
+
+    def test_FRD08_addTestWithMultipleComponents(self):
+        self.helper_add_doctor()
+
+        driver = self.driver
+        driver.get(self.base_url)
+
+        for i in range(10):
+            try:
+                if driver.find_element_by_xpath("//div[@class='login']"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        driver.find_element_by_id("email").clear()
+        driver.find_element_by_id("email").send_keys("doctor@email.com")
+        driver.find_element_by_id("password").clear()
+        driver.find_element_by_id("password").send_keys("password")
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+        # ERROR: Caught exception [Error: locator strategy either id or name must be specified explicitly.]
+
+        # enter email
+        self.assertEqual("doctor@email.com", driver.find_element_by_id("email").get_attribute("value"))
+        for i in range(10):
+            try:
+                if "doctor@email.com" == driver.find_element_by_id("email").get_attribute("value"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        # enter password
+        self.assertEqual("password", driver.find_element_by_id("password").get_attribute("value"))
+        for i in range(60):
+            try:
+                if "password" == driver.find_element_by_id("password").get_attribute("value"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        # click submit
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+        time.sleep(2)
+        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[contains(@ng-reflect-content,'Create a new test')]").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[@ng-reflect-content='Add new component']").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//input[@id='content']").send_keys("test");
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[@ng-reflect-content='Add new component']").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//input[@id='content']").send_keys("test 2");
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[contains(.,'Save Test')]").click();
+        time.sleep(0.2)
+
+        # assert
+        self.assertTrue(driver.find_element_by_xpath("//div[contains(.,'Test successfully created!')]"));
+
+    def test_FRD08_addTestWithNoContentInComponent(self):
+        self.helper_add_doctor()
+
+        driver = self.driver
+        driver.get(self.base_url)
+
+        for i in range(10):
+            try:
+                if driver.find_element_by_xpath("//div[@class='login']"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        driver.find_element_by_id("email").clear()
+        driver.find_element_by_id("email").send_keys("doctor@email.com")
+        driver.find_element_by_id("password").clear()
+        driver.find_element_by_id("password").send_keys("password")
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+        # ERROR: Caught exception [Error: locator strategy either id or name must be specified explicitly.]
+
+        # enter email
+        self.assertEqual("doctor@email.com", driver.find_element_by_id("email").get_attribute("value"))
+        for i in range(10):
+            try:
+                if "doctor@email.com" == driver.find_element_by_id("email").get_attribute("value"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        # enter password
+        self.assertEqual("password", driver.find_element_by_id("password").get_attribute("value"))
+        for i in range(60):
+            try:
+                if "password" == driver.find_element_by_id("password").get_attribute("value"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        # click submit
+        driver.find_element_by_xpath("//button[@type='submit']").click()
+        time.sleep(2)
+        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[contains(@ng-reflect-content,'Create a new test')]").click();
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[@class='ui icon button primary-button']").click()
+        time.sleep(0.2)
+        driver.find_element_by_xpath("//button[contains(.,'Save Test')]").click();
+        time.sleep(0.2)
+
+        # assert
+        self.assertFalse(driver.find_element_by_xpath("//div[contains(.,'Test successfully created!')]"));
 
     def is_element_present(self, how, what):
         try:
@@ -330,7 +638,7 @@ class WebAppTest(unittest.TestCase):
 
         #update patient with doctor
         self.db.patients.update({'_id': ObjectId(patientId)},
-                             {'$set': {'doctors': [ObjectId(doctorresult)]}})
+                             {'$set': {'doctors': [ObjectId(result)]}})
 
     def tearDown(self):
         self.driver.quit()
