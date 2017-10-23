@@ -7,10 +7,9 @@ const config = require('../config/database');
 const relationship = require('../node_modules/mongoose-relationship');
 
 const User = require('../models/user');
-const Patient = require('../models/patient');
 
 const TestSchema = mongoose.Schema({
-    fileName: {
+    name: {
         type: String,
         required: true
     },
@@ -24,12 +23,9 @@ const TestSchema = mongoose.Schema({
     },
     creator: [{
         type: mongoose.Schema.ObjectId, ref : 'User', childPath : "tests"
-    }],
-    patient: [{
-        type: mongoose.Schema.ObjectId, ref: 'Patient', childPath: 'tests'
     }]
 });
-TestSchema.plugin(relationship, {relationshipPathName: ["creator", "patient"]});
+TestSchema.plugin(relationship, {relationshipPathName: ["creator"]});
 const Test = module.exports = mongoose.model('Test', TestSchema);
 
 module.exports.getTestById = function(id, callback){
@@ -37,10 +33,9 @@ module.exports.getTestById = function(id, callback){
     Test.findOne(query, callback);
 };
 
-module.exports.getTestByCreatorAndPatient = function(creatorId, patientId, callback){
+module.exports.getTestByCreator = function(creatorId, callback){
     const query = {
         creator: creatorId,
-        patient: patientId
     };
     Test.find(query, callback);
 };

@@ -22,4 +22,30 @@ router.post('/getPatientTests', passport.authenticate('jwt', {session:false}), f
     });
 });
 
+router.post('/saveTest', passport.authenticate('jwt', {session: false}), function(req, res){
+    console.log(req.body);
+
+    const test = req.body;
+    console.log(test.userId);
+    console.log(test.testName);
+    console.log(test.components);
+
+    const newTest = new Test({
+        name: test.testName,
+        testComponents: test.components,
+        dateCreated: new Date(),
+        creator: test.userId
+    });
+
+    Test.addTest(newTest, function(err, test){
+        if (err) {
+            res.status(400);
+            res.json({success: false, msg: 'Failed to save test'});
+        }
+        else {
+            res.json({success: true, msg: 'Created test'});
+        }
+    });
+});
+
 module.exports = router;

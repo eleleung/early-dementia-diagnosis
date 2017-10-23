@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {LoginService} from '../../services/login.service';
 import {Router} from '@angular/router';
 import {LoginModel} from "../../models/user";
+import {PatientService} from "../../services/patient.service";
 
 @Component({
     selector: 'login',
@@ -16,6 +17,7 @@ export class LoginComponent {
 
 
     constructor (private loginService: LoginService,
+                 private patientService: PatientService,
                  private router: Router) {
         window.scrollTo(0,0);
         // if (loginService.checkLogin()) {
@@ -34,6 +36,7 @@ export class LoginComponent {
 
                     this.model.email = "";
                     this.model.password = "";
+                    this.patientService.getPatients();
                     this.router.navigate(['/overview']);
                 }
                 else {

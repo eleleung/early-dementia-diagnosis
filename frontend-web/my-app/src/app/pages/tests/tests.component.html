@@ -5,7 +5,9 @@
     <div style="width:48%; display: inline-block; margin-right: 20px;">
         <div>
             <h3 style="display: inline-block;">My Tests</h3>
-            <button class="ui icon button primary-button" style="float: right; display: inline-block" lsu-popup [trigger]="'hover'" [content]="'Create a new test'">
+            <button class="ui icon button primary-button" style="float: right; display: inline-block"
+                    lsu-popup [trigger]="'hover'" [content]="'Create a new test'"
+                    routerLink="/create-test" routerLinkActive="active">
                 <i class="plus icon"></i>
             </button>
         </div>

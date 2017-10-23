@@ -1,0 +1,107 @@
+<div class="container">
+    <h1 class="ui header">Create A Test</h1>
+    <div class="ui divider"></div>
+    <br/>
+    <div style="width:70%; display: inline-block;">
+        <div *ngIf="saved && !error">
+            <div class="ui success message">
+                <div class="header">Test successfully created!</div>
+            </div>
+            <br>
+        </div>
+        <div *ngIf="error">
+            <div class="ui error message">
+                <div class="header">There was an error with saving your test. Try again later.</div>
+            </div>
+            <br>
+        </div>
+        <div>
+            <h5 style="display: inline-block;">Click and drag to reorder your questions!</h5>
+        </div>
+        <div>
+            <table class="ui table" style="margin-bottom: 20px; margin-top: 15px;">
+                <thead>
+                <th>Test Components</th>
+                <th>Actions</th>
+                </thead>
+                <tbody dnd-sortable-container [sortableData]="testComponents">
+                    <tr>
+                        <td>
+                            <form class="ui form">
+                                <div class="field">
+                                    <label>Test Name</label>
+                                    <input type="text" id="testName" [(ngModel)]="testName" name="testName">
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let item of testComponents; let i = index" dnd-sortable [sortableIndex]="i" style="padding: 15px;">
+                        <td>
+                            <form class="ui form">
+                                {{i + 1}}. {{item.type}} Component<br>
+                                <div class="field">
+                                    <label>Instruction</label>
+                                    <input type="text" id="instruction" required [(ngModel)]="item.instruction" name="instruction">
+                                    <label>Content</label>
+                                    <input type="text" id="content" [(ngModel)]="item.content" name="content">
+                                </div>
+                            </form>
+                        </td>
+                        <td>
+                            <button class="ui icon button primary-button" style="display: inline-block"
+                                    (click)="deleteComponent(i)">
+                                <i class="trash icon"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button *ngIf="testComponents.length > 0" (click)="saveTest()" class="ui button">Save Test</button>
+        </div>
+    </div>
+    <div style="width: 70%; margin-top: 20px;">
+        <h3>Test Components</h3>
+        <table class="ui table" style="margin-top:28px">
+            <thead>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Add</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Question Answer</td>
+                <td>Add a question to your test. The response will be recorded.</td>
+                <td>
+                    <button class="ui icon button primary-button" style="float: right; display: inline-block"
+                            (click)="addQuestionAnswer()">
+                        <i class="plus icon"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>Drawing</td>
+                <td>Specify an object that you wish the patient to draw. A photo of the drawing will be taken
+                     for you to view.</td>
+                <td>
+                    <button class="ui icon button primary-button" style="float: right; display: inline-block"
+                            (click)="addDrawing()">
+                        <i class="plus icon"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>Record Speech</td>
+                <td>Record the patient's speech. You may input some text for the patient to read aloud or
+                have patient's carer ask the patient a question e.g. What is the time?</td>
+                <td>
+                    <button class="ui icon button primary-button" style="float: right; display: inline-block"
+                            lsu-popup [trigger]="'hover'" [content]="'Add new component'"
+                            (click)="addRecordSpeech()">
+                        <i class="plus icon"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

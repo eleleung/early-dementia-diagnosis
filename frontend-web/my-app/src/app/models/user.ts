@@ -3,6 +3,7 @@ import {Patient} from "./patient";
  * Created by nathanstanley on 25/4/17.
  */
 export class User {
+    id: string;
     firstName: string;
     lastName: string;
     email: string;

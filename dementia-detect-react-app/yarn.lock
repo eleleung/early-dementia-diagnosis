@@ -1019,6 +1019,10 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
+base-64@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
+
 base64-js@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-0.0.8.tgz#1101e9544f4a76b1bc3b26d452ca96d7a35e7978"
@@ -4256,6 +4260,13 @@ react-native-elements@^0.17.0:
     react-native-side-menu "^1.0.2"
     react-native-tab-navigator "^0.3.4"
 
+react-native-fs@^2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.8.1.tgz#029ac6d23331704db93735c3540ff795f5286566"
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^2.1.1"
+
 react-native-modal-datetime-picker@^4.11.0:
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-4.11.0.tgz#bd2eb3a21cda584c6a018b11f6aed4bf4d020aca"
@@ -5350,6 +5361,10 @@ unpipe@1.0.0, unpipe@~1.0.0:
 urijs@^1.18.12:
   version "1.18.12"
   resolved "https://registry.yarnpkg.com/urijs/-/urijs-1.18.12.tgz#f04d91e1fabb29c16fc842f9a14ee8ddc3fda64e"
+
+utf8@^2.1.1:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/utf8/-/utf8-2.1.2.tgz#1fa0d9270e9be850d9b05027f63519bf46457d96"
 
 util-deprecate@1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"

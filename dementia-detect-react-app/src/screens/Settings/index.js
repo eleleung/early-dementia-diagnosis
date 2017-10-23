@@ -22,7 +22,7 @@ class Settings extends Component {
 
     state = {
         modalVisible: false,
-        referenceCode: ''
+        referenceCode: '',
     };
 
     addPatient = () => {
@@ -44,22 +44,27 @@ class Settings extends Component {
     };
 
     showModal = () => {
-        const {modalVisible} = this.state.modalVisible;
+        const {modalVisible} = this.state;
 
-        this.setState({modalVisible: !modalVisible});
+        this.setState({modalVisible: true});
+    };
+
+    hideModal = () => {
+        const {modalVisible} = this.state;
+
+        this.setState({modalVisible: false});
     };
 
     updateReferenceCode = e => {this.setState({referenceCode: e.target.value})};
  
     submit = async() => {
         const {User} = this.props;
-        const {referenceCode, modalVisible} = this.state;
+        const {referenceCode, modalVisible, successfulLink} = this.state;
+        
 
         const result = await User.assignDoctor(User.selectedPatient._id, referenceCode);
         if (result) {
-            alert('Succesfully linked patient to doctor!');
-
-            this.setState({modalVisible: !modalVisible});
+            this.hideModal();
         }
         else {
             alert('Error: please check the reference code');

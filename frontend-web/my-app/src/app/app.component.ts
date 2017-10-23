@@ -1,5 +1,6 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {LoginService} from './services/login.service';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'my-app',

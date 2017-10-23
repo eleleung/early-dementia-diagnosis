@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 
 export class TestsComponent {
 
-    constructor() {
+    constructor(private router: Router) {
 
     }
 }

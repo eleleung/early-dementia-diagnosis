@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
-import {LoginService} from "./services/login.service";
+import {LoginService} from './services/login.service';
 
 // Add the security roles which should be allowed to access each page
 const routesSecurityRoles = {
@@ -8,7 +8,8 @@ const routesSecurityRoles = {
     'login': ['all'],
     'patients': ['all'],
     'tests': ['all'],
-    'patient':['all']
+    'patient': ['all'],
+    'add-patient': ['all']
 };
 
 @Injectable()

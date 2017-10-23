@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {L_SEMANTIC_UI_MODULE} from 'angular2-semantic-ui';
 import {Ng2DragDropModule} from 'ng2-drag-drop';
+import {DndModule} from 'ng2-dnd';
 
 import {AppComponent} from './app.component';
 import {HashLocationStrategy, LocationStrategy, CommonModule} from '@angular/common';
@@ -19,6 +20,8 @@ import {PatientService} from './services/patient.service';
 import {SecurityService} from './services/security.service';
 import {ChartsModule} from 'ng2-charts';
 import {PatientComponent} from './pages/patient/patient.component';
+import {CreateTestComponent} from './pages/tests/create-test/create-test.component';
+import {TestService} from "./services/test.service";
 
 @NgModule({
     declarations: [
@@ -28,7 +31,8 @@ import {PatientComponent} from './pages/patient/patient.component';
         OverviewComponent,
         PatientsComponent,
         TestsComponent,
-        PatientComponent
+        PatientComponent,
+        CreateTestComponent
     ],
     imports: [
         BrowserModule,
@@ -42,13 +46,15 @@ import {PatientComponent} from './pages/patient/patient.component';
         ReactiveFormsModule,
         L_SEMANTIC_UI_MODULE,
         ChartsModule,
-        Ng2DragDropModule.forRoot()
+        Ng2DragDropModule.forRoot(),
+        DndModule.forRoot(),
     ],
     providers: [
         AuthGuard,
         LoginService,
         PatientService,
         SecurityService,
+        TestService,
         {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
 

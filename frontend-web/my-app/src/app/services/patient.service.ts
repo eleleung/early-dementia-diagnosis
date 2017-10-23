@@ -30,7 +30,6 @@ export class PatientService {
             .map(res => res.json())
             .subscribe(data => {
                 this._patients.next(data.carerPatients);
-                console.log(data)
             });
     }
 

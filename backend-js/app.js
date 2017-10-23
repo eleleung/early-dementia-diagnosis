@@ -56,7 +56,7 @@ app.use('/patients', patients);
 app.use('/doctors', doctors);
 app.use('/transcriber', audio);
 app.use('/pictures', pictures);
-app.use('/test', tests);
+app.use('/tests', tests);
 
 // Index Route
 app.get('/', function(req, res){
