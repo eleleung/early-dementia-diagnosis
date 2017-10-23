@@ -19,9 +19,14 @@ const bcrypt = require('bcrypt');
 
 describe('User', function() {
 
-    describe("Compare password", function () {
+    describe("FRC01 Compare password", function () {
 
-        it("should be a successful comparison", function (done) {
+        /**
+         * Test Case: User - FRC01 Compare Password - FRC01 should be a successful comparison
+         * Purpose: To test that a correct password can be compared to a hashed password correctly
+         * Expected Outcome: The password is a match
+         */
+        it("FRC01 should be a successful comparison", function (done) {
             this.timeout(20000);
 
             var password = "password";
@@ -47,7 +52,12 @@ describe('User', function() {
             });
         });
 
-        it("should not be a successful comparison", function (done) {
+        /**
+         * Test Case: User - FRC01 Compare Password - FRC01 should not be a successful comparison
+         * Purpose: To test that an incorrect password can be compared to a hashed password.
+         * Expected Outcome: The password is not a match
+         */
+        it("FRC01 should not be a successful comparison", function (done) {
             this.timeout(20000);
 
             var password = "password";
@@ -73,7 +83,12 @@ describe('User', function() {
             });
         });
 
-        it("empty password should not be a successful comparison", function (done) {
+        /**
+         * Test Case: User - FRC01 Compare Password - FRC01 empty password should not be a successful compariso
+         * Purpose: To test that an empty password can be compared to a hashed password.
+         * Expected Outcome: The password is not a match
+         */
+        it("FRC01 empty password should not be a successful comparison", function (done) {
             this.timeout(20000);
 
             var password = "password";
@@ -99,7 +114,12 @@ describe('User', function() {
             });
         });
 
-        it("empty hash should throw an error", function (done) {
+        /**
+         * Test Case: User - FRC01 Compare Password - FRC01 empty hash should throw an error
+         * Purpose: To test that an empty hash should throw an error
+         * Expected Outcome: An error is thrown
+         */
+        it("FRC01 empty hash should throw an error", function (done) {
 
             var password = "password";
 
@@ -125,7 +145,12 @@ describe('User', function() {
             });
         });
 
-        it("empty password and hash should throw an error", function (done) {
+        /**
+         * Test Case: User - FRC01 Compare Password - FRC01 empty hash and password should throw an error
+         * Purpose: To test that an empty hash sand password should throw an error
+         * Expected Outcome: An error is thrown
+         */
+        it("FRC01 empty password and hash should throw an error", function (done) {
 
             var password = "password";
 
