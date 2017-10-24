@@ -65,26 +65,16 @@ router.post('/authenticate', function(req, res, next){
                             success: true,
                             token: 'JWT ' + token,
                             doctor: {
-                                id: doctor._id
+                                _id: doctor._id
                             },
-                            user: {
-                                id: doctor.user._id,
-                                firstName: doctor.user.firstName,
-                                lastName: doctor.user.lastName,
-                                email: doctor.user.email
-                            }
+                            user: user,
                         })
                     }
                     else {
                         res.json({
                             success: true,
                             token: 'JWT ' + token,
-                            user: {
-                                id: user._id,
-                                firstName: user.firstName,
-                                lastName: user.lastName,
-                                email: user.email
-                            }
+                            user: user,
                         })
                     }
                 });
