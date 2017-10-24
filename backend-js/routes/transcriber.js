@@ -9,15 +9,7 @@ const multer  = require('multer');
 const Test = require('../models/test');
 
 // Multer options
-var storage =   multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, './uploads');
-    },
-    filename: function (req, file, callback) {
-        callback(null,Date.now()+file.originalname);
-    }
-});
-var upload = multer({ storage : storage}).single('upload_file');
+
 
 var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1');
 var fs = require('fs');
@@ -26,13 +18,26 @@ var speech_to_text = new SpeechToTextV1({
     password: 'K0Swn0d2rLkD'
 });
 
-router.post('/SendAudio', passport.authenticate('jwt', {session:false}), function(req, res) {
+var storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, './uploads/');
+    },
+    filename: function (req, file, callback) {
+        callback(null,Date.now()+file.originalname);
+    }
+});
+var upload = multer({ storage: storage});
+
+
+router.post('/SendAudio', [passport.authenticate('jwt', {session:false}), upload.array('avatar')],  function(req, res) {
 
     // TODO: implement sending of audio
     var fileName = './backend.flac';
     fs.createWriteStream(fileName);
 
-    var proc = new ffmpeg({ source: req.body.fileName._path})
+    const file = req.file;
+
+    var proc = new ffmpeg({ source: './uploads/'+file.filename})
         .toFormat('flac')
         .saveToFile(fileName, function(stdout, stderr){
         });
@@ -42,17 +47,6 @@ router.post('/SendAudio', passport.authenticate('jwt', {session:false}), functio
         res.json({success: true, msg: transcription });
     });
 });
-
-router.post('/SendAudioFile', function(req, res){
-
-    // Only use one method
-    fs.writeFile('sample.m4a', function(err) {
-        res.sendStatus(err ? 500 : 200);
-    });
-
-    request.pipe(fs.createWriteStream("out_file.m4a", { flags: 'w', encoding: null, fd: null, mode: 0666 }));
-});
-
 
 recognize = function(path, creator, patientId, date) {
 

@@ -38,13 +38,13 @@ class RecordAudio extends Component {
     constructor(props: Props) {
         super(props);
 
-        const {section, testId, filePath} = this.props;
+        const {section, testId, result} = this.props;
         const {width} = Dimensions.get('window');                        
         
         this.state = {
             currentTime: 0.0,
             action: NONE,
-            audioPath: filePath + `/id=${testId}-section=${section.id}.aac`,
+            audioPath: `${result.filename}`,
             hasPermission: undefined,
             x: new Animated.Value(0),
             x2: new Animated.Value(-width),
@@ -293,12 +293,6 @@ class RecordAudio extends Component {
         const {action, sound, currentTime} = this.state;
         const {width} = Dimensions.get('window');                
 
-        const backBtn = (step > 0) ? 
-            <Icon iconStyle={styles.iconBtn}
-                size={30}
-                name='chevron-left'
-                onPress={() => this.back()}/> : null;
-
         const recordBtn = action === RECORDING ?
             <Icon name='pause'
                 containerStyle={{backgroundColor: niceGreen}}
@@ -332,7 +326,13 @@ class RecordAudio extends Component {
                     <Animated.View style={[{width:'100%'},{transform: [{translateX: this.state.x}]}]}>
                         <View style={{flex:1, flexDirection:'row'}}>
                             <View style={{flex:1}}>
-                                {backBtn}
+                                {
+                                    (step > 0) ? 
+                                    <Icon iconStyle={styles.iconBtn}
+                                        size={30}
+                                        name='chevron-left'
+                                        onPress={() => this.back()}/> : null
+                                }
                             </View>
                             <View style={{flex:4, flexDirection:'row', justifyContent:'space-around', alignItems:'center'}}>
                                 <View style={{flex:1}}>
@@ -346,8 +346,7 @@ class RecordAudio extends Component {
                                         onPress={() => this.play()}
                                         size={35}
                                         iconStyle={{color: niceGreen}}
-                                        containerStyle={{flex:1}}
-                                        /> 
+                                        containerStyle={{flex:1}}/> 
                                 </View>
                             </View>
                             <View style={{flex:1}}>
@@ -373,10 +372,10 @@ class RecordAudio extends Component {
                             </View>
                             <View style={{flex:1}}>
                                 <Icon name='pause'
-                                        onPress={() => this.stopPlaying()}
-                                        size={35}
-                                        iconStyle={{color: niceGreen}}
-                                        containerStyle={{flex:1}}/> 
+                                    onPress={() => this.stopPlaying()}
+                                    size={35}
+                                    iconStyle={{color: niceGreen}}
+                                    containerStyle={{flex:1}}/> 
                             </View>
                         </View>
                     </Animated.View>

@@ -23,34 +23,75 @@ class Test extends Component {
 
         let {test, filePath} = this.props;
 
-        let components = []        
+        let components = [];
+        let results = [];
         for (const section of test.sections) {
-            components.push(this.getComponent(section));
+            let out = this.getComponent(section);
+            components.push(out.component);
+            results.push(out.result);
         }
-        components.push(<SubmitTest test={test} filePath={filePath}/>);
+        components.push(<SubmitTest getResults={this.getResults} test={test} filePath={filePath} back={this.back}/>);
 
         this.state = {
             step: 0,
-            components: components
+            components: components,
+            results: results
         }
+    }
+
+    getResults = () => {
+        return this.state.results;
+    }
+
+    setFilename = (step, filename) => {
+        const {results} = this.state;
+        if (step >= results.length) {
+            return;
+        }
+        results[step].filename = filename;
+        this.setState({ results: results });
+    }
+
+    getFilename = (step) => {
+        const {results} = this.state;
+        if (step >= results.length) {
+            return;
+        }
+        return results[step].filename;
     }
 
     getComponent = (section) => {
         const {test, filePath} = this.props;
+
         let component = null;        
+        let result = null;
         const step = test.sections.indexOf(section);
 
         if (section.type == 'audio') {
-            component = <RecordAudio key={section.id} testId={test.id} section={section} step={step} next={this.next} back={this.back} filePath={filePath}/>;
+            result = {
+                filename: `${filePath}/test-id=${test.id}_section=${step}.aac`,
+                originalname: `test-id=${test.id}_section=${step}.aac`,
+                type: section.type
+            }
+            component = <RecordAudio key={step} result={result} section={section} step={step} next={this.next} back={this.back}/>;            
         }
         else if (section.type == 'image') {
-            component = <ImageCapture key={section.id} testId={test.id} section={section} step={step} next={this.next} back={this.back} filePath={filePath}/>;
+            result = {
+                filename: '', // This is set by the camera library - we cant control the name with the current library
+                originalname: `test-id=${test.id}_section=${step}.aac`,
+                type: section.type
+            }
+            component = <ImageCapture key={section.id} setFilename={this.setFilename} getFilename={this.getFilename} section={section} step={step} next={this.next} back={this.back}/>;
         }
         else if (section.type == 'question') {
             component = <AnswerQuestion key={section.id} testId={test.id} section={section} step={step} next={this.next} back={this.back} filePath={filePath}/>;
+            result = {
+                type: section.type
+                // TODO: Answer Question Component
+            }
         }
 
-        return component;
+        return {component, result};
     }
 
     sendTest = () => {

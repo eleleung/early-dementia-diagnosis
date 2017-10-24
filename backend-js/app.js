@@ -48,7 +48,10 @@ require('./config/passport')(passport);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Body Parser Middleware
-app.use(bodyParser.json());
+app.use('/users', bodyParser.json());
+app.use('/patients', bodyParser.json());
+app.use('/doctors', bodyParser.json());
+app.use('/test', bodyParser.json());
 
 // Available routes
 app.use('/users', users);
