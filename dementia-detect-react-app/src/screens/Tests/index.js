@@ -22,47 +22,47 @@ class Tests extends Component {
     constructor(props: Props) {
         super(props);
         const filePath = AudioUtils.DocumentDirectoryPath;
+        const { User } = this.props;
 
         this.state = {
             filePath: filePath,
-            tests: [
-                {
-                    id: '59edb2c723256124f41617ed', 
-                    name: 'Record Speech', 
-                    icon: 'av-timer', 
-                    sections: [
-                        {
-                            type: "audio",
-                            instruction: "Press record and read the text aloud",
-                            content: "A quick brown fox jumps over the laz y dog, then runs around in the park before chasing its tail for 20 minutes."
-                        },
-                        {
-                            type: "audio",
-                            instruction: "Have a 5 minute conversation.",
-                            content: "Aim to ask a similar question at least twice in the five minutes."
-                        }
-                    ]
-                },
-                {
-                    id: 2, 
-                    name: 'Take Image', 
-                    icon: 'flight-takeoff',
-                    sections: [
-                        {
-                            id: 3,
-                            type: "image",
-                            instruction: "Take A Photo",
-                            content: "Draw an image of an analogue clock and take a photo of it. "
-                        },
-                        {
-                            id:4,
-                            type: "image",
-                            instruction: "Take A Photo",
-                            content: "Take a photo of the patient."
-                        }
-                    ]
-                },
-            ]
+            tests: User.selectedPatientTests,
+            // tests: [
+            //     {
+            //         _id: '59edb2c723256124f41617ed', 
+            //         name: 'Record Speech', 
+            //         icon: 'av-timer', 
+            //         sections: [
+            //             {
+            //                 type: "audio",
+            //                 instruction: "Press record and read the text aloud",
+            //                 content: "A quick brown fox jumps over the laz y dog, then runs around in the park before chasing its tail for 20 minutes."
+            //             },
+            //             {
+            //                 type: "audio",
+            //                 instruction: "Have a 5 minute conversation.",
+            //                 content: "Aim to ask a similar question at least twice in the five minutes."
+            //             }
+            //         ]
+            //     },
+            //     {
+            //         _id: 2, 
+            //         name: 'Take Image', 
+            //         icon: 'flight-takeoff',
+            //         sections: [
+            //             {
+            //                 type: "image",
+            //                 instruction: "Take A Photo",
+            //                 content: "Draw an image of an analogue clock and take a photo of it. "
+            //             },
+            //             {
+            //                 type: "image",
+            //                 instruction: "Take A Photo",
+            //                 content: "Take a photo of the patient."
+            //             }
+            //         ]
+            //     },
+            // ]
         }
     }
 
@@ -86,7 +86,7 @@ class Tests extends Component {
                 {
                     tests.map((test, i) => (
                         <ListItem
-                            key={test.id}
+                            key={test._id}
                             title={test.name}
                             leftIcon={{name: test.icon}}
                             onPress={() => this.navigateToTest(test)}

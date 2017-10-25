@@ -69,8 +69,8 @@ class Test extends Component {
 
         if (section.type == 'audio') {
             result = {
-                filename: `${filePath}/test-id=${test.id}_section=${step}.aac`,
-                originalname: `test-id=${test.id}_section=${step}.aac`,
+                filename: `${filePath}/test-id=${test._id}_section=${step}.aac`,
+                originalname: `test-id=${test._id}_section=${step}.aac`,
                 type: section.type
             }
             component = <RecordAudio key={step} result={result} section={section} step={step} next={this.next} back={this.back}/>;            
@@ -78,13 +78,13 @@ class Test extends Component {
         else if (section.type == 'image') {
             result = {
                 filename: '', // This is set by the camera library - we cant control the name with the current library
-                originalname: `test-id=${test.id}_section=${step}.aac`,
+                originalname: `test-id=${test._id}_section=${step}.aac`,
                 type: section.type
             }
-            component = <ImageCapture key={section.id} setFilename={this.setFilename} getFilename={this.getFilename} section={section} step={step} next={this.next} back={this.back}/>;
+            component = <ImageCapture key={step} setFilename={this.setFilename} getFilename={this.getFilename} section={section} step={step} next={this.next} back={this.back}/>;
         }
         else if (section.type == 'question') {
-            component = <AnswerQuestion key={section.id} testId={test.id} section={section} step={step} next={this.next} back={this.back} filePath={filePath}/>;
+            component = <AnswerQuestion key={step} testId={test._id} section={section} step={step} next={this.next} back={this.back} filePath={filePath}/>;
             result = {
                 type: section.type
                 // TODO: Answer Question Component

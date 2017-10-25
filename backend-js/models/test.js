@@ -13,7 +13,10 @@ const TestSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    testComponents: {
+    description: {
+        type: String,
+    },
+    components: {
         type: Array,
         required: true
     },
@@ -33,15 +36,21 @@ module.exports.getTestById = function(id, callback){
     Test.findOne(query, callback);
 };
 
-module.exports.getTestByCreator = function(creatorId, callback){
+module.exports.getTestByCreator = function(creatorId, callback) {
     const query = {
         creator: creatorId,
     };
     Test.find(query, callback);
 };
 
-module.exports.getAllTests = function(callback){
+module.exports.getAllTests = function(callback) {
     Test.find();
+};
+
+module.exports.getAllTestsWithIds = function(ids, callback) {
+    Test.find({
+        '_id': { $in: ids}
+    }, callback);
 };
 
 module.exports.addTest = function(newTest, callback){

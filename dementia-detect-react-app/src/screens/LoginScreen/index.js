@@ -78,6 +78,7 @@ class LoginScreen extends Component {
         const { User } = this.props;
 
         const result = await User.login(email, password);
+        console.log(result);
         if (result) {
             await User.getPatients();
 

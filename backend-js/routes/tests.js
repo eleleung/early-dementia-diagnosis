@@ -10,14 +10,33 @@ const multer = require('multer');
 const fs = require('fs');
 const ffmpeg = require('fluent-ffmpeg');
 const mkdirp = require('mkdirp');
+const bodyParser = require('body-parser');
 
 const Test = require('../models/test');
 const TestResult = require('../models/test_result');
+const Patient = require('../models/patient');
 
 
-router.post('/getPatientTests', passport.authenticate('jwt', {session:false}), function(req, res){
+router.post('/getPatientTests', [passport.authenticate('jwt', {session:false}), bodyParser.json()], function(req, res) {
+    Patient.getPatientById(req.body.patientId, function(err, patient) {
+        if (err) {
+            res.status(400);
+            res.json({success: false, msgs: 'Failed to find patient with id: ' + req.body.patientId});
+        }
+        Test.getAllTestsWithIds(patient.tests, function(err, tests){
+            if (err) {
+                res.status(400);
+                res.json({success: false, msgs: 'Failed to fetch tests'});
+            }
+            else {
+                res.json({success: true, msg: 'Success', tests: tests});
+            }
+        });
+    });
+});
 
-    Test.getTestByCreatorAndPatient(req.user.id, req.body._id, function(err, tests){
+router.get('/getUserTests', [passport.authenticate('jwt', {session:false})], function(req, res) {
+    Test.getAllTestsWithIds(req.user.tests, function(err, tests){
         if (err) {
             res.status(400);
             res.json({success: false, msgs: 'Failed to fetch test'});
@@ -28,17 +47,22 @@ router.post('/getPatientTests', passport.authenticate('jwt', {session:false}), f
     });
 });
 
-router.post('/saveTest', passport.authenticate('jwt', {session: false}), function(req, res){
+router.post('/saveTest', [passport.authenticate('jwt', {session: false}), bodyParser.json()], function(req, res){
     console.log(req.body);
 
     const test = req.body;
+
+    if (test.userId !== req.user.id) {
+        throw Error('Not authorised to save a test for this user');
+    }
+
     console.log(test.userId);
     console.log(test.testName);
     console.log(test.components);
 
     const newTest = new Test({
         name: test.testName,
-        testComponents: test.components,
+        components: test.components,
         dateCreated: new Date(),
         creator: test.userId
     });
@@ -53,6 +77,8 @@ router.post('/saveTest', passport.authenticate('jwt', {session: false}), functio
         }
     });
 });
+
+
 
 function getFilePathFromRequest(req, callback) {
     const json = JSON.parse(req.body.json);
@@ -84,9 +110,6 @@ var speech_to_text = new SpeechToTextV1({
     username: 'e1ef4ae6-62c3-44db-9f8a-67536ed7590b',
     password: 'zwcQvPsycwie'
 });
-
-
-
 
 /*
 *   This method receives multipart form data and saves the files to upload directory.

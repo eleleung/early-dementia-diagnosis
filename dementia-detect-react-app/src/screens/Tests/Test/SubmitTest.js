@@ -53,7 +53,7 @@ class SubmitTest extends Component {
 
         const jsonData = {
             patientId: User.selectedPatient._id,
-            testId: test.id,
+            testId: test._id,
             test: test,
             results: results,
         }
@@ -70,7 +70,7 @@ class SubmitTest extends Component {
                 const fileType = test.sections[step].type == 'audio' ? 'aac' : 'png';
                 const param = {
                     name : 'file',
-                    filename : `test-id=${test.id}_section=${step}.${fileType}`,
+                    filename : `test-id=${test._id}_section=${step}.${fileType}`,
                     data: RNFetchBlob.wrap(fileURI)
                 }
                 params.push(param);

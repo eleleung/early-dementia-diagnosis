@@ -14,13 +14,17 @@ class Store {
     @observable patients = [];
     @observable selectedPatient = new Models.Patient;
 
+    @observable selectedPatientTests = [];
+
     @action login = async (email: string, password: string) => {
         try {
             let response = await api.login.post({email: email, password: password});
+            console.log(response);
             if (response.ok) {
                 let responseJson = await response.json();
 
                 this.token = responseJson.token;
+                console.log(responseJson.user);
                 this.current = responseJson.user;
                 return true;
             } else {
@@ -73,8 +77,7 @@ class Store {
                     if (responseJson.carerPatients.length > 0) {
                         this.selectedPatient = responseJson.carerPatients[0];
 
-                        // then get patient tests?
-                        // this.selectedPatient.tests = await getPatientTests.post(this.selectedPatient._id);
+                        await this.inflatePatientTests(this.selectedPatient._id);
                     }
                     return true;
                 } else {
@@ -87,16 +90,18 @@ class Store {
         }
     };
 
-    getPatientTests = async (patientId: string) => {
+    setSelectedPatient = (patient) => {
+        this.selectedPatient = patient;
+        this.inflatePatientTests(patient._id);
+    }
+
+    inflatePatientTests = async (patientId: string) => {
         try {
-            let response = await api.getPatientTests.post({"_id": patientId});
+            let response = await api.getPatientTests.post({"patientId": patientId});
             let responseJson = await response.json();
 
-            if (responseJson.ok) {
-                return responseJson.tests;
-            } else {
-                return [];
-            }
+            console.log(responseJson);
+            this.selectedPatientTests = responseJson.tests;
         } catch (error) {
             console.log(error);
         }

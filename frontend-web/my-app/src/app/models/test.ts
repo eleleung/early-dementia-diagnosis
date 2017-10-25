@@ -1,14 +1,20 @@
-import {User} from "./user";
-import {Patient} from "./patient";
+import {User} from './user';
 
 /**
  * Created by EleanorLeung on 25/05/2017.
  */
 
 export class Test {
-    fileName: string;
-    transcribedText: string;
-    creator: string;
-    patient: string;
-    date: Date;
+    _id: string;
+    name: string;
+    description: string;
+    components: TestComponent[];
+    dateCreated: Date;
+    creator: User;
+}
+
+export class TestComponent {
+    type: string;
+    instruction: string;
+    content: string;
 }

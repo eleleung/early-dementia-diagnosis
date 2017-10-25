@@ -22,19 +22,19 @@ export class LoginService {
                 error => {
                     console.log(error);
                 }
-            )
+            );
         }
     }
 
     login(model: LoginModel) {
-        let tokenUrl = GlobalVariable.BASE_API_URL + 'users/authenticate/';
-        let headers1 = new Headers({'Content-Type': 'application/json'});
+        const tokenUrl = GlobalVariable.BASE_API_URL + 'users/authenticate/';
+        const headers1 = new Headers({'Content-Type': 'application/json'});
 
         return this.http.post(tokenUrl, JSON.stringify(model), {headers: headers1}).map(res => res.json());
     }
 
     validate() {
-        let userUrl = GlobalVariable.BASE_API_URL + 'users/validate/';
+        const userUrl = GlobalVariable.BASE_API_URL + 'users/validate/';
         return this.http.get(userUrl, {headers: this.securityService.loggedInHeader()}).map(res => res.json());
     }
 

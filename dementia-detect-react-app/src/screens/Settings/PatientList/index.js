@@ -25,8 +25,7 @@ class PatientList extends Component {
     changeSelectedPatient = (item) => {
         const {User} = this.props;
         
-        User.selectedPatient = item;
-        // get patient's tests
+        User.setSelectedPatient(item);
     };    
 
     render() {

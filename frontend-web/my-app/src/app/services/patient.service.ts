@@ -23,8 +23,8 @@ export class PatientService {
     }
 
     getPatients() {
-        let url = GlobalVariable.BASE_API_URL + "users/getPatients";
-        let headers = this.securityService.loggedInHeader();
+        const url = GlobalVariable.BASE_API_URL + 'users/getPatients';
+        const headers = this.securityService.loggedInHeader();
 
         this.http.get(url, {headers: headers})
             .map(res => res.json())
@@ -34,18 +34,42 @@ export class PatientService {
     }
 
     getPatientById(patientId: string) {
-        let url = GlobalVariable.BASE_API_URL + "patients/getPatientById";
-        let headers = this.securityService.loggedInHeader();
+        const url = GlobalVariable.BASE_API_URL + 'patients/getPatientById';
+        const headers = this.securityService.loggedInHeader();
 
-        return this.http.post(url, JSON.stringify({"_id" : patientId}), {headers: headers})
+        return this.http.post(url, JSON.stringify({'_id' : patientId}), {headers: headers})
             .map(res => res.json());
     }
 
     getPatientTests(patientId: string) {
-        let url = GlobalVariable.BASE_API_URL + "tests/getPatientTests";
-        let headers = this.securityService.loggedInHeader();
+        const url = GlobalVariable.BASE_API_URL + 'tests/getPatientTests';
+        const headers = this.securityService.loggedInHeader();
 
-        return this.http.post(url, JSON.stringify({"_id" : patientId}), {headers: headers})
+        return this.http.post(url, JSON.stringify({'patientId' : patientId}), {headers: headers})
+            .map(res => res.json());
+    }
+
+    getUserTests() {
+        const url = GlobalVariable.BASE_API_URL + 'tests/getUserTests';
+        const headers = this.securityService.loggedInHeader();
+
+        return this.http.get(url, {headers: headers})
+            .map(res => res.json());
+    }
+
+    savePatient(patient: Patient) {
+        const url = GlobalVariable.BASE_API_URL + 'patients/update';
+        const headers = this.securityService.loggedInHeader();
+
+        return this.http.post(url, JSON.stringify({'patient' : patient}), {headers: headers})
+            .map(res => res.json());
+    }
+
+    addPatientTest(patientId: string, testId: string) {
+        const url = GlobalVariable.BASE_API_URL + 'patients/add_patient_test';
+        const headers = this.securityService.loggedInHeader();
+
+        return this.http.post(url, JSON.stringify({'patientId' : patientId, 'testId' : testId}), {headers: headers})
             .map(res => res.json());
     }
 }

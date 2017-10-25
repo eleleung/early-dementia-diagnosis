@@ -25,8 +25,9 @@ export class TestService {
     saveTest(test, testName) {
         const url = GlobalVariable.BASE_API_URL + 'tests/saveTest';
         const headers = this.securityService.loggedInHeader();
+        console.log({'components' : test, 'userId': this.loginService.user._id, 'testName': testName});
 
-        return this.http.post(url, JSON.stringify({'components' : test, 'userId': this.loginService.user.id,
+        return this.http.post(url, JSON.stringify({'components' : test, 'userId': this.loginService.user._id,
                                 'testName': testName}), {headers: headers})
             .map(res => res.json());
     }
