@@ -16,6 +16,7 @@ var server = require('../app.test');
 const User = require('../models/user');
 const Patient = require('../models/patient');
 const Doctor = require('../models/doctor');
+const Test = require('../models/test');
 jwt = require('jsonwebtoken');
 
 //For registration / login of a new carer / patient
@@ -1377,7 +1378,6 @@ describe('Doctors', function () {
             });
         });
 
-
         /**
          * Test Case: Doctors  - Assign Doctor - FRD05 incorrect patient id - FRD05 should not assign patient to doctor
          * Purpose: To test that a patient cannot be assigned to a doctor if an invalid patientId is sent into the request
@@ -1471,11 +1471,411 @@ describe('Doctors', function () {
             });
         });
     });
+
+    describe("GetAllDoctorPatients", function() {
+
+        beforeEach(function(done) {
+
+            //add a patient and assign them to a doctor
+
+            this.timeout(30000);
+
+            User.removeUsers(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+            Doctor.removeDoctors(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+            Patient.removePatients(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+
+            //add new doctor
+            var newUser = {
+                firstName: "firstName",
+                lastName: "lastName",
+                email: "doctoremail@email.com",
+                password: "password",
+                confirm_password: "password"
+            };
+
+            request(server)
+                .post('/doctors/register/')
+                .send(newUser)
+                // end handles the response
+                .end(function (err, res, next) {
+                    if (err) {
+                        throw err;
+                    }
+                    console.log(res.body.doctor.referenceCode);
+                    var doctorRefCode = res.body.doctor.referenceCode;
+
+                    // add a new patient
+                    var newUser = new User({
+                        firstName: "firstName",
+                        lastName: "lastName",
+                        email: "user3@gmail.com",
+                        password: "password",
+                        dateOfBirth: ''
+                    });
+
+                    //add user
+                    User.addUser(newUser, function (err, user) {
+                        if (err) {
+                            console.log('error :' + err);
+                            done();
+                        }
+                        else {
+                            var newPatient = new Patient({
+                                firstName: "patientFirstName",
+                                lastName: "patientLastName",
+                                gender: "Female",
+                                dateOfBirth: "1957-01-09T16:00:00.000Z",
+                                carers: []
+                            });
+
+                            request(server)
+                                .post('/patients/register/')
+                                .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                                .send(newPatient)
+                                // end handles the response
+                                .end(function (err, res, next) {
+                                    if (err) {
+                                        console.log(err);
+                                        throw err;
+                                    }
+
+                                    Patient.getAllPatients(function (err, patients) {
+
+                                        var patientId = patients[0]._id;
+
+                                        //should assign patient to doctor
+                                        request(server)
+                                            .post('/doctors/assign-doctor/')
+                                            .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                                            .send({"patientId": patientId, "referenceCode": doctorRefCode})
+                                            // end handles the response
+                                            .end(function (err, res, next) {
+                                                if (err) {
+                                                    console.log(err);
+                                                    throw err;
+                                                }
+                                                done();
+                                            });
+                                    });
+                                });
+
+                        }
+                    });
+                });
+        });
+
+         /**
+         * Test Case: Doctors  - GetAllDoctorPatients - FRD07 valid request - FRD07 should get all patients assigned to the doctor
+         * Purpose: To test that doctors can view their patients
+         * Expected outcome: Successful (200) response and patient object is returned correctly
+         */
+         describe("FRD07 valid request", function() {
+
+             it ("FRD07 should get all patients assigned to the doctor", function(done) {
+                 this.timeout(20000);
+
+                 //Get all doctors
+                 Doctor.getAllDoctors(function(err, doctors) {
+                     var doctorId = doctors[0].user;
+                     console.log(doctorId);
+
+                     //get user
+                     User.getUserById(doctors[0].user, function (err, user) {
+
+                         //should NOT assign patient to doctor
+                         request(server)
+                             .post('/doctors/get-all-doctor-patients/')
+                             .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                             .send({"userId": doctorId}) //NOTE incorrect reference code here
+                             // end handles the response
+                             .end(function (err, res, next) {
+                                 if (err) {
+                                     console.log(err);
+                                     throw err;
+                                 }
+
+                                 console.log();
+
+                                 assert.equal(res.statusCode, 200);
+                                 assert.equal(res.body.patients.user.patients[0].firstName, "patientFirstName");
+                                 assert.equal(res.body.patients.user.patients[0].firstName, "patientLastName");
+                                 done();
+                             });
+
+                     });
+                 });
+
+             });
+
+         });
+
+        /**
+         * Test Case: Doctors  - GetAllDoctorPatients - FRD07 request with an invalid doctor id - FRD07 should return an error with a 400 statusCode
+         * Purpose: To test that no patients are returned when an invalid doctorId is used
+         * Expected outcome: Unsuccessful (400) response with no patients returned
+         */
+         describe("FRD07 request with an invalid doctor id", function() {
+
+             it("FRD07 should return an error with a 400 statusCode", function(done) {
+
+                 //Get all doctors
+                 Doctor.getAllDoctors(function(err, doctors) {
+                     var doctorId = doctors[0].user;
+                     console.log(doctorId);
+
+                     //get user
+                     User.getUserById(doctors[0].user, function (err, user) {
+
+                         //should NOT assign patient to doctor
+                         request(server)
+                             .post('/doctors/get-all-doctor-patients/')
+                             .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                             .send({"userId": "invalid"}) //NOTE incorrect reference code here
+                             // end handles the response
+                             .end(function (err, res, next) {
+                                 if (err) {
+                                     console.log(err);
+                                     throw err;
+                                 }
+
+                                 assert.equal(res.statusCode, 400);
+                                 done();
+                             });
+
+                     });
+                 });
+             });
+         });
+
+        /**
+         * Test Case: Doctors - GetAllDoctorPatients - FRD07 request with an invalid JWT token - FRD07 should return a 401 unauthorised response
+         * Purpose: To test that an unauthorised user cannot access a doctor's patient list
+         * Expected outcome: Unauthorised (401) response with no patients returned
+         */
+         describe("FRD07 request with an invalid JWT token", function() {
+
+             it ("FRD07 should return a 401 unauthorised response", function(done) {
+                 this.timeout(20000);
+
+                 //Get all doctors
+                 Doctor.getAllDoctors(function (err, doctors) {
+                     var doctorId = doctors[0].user;
+                     console.log(doctorId);
+
+                     //get user
+                     User.getUserById(doctors[0].user, function (err, user) {
+
+                         //should NOT assign patient to doctor
+                         request(server)
+                             .post('/doctors/get-all-doctor-patients/')
+                             .set('Authorization', 'JWT ' + jwt.sign(user, 'invalid'))
+                             .send({"userId": doctorId}) //NOTE incorrect reference code here
+                             // end handles the response
+                             .end(function (err, res, next) {
+                                 if (err) {
+                                     console.log(err);
+                                     throw err;
+                                 }
+
+                                 assert.equal(res.statusCode, 401);
+                                 done();
+                             });
+                     });
+                 });
+             });
+
+         });
+    });
 });
 
 //For creating tests
 describe('Tests', function() {
 
+    describe('SaveTest', function () {
+
+        beforeEach(function (done) {
+
+            this.timeout(20000);
+
+            User.removeUsers(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+            Doctor.removeDoctors(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+            Test.removeTests(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+
+            //Add a doctor
+            var newUser = {
+                firstName: "firstName",
+                lastName: "lastName",
+                email: "email@email.com",
+                password: "password",
+                confirm_password: "password"
+            };
+
+            request(server)
+                .post('/doctors/register/')
+                .send(newUser)
+                // end handles the response
+                .end(function (err, res, next) {
+                    if (err) {
+                        throw err;
+                    }
+                    assert.equal(res.statusCode, 200);
+                    done();
+                });
+        });
+
+        describe('FRD08 valid request', function () {
+
+            it('should save a new test successfully', function (done) {
+
+                this.timeout(20000);
+
+                console.log("in test");
+
+                var testComponents = [];
+                const component = {
+                    type: 'audio',
+                    instruction: '',
+                    content: ''
+                };
+                component.instruction = 'Example: Press record and read the text aloud';
+                component.content = 'A quick brown fox jumps over the lazy dog';
+
+                testComponents.push(component);
+
+                console.log(testComponents);
+
+                //Get all doctors
+                Doctor.getAllDoctors(function (err, doctors) {
+                    var doctorId = doctors[0].user;
+
+                    //get user
+                    User.getUserById(doctors[0].user, function (err, user) {
+
+
+                        //should NOT assign patient to doctor
+                        request(server)
+                            .post('/test/saveTest/')
+                            .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                            .send({
+                                "components": testComponents,
+                                "userId": user._id,
+                                "testName": new Date().toDateString()
+                            }) //NOTE incorrect reference code here
+                            // end handles the response
+                            .end(function (err, res, next) {
+                                if (err) {
+                                    console.log(err);
+                                    throw err;
+                                }
+
+                                console.log(res.body);
+
+                                assert.equal(res.statusCode, 200);
+                                done();
+                            });
+
+                    });
+                });
+            });
+        });
+
+        describe('FRD08 invalid request with incorrect userId', function() {
+
+            it('FRD08 should return unauthorised response', function (done) {
+
+                this.timeout(20000);
+
+                console.log("in test");
+
+                var testComponents = [];
+                const component = {
+                    type: 'audio',
+                    instruction: '',
+                    content: ''
+                };
+                component.instruction = 'Example: Press record and read the text aloud';
+                component.content = 'A quick brown fox jumps over the lazy dog';
+
+                testComponents.push(component);
+
+                console.log(testComponents);
+
+                //Get all doctors
+                Doctor.getAllDoctors(function (err, doctors) {
+                    var doctorId = doctors[0].user;
+
+                    //get user
+                    User.getUserById(doctors[0].user, function (err, user) {
+
+
+                        //should NOT assign patient to doctor
+                        request(server)
+                            .post('/tests/saveTest/')
+                            .set('Authorization', 'JWT ' + jwt.sign(user, 'yoursecret'))
+                            .send({
+                                "components": testComponents,
+                                "userId": "invalid",
+                                "testName": new Date().toDateString()
+                            }) //NOTE incorrect reference code here
+                            // end handles the response
+                            .end(function (err, res, next) {
+                                if (err) {
+                                    console.log(err);
+                                    throw err;
+                                }
+
+                                //unauthorised
+                                assert.equal(res.statusCode, 401);
+                                done();
+                            });
+
+                    });
+                });
+
+            });
+
+        });
+
+    });
+
+    describe('GetUserTests', function() {
+    });
+
+    describe('AddPatientTest', function() {
+    });
+
+    describe('GetPatientTests', function(){
+
+    });
 });
+
+//TODO for test report 3: Add test results
+
+
+
 
 
