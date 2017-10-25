@@ -22,11 +22,10 @@ class Tests extends Component {
     constructor(props: Props) {
         super(props);
         const filePath = AudioUtils.DocumentDirectoryPath;
-        const { User } = this.props;
+
 
         this.state = {
             filePath: filePath,
-            tests: User.selectedPatientTests,
             // tests: [
             //     {
             //         _id: '59edb2c723256124f41617ed', 
@@ -79,16 +78,17 @@ class Tests extends Component {
 
     render() {
         const {tests} = this.state;
+        const { User } = this.props;
+        
 
         return (
             <View>
                 <List containerStyle={{marginBottom: 20}}>
                 {
-                    tests.map((test, i) => (
+                    User.selectedPatientTests.map((test, i) => (
                         <ListItem
                             key={test._id}
                             title={test.name}
-                            leftIcon={{name: test.icon}}
                             onPress={() => this.navigateToTest(test)}
                         />
                     ))

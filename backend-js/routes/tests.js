@@ -48,21 +48,15 @@ router.get('/getUserTests', [passport.authenticate('jwt', {session:false})], fun
 });
 
 router.post('/saveTest', [passport.authenticate('jwt', {session: false}), bodyParser.json()], function(req, res){
-    console.log(req.body);
-
     const test = req.body;
 
     if (test.userId !== req.user.id) {
         throw Error('Not authorised to save a test for this user');
     }
 
-    console.log(test.userId);
-    console.log(test.testName);
-    console.log(test.components);
-
     const newTest = new Test({
         name: test.testName,
-        components: test.components,
+        sections: test.components,
         dateCreated: new Date(),
         creator: test.userId
     });

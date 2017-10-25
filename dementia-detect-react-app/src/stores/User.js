@@ -19,12 +19,10 @@ class Store {
     @action login = async (email: string, password: string) => {
         try {
             let response = await api.login.post({email: email, password: password});
-            console.log(response);
             if (response.ok) {
                 let responseJson = await response.json();
 
                 this.token = responseJson.token;
-                console.log(responseJson.user);
                 this.current = responseJson.user;
                 return true;
             } else {
@@ -100,8 +98,9 @@ class Store {
             let response = await api.getPatientTests.post({"patientId": patientId});
             let responseJson = await response.json();
 
-            console.log(responseJson);
             this.selectedPatientTests = responseJson.tests;
+            console.log('Patient tests: ');
+            console.log(this.selectedPatientTests);
         } catch (error) {
             console.log(error);
         }

@@ -25,8 +25,7 @@ export class CreateTestComponent {
 
     addQuestionAnswer() {
         const component = {
-            type: 'Question',
-            responseType: 'Written',
+            type: 'question',
             instruction: '',
             content: ''
         };
@@ -37,8 +36,7 @@ export class CreateTestComponent {
 
     addDrawing() {
         const component = {
-            type: 'Photo',
-            responseType: 'Photo',
+            type: 'image',
             instruction: '',
             content: ''
         };
@@ -49,8 +47,7 @@ export class CreateTestComponent {
 
     addRecordSpeech() {
         const component = {
-            type: 'Audio',
-            responseType: 'Audio',
+            type: 'audio',
             instruction: '',
             content: '',
         };

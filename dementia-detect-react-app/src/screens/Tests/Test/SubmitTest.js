@@ -79,7 +79,7 @@ class SubmitTest extends Component {
 
         RNFetchBlob.fetch(
             'POST', 
-            'http://localhost:3000/test/submit_test', 
+            'http://localhost:3000/tests/submit_test', 
             {
                 Authorization : User.token,
                 'Content-Type' : 'multipart/form-data'
