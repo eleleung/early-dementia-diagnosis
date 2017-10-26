@@ -94,7 +94,7 @@
 
     <lsu-modal [(ngModel)]="completedTestModal" *ngIf="testResult != null">
         <div class="header">
-            {{testResult.name}} Details ({{testResult.date | date: 'dd/MM/yyyy'}}}
+            {{testResult.name}} Details ({{testResult.date | date: 'dd/MM/yyyy'}})
         </div>
         <div class="content">
             <table class="ui table">
@@ -122,7 +122,7 @@
                             </div>
                         </td>
                         <td *ngIf="testResult.componentResults[i].type == 'image'">
-                            TODO: show image
+                            <img *ngIf="testResult.componentResults[i].imageFile" style="width:100px; height:200px;" [src]="testResult.componentResults[i].imageFile.url"/>
                         </td>
                         <td *ngIf="testResult.componentResults[i].type == 'question'">
                             TODO: show answer

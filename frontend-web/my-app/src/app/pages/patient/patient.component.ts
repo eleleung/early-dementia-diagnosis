@@ -125,13 +125,27 @@ export class PatientComponent {
                     data => {
                         const blob = data.blob();
                         const blobUrl = URL.createObjectURL(blob);
-                        const audio = new Audio(blobUrl);
 
                         component.audioFile = {
                             blob: blob,
-                            audio: audio,
                             url: this.sanitizer.bypassSecurityTrustUrl(blobUrl),
                         };
+                    },
+                    err => {
+                    }
+                );
+            } else if (component.type === 'image') {
+                this.testResultService.loadImage(this.patient._id, component.filename).subscribe(
+                    data => {
+                        const blob = data.blob();
+                        const blobUrl = URL.createObjectURL(blob);
+
+                        component.imageFile = {
+                            blob: blob,
+                            url: this.sanitizer.bypassSecurityTrustUrl(blobUrl),
+                        };
+
+                        console.log(component.imageFile);
                     },
                     err => {
                     }

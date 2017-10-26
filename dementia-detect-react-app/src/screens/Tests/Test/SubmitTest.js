@@ -67,7 +67,7 @@ class SubmitTest extends Component {
             const fileURI = result.filename;
 
             if (result.filename) {
-                const fileType = test.components[step].type == 'audio' ? 'aac' : 'png';
+                const fileType = test.components[step].type == 'audio' ? 'aac' : 'jpg';
                 const param = {
                     name : 'file',
                     filename : `test-id=${test._id}_section=${step}.${fileType}`,

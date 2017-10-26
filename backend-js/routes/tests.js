@@ -123,12 +123,19 @@ router.post('/submit_test', [passport.authenticate('jwt', {session:false}), uplo
 
     for (let index = 0; index < results.length; index++)
     {
-        const result = results[index];
+        let result = results[index];
 
         if (result.type === 'audio') {
             promises.push(handleAudioSection(result, index, dir, req.files));
         }
         else if (result.type === 'image') {
+            for (const file of req.files) {
+                if (file.originalname === result.originalname) {
+                    result.filename = file.filename;
+                    break;
+                }
+            }
+
             //TODO: link result to new filename
         }
         else if (result.type === 'question') {

@@ -18,4 +18,11 @@ export class TestResultService {
 
         return this.http.post(url, {patientId: patientId, filename: filename}, {headers: headers, responseType: ResponseContentType.Blob});
     }
+
+    loadImage(patientId, filename: string) {
+        const url = GlobalVariable.BASE_API_URL + 'test-results/image';
+        const headers = this.securityService.loggedInHeader();
+
+        return this.http.post(url, {patientId: patientId, filename: filename}, {headers: headers, responseType: ResponseContentType.Blob});
+    }
 }

@@ -43,5 +43,13 @@ router.post('/audio', [passport.authenticate('jwt', {session:false}), bodyParser
     });
 });
 
+router.post('/image', [passport.authenticate('jwt', {session:false}), bodyParser.json()], function(req, res) {
+    const patientId = req.body.patientId;
+    const filename = req.body.filename;
+    const fullpath = `./data/${patientId}/${filename}`;
+
+    ms.pipe(req, res, fullpath);
+});
+
 
 module.exports = router;
