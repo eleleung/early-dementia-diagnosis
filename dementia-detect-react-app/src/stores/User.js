@@ -1,6 +1,6 @@
 // @flow
 
-import {observable, action, mobx} from 'mobx';
+import {observable, action, mobx, toJS} from 'mobx';
 import {persist} from 'mobx-persist';
 
 import Models from './models';
@@ -15,6 +15,7 @@ class Store {
     @observable selectedPatient = new Models.Patient;
 
     @observable selectedPatientTests = [];
+    @observable selectedPatientCompletedTests = [];
 
     @action login = async (email: string, password: string) => {
         try {
@@ -73,9 +74,10 @@ class Store {
                     this.patients = responseJson.carerPatients;
                     
                     if (responseJson.carerPatients.length > 0) {
+                        // this.setSelectedPatient(responseJson.carerPatients[0]);
                         this.selectedPatient = responseJson.carerPatients[0];
-
-                        await this.inflatePatientTests(this.selectedPatient._id);
+                        await this.inflatePatientTests(patient._id);
+                        await this.inflatePatientCompletedTests(patient._id);
                     }
                     return true;
                 } else {
@@ -88,12 +90,13 @@ class Store {
         }
     };
 
-    setSelectedPatient = (patient) => {
+    setSelectedPatient = async (patient) => {
         this.selectedPatient = patient;
-        this.inflatePatientTests(patient._id);
+        await this.inflatePatientTests(patient._id);
+        await this.inflatePatientCompletedTests(patient._id);
     }
 
-    inflatePatientTests = async (patientId: string) => {
+    @action inflatePatientTests = async (patientId: string) => {
         try {
             let response = await api.getPatientTests.post({"patientId": patientId});
             let responseJson = await response.json();
@@ -121,6 +124,19 @@ class Store {
             return false;
         }
     }
+
+    @action inflatePatientCompletedTests = async (patientId: string) => {
+        try {
+            let response = await api.getCompletedPatientTests.post({"patientId": patientId});
+            let responseJson = await response.json();
+
+            this.selectedPatientCompletedTests = responseJson.completedTests;
+            console.log('Patient completed tests: ');
+            console.log(this.selectedPatientCompletedTests);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 }
 
 export default new Store();

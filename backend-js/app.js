@@ -31,6 +31,7 @@ const doctors = require('./routes/doctors');
 const audio = require('./routes/transcriber');
 const pictures = require('./routes/pictures');
 const tests = require('./routes/tests');
+const test_results = require('./routes/test_results');
 
 // Port number
 const port = 3000;
@@ -60,6 +61,7 @@ app.use('/doctors', doctors);
 app.use('/transcriber', audio);
 app.use('/pictures', pictures);
 app.use('/tests', tests);
+app.use('/test-results', test_results);
 
 // Index Route
 app.get('/', function(req, res){

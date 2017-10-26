@@ -49,6 +49,19 @@ module.exports.getTestResultByCreatorAndPatient = function(creatorId, patientId,
     TestResult.find(query, callback);
 };
 
+module.exports.getTestResultByPatientId = function(patientId, callback){
+    const query = {
+        patient: patientId
+    };
+    TestResult
+        .find(query)
+        .populate({
+            path: 'test',
+            populate: {path: 'creator'}
+        })
+        .exec(callback);
+};
+
 module.exports.getAllTestResults = function() {
     TestResult.find();
 };

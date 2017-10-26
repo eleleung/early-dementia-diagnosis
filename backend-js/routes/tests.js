@@ -56,7 +56,8 @@ router.post('/saveTest', [passport.authenticate('jwt', {session: false}), bodyPa
 
     const newTest = new Test({
         name: test.testName,
-        sections: test.components,
+        description: test.description,
+        components: test.components,
         dateCreated: new Date(),
         creator: test.userId
     });
@@ -147,6 +148,7 @@ router.post('/submit_test', [passport.authenticate('jwt', {session:false}), uplo
             patient: patientId,
             date: new Date()
         });
+
 
         TestResult.addTestResult(testResult, function(err, test){
             if (err) {

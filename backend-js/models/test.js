@@ -48,9 +48,12 @@ module.exports.getAllTests = function(callback) {
 };
 
 module.exports.getAllTestsWithIds = function(ids, callback) {
-    Test.find({
-        '_id': { $in: ids}
-    }, callback);
+    Test
+        .find({
+            '_id': { $in : ids}
+        })
+        .populate('creator')
+        .exec(callback)
 };
 
 module.exports.addTest = function(newTest, callback){

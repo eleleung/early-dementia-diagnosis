@@ -22,6 +22,7 @@ import {ChartsModule} from 'ng2-charts';
 import {PatientComponent} from './pages/patient/patient.component';
 import {CreateTestComponent} from './pages/tests/create-test/create-test.component';
 import {TestService} from "./services/test.service";
+import {CompletedPatientTestComponent} from "./pages/patient/completed-patient-tests/completed-patient-test.component";
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import {TestService} from "./services/test.service";
         PatientsComponent,
         TestsComponent,
         PatientComponent,
-        CreateTestComponent
+        CreateTestComponent,
+        CompletedPatientTestComponent
     ],
     imports: [
         BrowserModule,

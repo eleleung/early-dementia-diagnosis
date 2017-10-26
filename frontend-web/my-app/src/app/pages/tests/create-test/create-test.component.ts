@@ -15,6 +15,7 @@ export class CreateTestComponent {
 
     private testComponents = [];
     private testName = '';
+    private description = '';
     private saved = false;
     private error = false;
     private date = new Date();
@@ -57,6 +58,12 @@ export class CreateTestComponent {
         this.testComponents.push(component);
     }
 
+    capitaliseFirstLetter(word) {
+        const capital: string = word.charAt(0).toUpperCase();
+        const remainder: string = word.substring(1);
+        return capital.concat(remainder);
+    }
+
     deleteComponent(index) {
         // confirm delete
 
@@ -64,13 +71,13 @@ export class CreateTestComponent {
     }
 
     saveTest() {
-        console.log(this.testComponents);
-        this.testService.saveTest(this.testComponents, this.testName).subscribe(
+        this.testService.saveTest(this.testComponents, this.testName, this.description).subscribe(
             response => {
                 if (response.success) {
                     this.saved = true;
                     this.testComponents = [];
                     this.testName = this.date.toDateString();
+                    this.description = '';
                 }
                 else {
                     this.saved = false;

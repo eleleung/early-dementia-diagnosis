@@ -25,7 +25,7 @@ class Test extends Component {
 
         let components = [];
         let results = [];
-        for (const section of test.sections) {
+        for (const section of test.components) {
             let out = this.getComponent(section);
             components.push(out.component);
             results.push(out.result);
@@ -65,7 +65,7 @@ class Test extends Component {
 
         let component = null;        
         let result = null;
-        const step = test.sections.indexOf(section);
+        const step = test.components.indexOf(section);
 
         if (section.type == 'audio') {
             result = {

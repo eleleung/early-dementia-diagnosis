@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Patient} from '../../models/patient';
 import { MODAL_DIRECTIVES } from 'angular2-semantic-ui';
 import {LoginService} from '../../services/login.service';
+import 'rxjs/Rx' ;
 
 /**
  * Created by nathanstanley on 25/5/17.
@@ -19,10 +20,12 @@ export class PatientComponent {
 
     patientTests: Test[];
     userTests: Test[];
-
+    testResults: any[];
+    testResult: any;
     patient: Patient = new Patient();
 
     assignModal = false;
+    completedTestModal = false;
     modalOptions = {
         'size': 'small',
         'closeable': true
@@ -43,7 +46,6 @@ export class PatientComponent {
             data => {
                 if (data.tests != null && data.tests.length > 0) {
                     this.patientTests = data.tests;
-                    console.log(data);
                 }
             },
             error => {
@@ -66,6 +68,21 @@ export class PatientComponent {
             }
         );
 
+        patientService.getCompletedPatientTests(id).subscribe(
+            data => {
+                this.testResults = [];
+                if (data.testResults != null && data.testResults.length > 0) {
+                    for (let i = data.testResults.length - 1; i >= 0; i--) {
+                        this.testResults.push(data.testResults[i]);
+                    }
+                }
+                console.log(this.testResults);
+            },
+            error => {
+                console.log(error);
+            }
+        );
+
         console.log(loginService.user);
     }
 
@@ -78,6 +95,7 @@ export class PatientComponent {
 
         this.patientService.addPatientTest(this.patient._id, test._id).subscribe(
             data => {
+                this.patientTests.push(test);
                 console.log('success');
             },
             error => {
@@ -86,7 +104,69 @@ export class PatientComponent {
         );
     }
 
-    viewDetails() {
+    openCompletedTestModal(testResult) {
+        this.testResult = testResult;
+        console.log(this.testResult);
+
+        this.completedTestModal = true;
+    }
+
+    closeCompletedTestModal() {
+        this.completedTestModal = false;
+
+        this.testResult = null;
+
+    }
+
+    handleComponentTypes(section, index) {
+        if (section.type === 'audio') {
+            if (this.testResult.componentResults[index]) {
+                const transcribedResult = this.testResult.componentResults[index].transcribedString;
+
+                if (transcribedResult && transcribedResult !== '') {
+                    const placeholder = 'Transcribed Text: ';
+                    return placeholder.concat(transcribedResult);
+                }
+            }
+        } else if (section.type === 'image') {
+            return 'Download the raw file to see result';
+        }
+    };
+
+    handleRawFiles(section, index) {
+        if (section.type === 'audio') {
+            // play the audio
+        } else if (section.type === 'image') {
+            const temp = this.testResult.componentResults[index];
+
+            if (temp && temp.filename) {
+                this.toDataURL(temp.filename);
+            }
+        }
+    }
+
+    downloadFile() {
+
+    }
+
+    downloadImage(data) {
+        const blob = new Blob([data], { type: 'image/png'});
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+    }
+
+    toDataURL(url) {
+        return fetch(url)
+            .then((response) => {
+                return response.blob();
+            })
+            .then(blob => {
+                const url = URL.createObjectURL(blob);
+                window.open(url);
+            });
+    }
+
+    viewDetails(data) {
         // TODO: route to details page or show more details somehow
     }
 }

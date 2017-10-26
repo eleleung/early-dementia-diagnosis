@@ -35,10 +35,20 @@
                             </form>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <form class="ui form">
+                                <div class="field">
+                                    <label>Description</label>
+                                    <input type="text" id="description" [(ngModel)]="description" name="description">
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
                     <tr *ngFor="let item of testComponents; let i = index" dnd-sortable [sortableIndex]="i" style="padding: 15px;">
                         <td>
                             <form class="ui form">
-                                {{i + 1}}. {{item.type}} Component<br>
+                                {{i + 1}}. {{capitaliseFirstLetter(item.type)}} Component<br>
                                 <div class="field">
                                     <label>Instruction</label>
                                     <input type="text" id="instruction" required [(ngModel)]="item.instruction" name="instruction">

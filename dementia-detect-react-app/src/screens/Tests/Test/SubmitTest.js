@@ -67,7 +67,7 @@ class SubmitTest extends Component {
             const fileURI = result.filename;
 
             if (result.filename) {
-                const fileType = test.sections[step].type == 'audio' ? 'aac' : 'png';
+                const fileType = test.components[step].type == 'audio' ? 'aac' : 'png';
                 const param = {
                     name : 'file',
                     filename : `test-id=${test._id}_section=${step}.${fileType}`,
@@ -87,10 +87,13 @@ class SubmitTest extends Component {
             params
         )
         .then((res) => {
-            console.log(res.text())
+            const result = res.json();
+            if (result.success) {
+                alert('Successfully submitted test. Thank you.');
+            }
         })
         .catch((err) => {
-            // error handling .. 
+            alert('There was an error, please try again in a few minutes');
         })
     }
 
@@ -102,7 +105,7 @@ class SubmitTest extends Component {
                 <View style={{flex:8}}>
                     <ScrollView style={styles.container}>
                         {
-                            test.sections.map((section, i) => (
+                            test.components.map((section, i) => (
                                 <Card 
                                     key={i} 
                                     title={`Step ${i + 1}: ${section.instruction}`}>
@@ -121,8 +124,8 @@ class SubmitTest extends Component {
                             name='chevron-left'
                             onPress={back}/>
                     </View>
-                    <View style={{flex:4, flexDirection:'row', justifyContent:'space-around', alignItems:'center'}}>
-                        <View style={{flex:1, justifyContent:'space-around'}}>
+                    <View style={{flex:4, flexDirection:'row', justifyContent: 'center'}}>
+                        <View>
                             <Button title={'Submit'} 
                                 iconRight={{name:'send'}} 
                                 buttonStyle={styles.submitButton}
@@ -160,7 +163,10 @@ var styles = StyleSheet.create({
         paddingTop:'27%',
     },
     submitButton: {
-        marginTop: 20,
-        backgroundColor: niceGreen
+        marginTop: 10,
+        backgroundColor: niceGreen,
+        width: 150,
+        borderRadius: 20,
+        marginBottom: 10
     },
 });

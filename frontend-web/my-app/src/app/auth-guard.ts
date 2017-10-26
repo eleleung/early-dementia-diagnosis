@@ -9,7 +9,8 @@ const routesSecurityRoles = {
     'patients': ['all'],
     'tests': ['all'],
     'patient': ['all'],
-    'add-patient': ['all']
+    'add-patient': ['all'],
+    'completed-patient-test': ['all']
 };
 
 @Injectable()

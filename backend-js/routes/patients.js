@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 const Patient = require('../models/patient');
 const Test = require('../models/test');
+const TestResult = require('../models/test_result');
 
 router.post('/register', passport.authenticate('jwt', {session:false}), function(req, res){
     const newPatient = new Patient({
@@ -108,6 +109,19 @@ router.post('/getPatientById', passport.authenticate('jwt', {session:false}), fu
             res.json({success: true, patient: patient, msg: 'Patient Found'});
         }
     })
+});
+
+router.post('/getCompletedPatientTests', passport.authenticate('jwt', {session:false}), function(req, res) {
+    TestResult.getTestResultByPatientId(req.body.patientId, function(err, testResults){
+        if (err || !testResults) {
+            res.status(400);
+            res.json({success: false, msg: "Could not find test result for patient"});
+        }
+
+        if (testResults) {
+            res.json({success: true, testResults: testResults})
+        }
+    });
 });
 
 module.exports = router;

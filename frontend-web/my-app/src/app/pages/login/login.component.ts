@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {LoginService} from '../../services/login.service';
 import {Router} from '@angular/router';
-import {LoginModel} from "../../models/user";
-import {PatientService} from "../../services/patient.service";
+import {LoginModel} from '../../models/user';
+import {PatientService} from '../../services/patient.service';
 
 @Component({
     selector: 'login',
@@ -11,8 +11,8 @@ import {PatientService} from "../../services/patient.service";
 
 export class LoginComponent {
     private model: LoginModel = new LoginModel();
-    messageClass: string = "";
-    message: string = "";
+    messageClass: string = '';
+    message: string = '';
     loading: boolean = false;
 
 
@@ -30,24 +30,24 @@ export class LoginComponent {
         this.loginService.login(this.model).subscribe(
             (result) => {
                 if (result.success) {
-                    localStorage.setItem("token", result.token);
-                    localStorage.setItem("user", result.user);
+                    localStorage.setItem('token', result.token);
+                    localStorage.setItem('user', result.user);
                     this.loginService.user = result.user;
 
-                    this.model.email = "";
-                    this.model.password = "";
+                    this.model.email = '';
+                    this.model.password = '';
                     this.patientService.getPatients();
                     this.router.navigate(['/overview']);
                 }
                 else {
-                    this.messageClass = "error";
-                    this.message = "Error with login credentials, please check your email and password";
+                    this.messageClass = 'error';
+                    this.message = 'Error with login credentials, please check your email and password';
                 }
                 this.loading = false;
             },
             (error) => {
-                this.messageClass = "error";
-                this.message = "Error with login credentials, please check your email and password";
+                this.messageClass = 'error';
+                this.message = 'Error with login credentials, please check your email and password';
                 this.loading = false;
             }
         );
@@ -57,13 +57,13 @@ export class LoginComponent {
         // this.loading = true;
         // this.loginService.resetPassword(this.model.email).subscribe(
         //     data => {
-        //         this.messageClass = "success";
-        //         this.message = "An email has been sent with your temporary password";
+        //         this.messageClass = 'success';
+        //         this.message = 'An email has been sent with your temporary password';
         //         this.loading = false;
         //     },
         //     error => {
-        //         this.messageClass = "error";
-        //         this.message = "No user with that email address";
+        //         this.messageClass = 'error';
+        //         this.message = 'No user with that email address';
         //         this.loading = false;
         //     }
         // );

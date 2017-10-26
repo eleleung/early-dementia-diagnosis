@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {Test} from "../models/test";
-import {Observable} from "rxjs/Observable";
-import {Http} from "@angular/http";
-import {SecurityService} from "./security.service";
-import {GlobalVariable} from "../globals";
-import {LoginService} from "./login.service";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Test} from '../models/test';
+import {Observable} from 'rxjs/Observable';
+import {Http} from '@angular/http';
+import {SecurityService} from './security.service';
+import {GlobalVariable} from '../globals';
+import {LoginService} from './login.service';
 /**
  * Created by EleanorLeung on 23/10/17.
  */
@@ -22,13 +22,14 @@ export class TestService {
 
     }
 
-    saveTest(test, testName) {
+    saveTest(test, testName, description) {
         const url = GlobalVariable.BASE_API_URL + 'tests/saveTest';
         const headers = this.securityService.loggedInHeader();
-        console.log({'components' : test, 'userId': this.loginService.user._id, 'testName': testName});
+        console.log({'components' : test, 'userId': this.loginService.user._id, 'testName': testName,
+                    'description': description});
 
         return this.http.post(url, JSON.stringify({'components' : test, 'userId': this.loginService.user._id,
-                                'testName': testName}), {headers: headers})
+                                'testName': testName, 'description': description}), {headers: headers})
             .map(res => res.json());
     }
 }

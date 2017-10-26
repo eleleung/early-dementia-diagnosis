@@ -72,4 +72,12 @@ export class PatientService {
         return this.http.post(url, JSON.stringify({'patientId' : patientId, 'testId' : testId}), {headers: headers})
             .map(res => res.json());
     }
+
+    getCompletedPatientTests(patientId: string) {
+        const url = GlobalVariable.BASE_API_URL + 'patients/getCompletedPatientTests';
+        const headers = this.securityService.loggedInHeader();
+
+        return this.http.post(url, JSON.stringify({'patientId': patientId}), {headers: headers})
+            .map(res => res.json());
+    }
 }

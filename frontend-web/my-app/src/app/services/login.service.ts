@@ -14,7 +14,7 @@ export class LoginService {
     user: User;
 
     constructor (private http: Http, private router: Router, private securityService: SecurityService) {
-        if (this.user == null && localStorage.getItem("token") != null && localStorage.getItem("token") != "") {
+        if (this.user == null || (localStorage.getItem("token") != null && localStorage.getItem("token") != "")) {
             this.validate().subscribe(
                 data => {
                     this.user = data.user;
@@ -24,6 +24,17 @@ export class LoginService {
                 }
             );
         }
+    }
+
+    getUser() {
+        this.validate().subscribe(
+            data => {
+                this.user = data.user;
+            },
+            error => {
+                console.log(error);
+            }
+        );
     }
 
     login(model: LoginModel) {

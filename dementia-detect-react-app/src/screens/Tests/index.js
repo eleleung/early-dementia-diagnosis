@@ -7,11 +7,12 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  ScrollView
 } from 'react-native';
 import { AudioUtils } from 'react-native-audio';
 
 import { inject, observer } from 'mobx-react/native';
-import { List, ListItem } from 'react-native-elements';
+import { List, ListItem, Icon } from 'react-native-elements';
 
 import Constants  from '../../global/Constants';
 import {style} from './style';
@@ -82,19 +83,38 @@ class Tests extends Component {
         
 
         return (
-            <View>
-                <List containerStyle={{marginBottom: 20}}>
-                {
-                    User.selectedPatientTests.map((test, i) => (
-                        <ListItem
-                            key={test._id}
-                            title={test.name}
-                            onPress={() => this.navigateToTest(test)}
-                        />
-                    ))
-                }
-                </List>
-            </View>
+            <ScrollView style={style.container}>
+                <View style={style.container}>
+                    <View style={{
+                        flexDirection: 'row',
+                    }}>
+                        <View style={{
+                            marginTop: 15,
+                            marginLeft: 20
+                        }}>
+                            <Icon 
+                                name='lightbulb-o'
+                                type='font-awesome'
+                            />
+                        </View>
+                        <Text style={style.heading}>Complete the tests assigned to {User.selectedPatient.firstName}</Text>
+                    </View>
+                    <List containerStyle={{
+                        marginBottom: 20,
+                    }}>
+                    {
+                        User.selectedPatientTests.map((test, i) => (
+                            <ListItem
+                                key={test._id}
+                                title={test.name}
+                                onPress={() => this.navigateToTest(test)}
+                                fontFamily='Helvetica Neue'
+                            />
+                        ))
+                    }
+                    </List>
+                </View>
+            </ScrollView>
         )
     }
 }
