@@ -65,7 +65,8 @@ router.post('/authenticate', function(req, res, next){
                             success: true,
                             token: 'JWT ' + token,
                             doctor: {
-                                _id: doctor._id
+                                _id: doctor._id,
+                                referenceCode: doctor.referenceCode
                             },
                             user: user,
                         })
@@ -103,7 +104,14 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), function(r
 });
 
 router.get('/validate',passport.authenticate('jwt', {session:false}), function(req, res, next){
-    res.json({user: req.user});
+    Doctor.getDoctorByUserId(req.user._id, function(err, doctor){
+        if (err || !doctor) {
+            res.json({user: req.user});
+        }
+        else {
+            res.json({user: req.user, doctor: doctor});
+        }
+    });
 });
 
 module.exports = router;

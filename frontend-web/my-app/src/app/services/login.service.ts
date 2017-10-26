@@ -1,23 +1,27 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
 import {GlobalVariable} from '../globals';
-import {LoginModel, User} from "../models/user";
-import {Router} from "@angular/router";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/do";
-import {SecurityService} from "./security.service";
+import {LoginModel, User} from '../models/user';
+import {Router} from '@angular/router';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import {SecurityService} from './security.service';
+import {Doctor} from '../models/doctor';
 
 @Injectable()
 export class LoginService {
 
     user: User;
+    doctor: Doctor;
 
     constructor (private http: Http, private router: Router, private securityService: SecurityService) {
-        if (this.user == null || (localStorage.getItem("token") != null && localStorage.getItem("token") != "")) {
+        if (this.user == null || (localStorage.getItem('token') != null && localStorage.getItem('token') != '')) {
             this.validate().subscribe(
                 data => {
                     this.user = data.user;
+                    if (data.doctor) {
+                        this.doctor = data.doctor;
+                    }
                 },
                 error => {
                     console.log(error);
@@ -50,11 +54,11 @@ export class LoginService {
     }
 
     checkLogin() {
-        return (this.user && localStorage.getItem("token") != "" && localStorage.getItem("token") != null);
+        return (this.user && localStorage.getItem('token') != '' && localStorage.getItem('token') != null);
     }
 
     logout() {
-        localStorage.setItem("token", "");
+        localStorage.setItem('token', '');
         this.user = null;
         this.router.navigate(['/login']);
     }

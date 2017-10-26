@@ -37,6 +37,11 @@ module.exports.getDoctorFromLogin = function(userId, callback){
         .exec(callback);
 };
 
+module.exports.getDoctorByUserId = function(userId, callback){
+    const query = {user: userId};
+    Doctor.findOne(query, callback);
+};
+
 module.exports.assignPatientToDoctor = function(referenceCode, patient, callback){
     const query = {referenceCode: referenceCode};
     Doctor

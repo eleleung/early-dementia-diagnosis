@@ -63,6 +63,34 @@
             </table>
         </lsu-tab>
         <lsu-tab [headerText]="'Patient Details'">
+            <form class="ui form">
+                <br>
+                <div class="two fields">
+                    <div class="field">
+                        <label>First Name</label>
+                        <input disabled type="text" id="first-name" [(ngModel)]="patient.firstName" name="first-name">
+                    </div>
+                    <div class="field">
+                        <label>Last Name</label>
+                        <input disabled type="text" id="last-name" [(ngModel)]="patient.lastName" name="last-name">
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Gender</label>
+                        <input disabled type="text" [(ngModel)]="patient.gender" name="gender">
+                    </div>
+                    <div class="field">
+                        <label>Date of Birth</label>
+                        <input disabled type="text" [(ngModel)]="pipedDateOfBirth" name="dateOfBirth">
+                    </div>
+                </div>
+                <div class="field">
+                    <table>
+
+                    </table>
+                </div>
+            </form>
         </lsu-tab>
     </lsu-tabset>
 

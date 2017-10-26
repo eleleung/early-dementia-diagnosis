@@ -32,14 +32,17 @@ export class LoginComponent {
                 if (result.success) {
                     localStorage.setItem('token', result.token);
                     localStorage.setItem('user', result.user);
+
                     this.loginService.user = result.user;
+                    if (result.doctor) {
+                        this.loginService.doctor = result.doctor;
+                    }
 
                     this.model.email = '';
                     this.model.password = '';
                     this.patientService.getPatients();
                     this.router.navigate(['/overview']);
-                }
-                else {
+                } else {
                     this.messageClass = 'error';
                     this.message = 'Error with login credentials, please check your email and password';
                 }
