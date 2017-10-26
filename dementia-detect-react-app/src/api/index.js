@@ -51,3 +51,4 @@ export const getPatientTests = endpoint('/tests/getPatientTests');
 export const login = endpoint('/users/authenticate', false);
 export const register = endpoint('/users/register', false);
 export const assignDoctor = endpoint('/doctors/assign-doctor');
+export const getCompletedPatientTests = endpoint('/test-results/getCompletedPatientTests');

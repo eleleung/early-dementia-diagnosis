@@ -14,25 +14,25 @@ const startSingleScreenApp = () => {
 const startTabBasedApp = () => {
     Navigation.startTabBasedApp({
         tabs: [
-          {
-              ...Constants.Screens.HOME_SCREEN
-          },
-          {
-              ...Constants.Screens.INFORMATION_SCREEN
-          },
-          {
-              ...Constants.Screens.TESTS_SCREEN
-          },
-          {
-              ...Constants.Screens.SETTINGS_SCREEN
-          }
+            {
+                ...Constants.Screens.HOME_SCREEN
+            },
+            {
+                ...Constants.Screens.TESTS_SCREEN
+            },
+            {
+                ...Constants.Screens.COMPLETED_TESTS_SCREEN
+            },
+            {
+                ...Constants.Screens.SETTINGS_SCREEN
+            }
         ],
         ...Platform.select({
             ios: {
-              tabsStyle: TabBar.Main,
+                tabsStyle: TabBar.Main,
             },
             android: {
-              appStyle: TabBar.Main,
+                appStyle: TabBar.Main,
             },
           })
       });

@@ -13,6 +13,7 @@ import Tests            from './Tests';
 import Test             from './Tests/Test';
 import AddPatient       from './AddPatient';
 import PatientList      from './Settings/PatientList';
+import CompletedTests   from './CompletedTests';
 
 export function registerScreens(store: {}, Provider: {}) {    
     Navigation.registerComponent(Constants.Screens.LOGIN_SCREEN.screen,  () => LoginScreen, store, Provider);
@@ -22,6 +23,7 @@ export function registerScreens(store: {}, Provider: {}) {
     Navigation.registerComponent(Constants.Screens.SETTINGS_SCREEN.screen, () => Settings, store, Provider);
     Navigation.registerComponent(Constants.Screens.TESTS_SCREEN.screen, () => Tests, store, Provider);
     Navigation.registerComponent(Constants.Screens.TEST_SCREEN.screen, () => Test, store, Provider);
+    Navigation.registerComponent(Constants.Screens.COMPLETED_TESTS_SCREEN.screen, () => CompletedTests, store, Provider);
 
     Navigation.registerComponent(Constants.Screens.INFORMATION_SCREEN.screen, () => Information, store, Provider);
 

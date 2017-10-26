@@ -18,16 +18,27 @@ export default {
         screen       : 'app.TabbedHomeScreen',
         title        : 'Home',
         label        : 'Home',
+        icon         : Images.HOME_TAB,
+        selectedIcon : Images.HOME_TAB_SELECTED,
     },
     INFORMATION_SCREEN: {
         screen       : 'app.InformationScreen',
         title        : 'Info',
         label        : 'Information',
     },
+    COMPLETED_TESTS_SCREEN: {
+        screen       : 'app.CompletedTestsScreen',
+        title        : 'Completed Tests',
+        label        : 'Completed Tests',
+        icon         : Images.COMPLETED_TESTS_TAB,
+        selectedIcon : Images.COMPLETED_TESTS_TAB_SELECTED
+    },
     TESTS_SCREEN: {
         screen       : 'app.TestsScreen',
-        title        : 'Tests',
-        label        : 'Tests',
+        title        : 'Assigned Tests',
+        label        : 'Assigned Tests',
+        icon         : Images.ASSIGNED_TESTS_TAB,
+        selectedIcon : Images.ASSIGNED_TESTS_TAB_SELECTED
     },
     TEST_SCREEN: {
         screen       : 'app.TestScreen',
@@ -36,7 +47,9 @@ export default {
     SETTINGS_SCREEN: {
         screen       : 'app.SettingsScreen',
         title        : 'Settings',
-        label        : 'Settings'
+        label        : 'Settings',
+        icon         : Images.SETTINGS_TAB,
+        selectedIcon : Images.SETTINGS_TAB_SELECTED
     },
 
     ADD_PATIENT_SCREEN: {

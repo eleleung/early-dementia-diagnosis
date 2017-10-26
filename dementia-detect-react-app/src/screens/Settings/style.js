@@ -26,7 +26,7 @@ export const style = StyleSheet.create({
         marginBottom: 5,
         marginTop: 10,
         fontFamily: 'Helvetica Neue',
-        fontSize: 15,
+        fontSize: 16,
         textAlign: 'left',
         paddingLeft: 10,
         fontWeight: 'bold'        
@@ -40,7 +40,7 @@ export const style = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#f5f5f5',
         backgroundColor: 'white',
-        fontSize: 13,
+        fontSize: 14,
         paddingLeft: 10,
         paddingTop: 15
     },
