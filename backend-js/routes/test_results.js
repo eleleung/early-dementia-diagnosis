@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const ms = require('mediaserver');
 
 const TestResult = require('../models/test_result');
 
@@ -22,5 +23,22 @@ router.post('/getCompletedPatientTests',[passport.authenticate('jwt', {session: 
         }
     });
 });
+
+//BAD but may have to do for the purposes of demo
+router.get('/audio', [passport.authenticate('jwt', {session:false}), bodyParser.json()], function(req, res) {
+    const filename = req.body.filename;
+
+    const convertedFilename = filename.replace('.flac', '.wav');
+
+    const proc = new ffmpeg({ source: filename })
+        .toFormat('wav')
+        .saveToFile(convertedFilename, function(stdout, stderr) {
+        });
+
+    proc.on('end', function () {
+        ms.pipe(req, res, convertedFilename);
+    });
+});
+
 
 module.exports = router;

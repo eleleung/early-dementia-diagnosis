@@ -68,23 +68,28 @@
 
     <lsu-modal [(ngModel)]="completedTestModal" *ngIf="testResult != null">
         <div class="header">
-            Completed Test Details
+            {{testResult.name}} Details ({{testResult.date | date: 'dd/MM/yyyy'}}}
         </div>
         <div class="content">
             <table class="ui table">
                 <thead>
-                    <th>Instruction</th>
-                    <th>Content</th>
+                    <th>Section</th>
+                    <th>Details</th>
                     <th>Result</th>
-                    <th>Download File</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let section of testResult.test.components; let i = index">
-                        <td>{{section.instruction}}</td>
+                    <tr *ngFor="let section of testResult.test.components; let i = index;">
+                        <td>{{i}}</td>
+                        <td>{{section.instruction}} <div style="font-size: 0.8em;">{{section.content}}</div></td>
                         <td>{{section.content !== '' ? section.content : 'N/A'}}</td>
-                        <td>{{handleComponentTypes(section, i)}}</td>
-                        <td>
-                            <i (click)="handleRawFiles(section, i)" class="download icon"></i>
+                        <td *ngIf="testResult.componentResults[i].type == 'audio'">
+                            <img src="../../../assets/loaders/ball-triangle.svg"/>
+                        </td>
+                        <td *ngIf="testResult.componentResults[i].type == 'image'">
+                            TODO: show image
+                        </td>
+                        <td *ngIf="testResult.componentResults[i].type == 'question'">
+                            TODO: show answer
                         </td>
                     </tr>
                 </tbody>
