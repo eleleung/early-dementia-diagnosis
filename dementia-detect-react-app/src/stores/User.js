@@ -56,6 +56,7 @@ class Store {
             if (response.ok) {
                 let responseJson = await response.json(); 
                 this.patients.push(responseJson.patient);
+                this.selectedPatient = responseJson.patient;
                 return true;
             } else {
                 return false;

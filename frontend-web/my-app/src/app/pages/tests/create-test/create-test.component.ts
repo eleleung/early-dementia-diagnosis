@@ -21,7 +21,6 @@ export class CreateTestComponent {
     private date = new Date();
 
     constructor(private router: Router, private testService: TestService) {
-        this.testName = this.date.toDateString();
     }
 
     addQuestionAnswer() {
@@ -30,7 +29,6 @@ export class CreateTestComponent {
             instruction: '',
             content: ''
         };
-        component.instruction = 'Example: What is the date today?';
 
         this.testComponents.push(component);
     }
@@ -41,7 +39,6 @@ export class CreateTestComponent {
             instruction: '',
             content: ''
         };
-        component.instruction = 'Example: Draw a clock';
 
         this.testComponents.push(component);
     }
@@ -52,8 +49,6 @@ export class CreateTestComponent {
             instruction: '',
             content: '',
         };
-        component.instruction = 'Example: Press record and read the text aloud';
-        component.content = 'A quick brown fox jumps over the lazy dog';
 
         this.testComponents.push(component);
     }

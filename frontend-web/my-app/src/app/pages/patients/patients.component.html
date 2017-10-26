@@ -24,6 +24,12 @@
             <td>{{patient.gender}}</td>
             <td>{{patient.dateOfBirth | date: 'dd/MM/yyyy' }}</td>
         </tr>
+        <tr *ngIf="(patientService.patients | async)?.length == 0">
+            <td colspan="3">
+                <i class="icon info"></i>
+                There are no patients at the moment
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

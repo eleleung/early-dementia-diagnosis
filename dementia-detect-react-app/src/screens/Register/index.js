@@ -50,7 +50,7 @@ class RegisterScreen extends Component {
 
         return ( 
             <View style={style.container}>
-                <Text style={style.formTitle}>New Patient Form</Text>
+                <Text style={style.formTitle}>Sign up</Text>
                 <TextInput 
                     style={style.textField}
                     placeholder={'First Name'}

@@ -14,9 +14,11 @@ import {Test} from "../../models/test";
 export class TestsComponent {
 
     tests: Test[];
+    loading = false;
 
     constructor(private router: Router, private patientService: PatientService) {
         this.tests = [];
+        this.loading = true;
 
         patientService.getUserTests().subscribe(
             data => {
@@ -27,9 +29,11 @@ export class TestsComponent {
                         this.tests.push(data.tests[i]);
                     }
                 }
+                this.loading = false;
             },
             error => {
                 console.log(error);
+                this.loading = false;
             }
         );
     }

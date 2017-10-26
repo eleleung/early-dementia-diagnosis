@@ -17,11 +17,22 @@
                 <th>Description</th>
                 <th>Patients</th>
             </thead>
-            <tbody *ngFor="let test of tests;">
-                <tr>
+            <tbody>
+                <tr *ngFor="let test of tests;">
                     <td>{{test.name}}</td>
                     <td>{{test.description}}</td>
                     <td>0</td>
+                </tr>
+                <tr *ngIf="loading">
+                    <td colspan="3" style="text-align: center">
+                        <img style="width: 60px; margin: auto;" src="../../../assets/loaders/three-dots.svg" >
+                    </td>
+                </tr>
+                <tr *ngIf="!loading && (!tests || tests.length == 0)">
+                    <td colspan="3">
+                        <i class="icon info"></i>
+                        There are no tests at the moment
+                    </td>
                 </tr>
             </tbody>
         </table>

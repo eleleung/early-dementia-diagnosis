@@ -51,7 +51,9 @@
                                 {{i + 1}}. {{capitaliseFirstLetter(item.type)}} Component<br>
                                 <div class="field">
                                     <label>Instruction</label>
-                                    <input type="text" id="instruction" required [(ngModel)]="item.instruction" name="instruction">
+                                    <input *ngIf="item.type === 'question'" placeholder="What is the date today?" type="text" required [(ngModel)]="item.instruction" name="instruction">
+                                    <input *ngIf="item.type === 'image'" placeholder="Draw a clock" type="text" required [(ngModel)]="item.instruction" name="instruction">
+                                    <input *ngIf="item.type === 'audio'" placeholder="Press record and read the text aloud" type="text" required [(ngModel)]="item.instruction" name="instruction">
                                     <label>Content</label>
                                     <textarea type="text" id="content" [(ngModel)]="item.content" name="content"></textarea>
                                 </div>
