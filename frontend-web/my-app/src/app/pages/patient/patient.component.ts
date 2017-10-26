@@ -6,6 +6,9 @@ import {Patient} from '../../models/patient';
 import { MODAL_DIRECTIVES } from 'angular2-semantic-ui';
 import {LoginService} from '../../services/login.service';
 import 'rxjs/Rx' ;
+import {GlobalVariable} from "../../globals";
+import {TestResultService} from "../../services/test-result.service";
+import {TestResult} from "../../models/testResult";
 
 /**
  * Created by nathanstanley on 25/5/17.
@@ -21,7 +24,7 @@ export class PatientComponent {
     patientTests: Test[];
     userTests: Test[];
     testResults: any[];
-    testResult: any;
+    testResult: TestResult;
     patient: Patient = new Patient();
     pipedDateOfBirth: string;
 
@@ -32,7 +35,8 @@ export class PatientComponent {
         'closeable': true
     };
 
-    constructor(private patientService: PatientService, private route: ActivatedRoute, private loginService: LoginService) {
+    constructor(private patientService: PatientService, private route: ActivatedRoute,
+                private loginService: LoginService, private testResultService: TestResultService) {
         const id = this.route.snapshot.params['patientId'];
         patientService.getPatientById(id).subscribe(
             data => {
@@ -109,67 +113,29 @@ export class PatientComponent {
 
     openCompletedTestModal(testResult) {
         this.testResult = testResult;
-        console.log(this.testResult);
-
         this.completedTestModal = true;
+
+        for (const component of testResult.componentResults) {
+            if (component.type === 'audio') {
+                this.testResultService.loadAudio(component.filename).subscribe(
+                    data => {
+                        const blob = data.blob();
+                        const blobUrl = URL.createObjectURL(blob);
+                        const audio = new Audio(blobUrl);
+                        console.log(audio);
+
+                        component.audioFile = {audio: audio, state: 'STOPPED'};
+                    },
+                    err => {
+
+                    }
+                );
+            }
+        }
     }
 
     closeCompletedTestModal() {
         this.completedTestModal = false;
-
         this.testResult = null;
-
-    }
-
-    handleComponentTypes(section, index) {
-        if (section.type === 'audio') {
-            if (this.testResult.componentResults[index]) {
-                const transcribedResult = this.testResult.componentResults[index].transcribedString;
-
-                if (transcribedResult && transcribedResult !== '') {
-                    const placeholder = 'Transcribed Text: ';
-                    return placeholder.concat(transcribedResult);
-                }
-            }
-        } else if (section.type === 'image') {
-            return 'Download the raw file to see result';
-        }
-    };
-
-    handleRawFiles(section, index) {
-        if (section.type === 'audio') {
-            // play the audio
-        } else if (section.type === 'image') {
-            const temp = this.testResult.componentResults[index];
-
-            if (temp && temp.filename) {
-                this.toDataURL(temp.filename);
-            }
-        }
-    }
-
-    downloadFile() {
-
-    }
-
-    downloadImage(data) {
-        const blob = new Blob([data], { type: 'image/png'});
-        const url = window.URL.createObjectURL(blob);
-        window.open(url);
-    }
-
-    toDataURL(url) {
-        return fetch(url)
-            .then((response) => {
-                return response.blob();
-            })
-            .then(blob => {
-                const url = URL.createObjectURL(blob);
-                window.open(url);
-            });
-    }
-
-    viewDetails(data) {
-        // TODO: route to details page or show more details somehow
     }
 }
