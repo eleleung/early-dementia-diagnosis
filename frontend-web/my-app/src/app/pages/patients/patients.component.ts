@@ -18,7 +18,7 @@ export class PatientsComponent {
 
     constructor(private patientService: PatientService,
                 private router: Router) {
-
+        patientService.getPatients();
     }
 
     selectPatient(patient: Patient) {

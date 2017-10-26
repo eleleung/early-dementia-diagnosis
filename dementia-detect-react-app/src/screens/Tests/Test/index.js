@@ -78,7 +78,7 @@ class Test extends Component {
         else if (section.type == 'image') {
             result = {
                 filename: '', // This is set by the camera library - we cant control the name with the current library
-                originalname: `test-id=${test._id}_section=${step}.aac`,
+                originalname: `test-id=${test._id}_section=${step}.jpg`,
                 type: section.type
             }
             component = <ImageCapture key={step} setFilename={this.setFilename} getFilename={this.getFilename} section={section} step={step} next={this.next} back={this.back}/>;

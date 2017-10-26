@@ -52,17 +52,6 @@ export class PatientComponent {
             }
         );
 
-        patientService.getPatientTests(id).subscribe(
-            data => {
-                if (data.tests != null && data.tests.length > 0) {
-                    this.patientTests = data.tests;
-                }
-            },
-            error => {
-
-            }
-        );
-
         patientService.getUserTests().subscribe(
             data => {
                 this.userTests = [];
@@ -78,7 +67,31 @@ export class PatientComponent {
             }
         );
 
-        patientService.getCompletedPatientTests(id).subscribe(
+        this.refreshAssignedTests(id);
+        this.refreshCompletedTests(id);
+    }
+
+    refreshAssignedTests(id) {
+        if (!id) {
+            id = this.patient._id;
+        }
+        this.patientService.getPatientTests(id).subscribe(
+            data => {
+                if (data.tests != null && data.tests.length > 0) {
+                    this.patientTests = data.tests;
+                }
+            },
+            error => {
+
+            }
+        );
+    }
+
+    refreshCompletedTests(id) {
+        if (!id) {
+            id = this.patient._id;
+        }
+        this.patientService.getCompletedPatientTests(id).subscribe(
             data => {
                 this.testResults = [];
                 if (data.testResults != null && data.testResults.length > 0) {
@@ -92,8 +105,6 @@ export class PatientComponent {
                 console.log(error);
             }
         );
-
-        console.log(loginService.user);
     }
 
     addTest(test: Test) {
@@ -125,13 +136,27 @@ export class PatientComponent {
                     data => {
                         const blob = data.blob();
                         const blobUrl = URL.createObjectURL(blob);
-                        const audio = new Audio(blobUrl);
 
                         component.audioFile = {
                             blob: blob,
-                            audio: audio,
                             url: this.sanitizer.bypassSecurityTrustUrl(blobUrl),
                         };
+                    },
+                    err => {
+                    }
+                );
+            } else if (component.type === 'image') {
+                this.testResultService.loadImage(this.patient._id, component.filename).subscribe(
+                    data => {
+                        const blob = data.blob();
+                        const blobUrl = URL.createObjectURL(blob);
+
+                        component.imageFile = {
+                            blob: blob,
+                            url: this.sanitizer.bypassSecurityTrustUrl(blobUrl),
+                        };
+
+                        console.log(component.imageFile);
                     },
                     err => {
                     }
