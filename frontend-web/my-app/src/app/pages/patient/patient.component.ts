@@ -27,6 +27,7 @@ export class PatientComponent {
     testResults: any[];
     testResult: TestResult;
     patient: Patient = new Patient();
+    pipedDateOfBirth: string;
 
     assignModal = false;
     completedTestModal = false;
@@ -42,6 +43,8 @@ export class PatientComponent {
         patientService.getPatientById(id).subscribe(
             data => {
                 this.patient = data.patient;
+                this.pipedDateOfBirth = new Date(this.patient.dateOfBirth).toDateString();
+
             },
             error => {
 

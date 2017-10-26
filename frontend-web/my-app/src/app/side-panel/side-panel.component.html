@@ -10,6 +10,21 @@
     <a class="item menu-item" routerLink="/overview" routerLinkActive="active"><span style="margin-left:10px">Overview</span></a>
     <a class="item menu-item" routerLink="/patients" routerLinkActive="active"><span style="margin-left:10px">Patients</span></a>
     <a class="item menu-item" routerLink="/tests" routerLinkActive="active"><span style="margin-left:10px">Tests</span></a>
+    <a class="item menu-item" routerLinkActive="active" *ngIf="loginService.doctor" (click)="showReferenceModal = true"><span style="margin-left:10px">My Reference Code</span></a>
     <a class="item menu-item" (click)="loginService.logout()"><span style="margin-left:10px">Log out</span></a>
 </div>
 
+<lsu-modal [(ngModel)]="showReferenceModal" *ngIf="loginService.doctor" [options]="modalOptions">
+    <div class="header">
+        Here's your reference code
+    </div>
+    <div class="content">
+        Give this to a patient in order to link up: <b>{{loginService.doctor.referenceCode}}</b>
+    </div>
+    <div class="actions">
+        <div class="ui secondary deny button" (click)="showReferenceModal = false">
+            Close
+        </div>
+    </div>
+</lsu-modal>
+`

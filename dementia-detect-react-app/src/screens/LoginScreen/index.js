@@ -43,7 +43,7 @@ class LoginScreen extends Component {
 
     componentDidMount() {
         this.handleVisibilityOfNavButtons();
-        this.login('ele@gmail.com', 'admin');
+        // this.login('ele@gmail.com', 'admin');
     }
 
     onNavigatorEvent = (event: { id: string }) => {

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {LoginService} from '../services/login.service';
+import {User} from "../models/user";
 
 @Component({
     selector: 'side-panel',
@@ -10,9 +11,14 @@ import {LoginService} from '../services/login.service';
 
 export class SidePanelComponent {
 
+    showReferenceModal = false;
+    modalOptions = {
+        'size': 'small',
+        'closeable': true
+    };
+
     constructor(private loginService: LoginService,
                 private router: Router) {
-
     }
 
 }

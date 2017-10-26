@@ -86,9 +86,12 @@ class Settings extends Component {
             <View style={style.container}>
                 <Text style={style.settings_heading}>Patient Account</Text>
                 {
-                    User.selectedPatient
+                    User.patients.length > 0 && User.selectedPatient
                     ?
-                    <Text style={style.labels}>{`${User.selectedPatient.firstName} ${User.selectedPatient.lastName}`}</Text>
+                    <Text style={style.labels}>
+                    Current Patient: 
+                    {` ${User.selectedPatient.firstName} ${User.selectedPatient.lastName}`}
+                    </Text>
                     :
                     null
                 }
