@@ -4,11 +4,11 @@ import React, {Component} from 'react';
 import {
     View,
     Text,
-    Button,
     TextInput,
     Modal
 } from 'react-native';
 import {inject, observer} from 'mobx-react/native';
+import {Button} from 'react-native-elements';
 
 import Constants  from '../../global/Constants';
 import * as api from '../../api';
@@ -139,6 +139,9 @@ class Settings extends Component {
                     </View>
                 </Modal>
                 <Button
+                    style={{
+                        marginTop: 30,
+                    }}
                     title={`Log Out`}
                     onPress={ () => this.logout() }
                 />

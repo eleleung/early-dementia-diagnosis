@@ -32,7 +32,7 @@ class PatientList extends Component {
         const {User} = this.props;
     
         return (
-            <ScrollView>
+            <ScrollView style={style.container}>
                 <Text style={style.heading}>Tap to switch patient</Text>
                 <List containerStyle={{marginBottom: 20}}>
                 {
@@ -40,14 +40,14 @@ class PatientList extends Component {
                     User.selectedPatient._id == item._id ? 
                     <ListItem
                         key={i}
-                        title={item.firstName}
+                        title={`${item.firstName} ${item.lastName}`}
                         rightIcon={{name: 'check'}}
                         onPress={() => this.changeSelectedPatient(item)}
                     />
                     :
                     <ListItem
                         key={i}
-                        title={item.firstName}
+                        title={`${item.firstName} ${item.lastName}`}
                         hideChevron={true}
                         onPress={() => this.changeSelectedPatient(item)}
                     />

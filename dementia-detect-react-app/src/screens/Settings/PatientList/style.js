@@ -12,13 +12,12 @@ export const style = StyleSheet.create({
     },
 
     heading: {
-        marginLeft: 10,
-        marginTop: 10,
+        marginTop: 20,
         fontFamily: 'Helvetica Neue',
-        fontSize: 15,
+        fontSize: 16,
         textAlign: 'left',
         paddingLeft: 10,
-        fontWeight: 'bold'        
+        textAlign: 'center'
     },
 
     individualPatient: {

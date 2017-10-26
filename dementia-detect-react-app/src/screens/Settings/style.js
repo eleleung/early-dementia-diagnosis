@@ -22,14 +22,12 @@ export const style = StyleSheet.create({
     },
 
     settings_heading: {
-        marginLeft: 10,
-        marginBottom: 5,
-        marginTop: 10,
+        marginBottom: 20,
+        marginTop: 20,
         fontFamily: 'Helvetica Neue',
         fontSize: 16,
-        textAlign: 'left',
+        textAlign: 'center',
         paddingLeft: 10,
-        fontWeight: 'bold'        
     },
     
     labels: {

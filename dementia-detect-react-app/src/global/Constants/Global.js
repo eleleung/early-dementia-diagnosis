@@ -26,7 +26,10 @@ const startTabBasedApp = () => {
             {
                 ...Constants.Screens.SETTINGS_SCREEN
             }
-        ],
+        ],  
+        appStyle: {
+            navBarButtonColor: '#2ECC40'                    
+        },
         ...Platform.select({
             ios: {
                 tabsStyle: TabBar.Main,

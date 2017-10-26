@@ -3,7 +3,10 @@
 import Constants from '../../Constants';
 
 export default {
-  tabBarButtonColor     : '#007aff',
-  tabBarBackgroundColor : '#ffffff',
-  tabBarTranslucent     : false,
+    tabBarBackgroundColor     : '#ffffff',
+    tabBarButtonColor         : '#a5a5a5',
+    tabBarSelectedButtonColor : '#2ECC40',
+    tabBarSelectedLabelColor  : '#2ECC40',
+    tabBarTranslucent         : false,
+    navBarButtonColor         : '#2ECC40'
 }
