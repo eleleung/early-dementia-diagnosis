@@ -1,5 +1,8 @@
 <div class="container" *ngIf="!loginService.checkLogin()">
     <div class="login">
+      <div class="app-logo">
+          <img class="ui logo image" style="width:205px;height:auto;margin:auto;margin-bottom:20px" src="/assets/images/dementia1.png">
+      </div>
         <div class="ui segment padded" [ngClass]="{'loading': loading}" style="max-width:400px;margin:auto">
             <h2 class="ui dividing header" style="margin-bottom: 30px">Login</h2>
             <div class="ui message" [ngClass]="messageClass" *ngIf="message">
