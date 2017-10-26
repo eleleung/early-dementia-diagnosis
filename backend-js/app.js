@@ -57,7 +57,6 @@ app.use('/test', bodyParser.json());
 app.use('/users', users);
 app.use('/patients', patients);
 app.use('/doctors', doctors);
-app.use('/transcriber', audio);
 app.use('/pictures', pictures);
 app.use('/tests', tests);
 app.use('/test-results', test_results);
