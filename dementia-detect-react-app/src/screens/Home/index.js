@@ -7,13 +7,14 @@ import {
   Button,
   TextInput,
   StyleSheet,
+  ScrollView
 } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
+import { List, ListItem, Icon } from 'react-native-elements';
 
 import NavButtons from '../../global/NavButtons';
 import NavBar     from '../../global/NavBar';
 import Constants  from '../../global/Constants';
-import {style}    from './style';
 
 @inject('App', 'User') @observer
 class Home extends Component {
@@ -29,17 +30,32 @@ class Home extends Component {
         const { User } = this.props;
 
         return (
-            <View style={style.container}> 
-                {
-                    User.current && User.current.firstName 
-                    ?
-                    <Text>Hi {User.current.firstName}</Text>
-                    :
-                    null
-                }
-            </View>
+            <ScrollView style={style.container}>
+                <Text>Your stats</Text>
+                <List containerStyle={{ marginBottom: 20 }}>
+                    <ListItem
+                        title={'Completed Tests'}
+                        leftIcon={{name: 'puzzle'}}
+                        rightIcon={{name: 'a'}}
+                        badge={{ value: 3, textStyle: { color: 'white' }, containerStyle: {  } }}
+
+                    />
+                </List>
+
+                <Text>News</Text>
+
+                <Text>Trials</Text>
+            </ScrollView>
         )
     }
 }
 
+const style = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: Constants.Colors.backgroundColor,        
+    },    
+});    
+
 export default Home;
+

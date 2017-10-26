@@ -4,15 +4,16 @@ import React, { Component } from 'react';
 import {
     View,
     Text,
-    Button,
     TextInput,
     StyleSheet,
+    Image
 } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
 
 import NavButtons from  '../../global/NavButtons';
 import NavBar     from '../../global/NavBar';
 import Constants  from '../../global/Constants';
+import { Button, FormLabel, FormInput } from 'react-native-elements'
 
 type Props = {
     withCancelButton : boolean,
@@ -43,7 +44,7 @@ class LoginScreen extends Component {
 
     componentDidMount() {
         this.handleVisibilityOfNavButtons();
-        // this.login('ele@gmail.com', 'admin');
+        this.login('ele@gmail.com', 'admin');
     }
 
     onNavigatorEvent = (event: { id: string }) => {
@@ -104,57 +105,64 @@ class LoginScreen extends Component {
 
     return (
         <View style={styles .container}>
-            <View style={styles.form}>
-                <TextInput
-                    style={ styles.text_input }
-                    keyboardType={'email-address'}
-                    autoCapitalize={'none'}
-                    autoCorrect={false}
-                    onChangeText={ (email) => this.setState({ email }) }
-                    value={ this.state.email }
-                    placeholder={`email`}
-                />
-                <TextInput
-                    style={ styles.text_input }
-                    onChangeText={ (password) => this.setState({ password }) }
-                    value={ this.state.password }
-                    placeholder={`password`}
-                    secureTextEntry={true}
-                />
-                <Button
-                    title={`Log In`}
-                    onPress={ () => this.login(email, password) }
-                />
-                <Button
-                    title={`Create Account`}
-                    onPress={ () => this.register() }
-                />
-            </View>
+            <Image style={{height:150, marginBottom: 40}} source={require('../../../img/logo.psd')}/>
+            <FormLabel style={styles.label}>Email</FormLabel>
+            <FormInput
+                style={styles.text_input}
+                keyboardType={'email-address'}
+                autoCapitalize={'none'}
+                autoCorrect={false}
+                onChangeText={ (email) => this.setState({ email }) }
+                value={ this.state.email }
+                placeholder={`email`}/>
+            
+            <FormLabel style={styles.label}>Password</FormLabel>
+            <FormInput
+                style={ styles.text_input }
+                onChangeText={ (password) => this.setState({ password }) }
+                value={ this.state.password }
+                placeholder={`password`}
+                secureTextEntry={true}/>
+        
+            <Button
+                style={ styles.login }
+                backgroundColor={niceGreen}
+                title={`Log In`}
+                onPress={ () => this.login(email, password) }
+            />
+            <Button
+                style={ styles.create_account }
+                title={`Create Account`}
+                onPress={ () => this.register() }
+            />
         </View>
     );
   }
 }
 
+const niceGreen = "#2ECC40";
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: Constants.Colors.backgroundColor,
     },
     form: {
         justifyContent: 'center',
-        alignItems: 'center',
+    },
+    login: {
+        marginTop:30,
+    },
+    create_account: {
+        marginTop:15
     },
     text_input: {
-        width: 250,
-        height: 40,
-        padding: 10,
-        margin: 5,
-
-        borderWidth: 0.5,
-        borderColor: Constants.Colors.blackColor,
-        borderRadius: 20,
+        width: 330,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 0,
+        margin: 0,
     }
 });
 
