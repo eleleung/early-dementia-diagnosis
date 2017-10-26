@@ -40,6 +40,7 @@ export class PatientComponent {
                 private loginService: LoginService, private testResultService: TestResultService,
                 private sanitizer: DomSanitizer) {
         const id = this.route.snapshot.params['patientId'];
+        this.patientTests = [];
         patientService.getPatientById(id).subscribe(
             data => {
                 this.patient = data.patient;
@@ -105,6 +106,7 @@ export class PatientComponent {
         this.patientService.addPatientTest(this.patient._id, test._id).subscribe(
             data => {
                 this.patientTests.push(test);
+                this.assignModal = false;
                 console.log('success');
             },
             error => {

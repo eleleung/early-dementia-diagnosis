@@ -17,21 +17,11 @@
                 <th>Description</th>
                 <th>Patients</th>
             </thead>
-            <tbody>
+            <tbody *ngFor="let test of tests;">
                 <tr>
-                    <td>Basic Conversation</td>
-                    <td>Recorded audio from a conversation</td>
-                    <td>20</td>
-                </tr>
-                <tr>
-                    <td>Clock Drawing</td>
-                    <td>The patient tries to draw a clock face</td>
-                    <td>11</td>
-                </tr>
-                <tr>
-                    <td>Memory Test</td>
-                    <td>Several Questions aimed at testing memory</td>
-                    <td>4</td>
+                    <td>{{test.name}}</td>
+                    <td>{{test.description}}</td>
+                    <td>0</td>
                 </tr>
             </tbody>
         </table>
@@ -48,7 +38,7 @@
                 <tr>
                     <td>Montreal Cognitive Assessment</td>
                     <td>30 point memory check used as a standard across the world</td>
-                    <td>105</td>
+                    <td>2</td>
                 </tr>
             </tbody>
         </table>
