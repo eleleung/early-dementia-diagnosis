@@ -15,6 +15,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "jsonwebtoken": "7.4.2",
     "linear16": "^1.0.1",
+    "mediaserver": "^0.1.0",
     "mkdirp": "^0.5.1",
     "mocha": "2.3.4",
     "mongodb-test-mock": "^0.1.5",
