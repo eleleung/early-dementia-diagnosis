@@ -36,11 +36,18 @@ export class PatientComponent {
         'closeable': true
     };
 
+    loadingCompletedTests = false;
+    loadingAssignedTests = false;
+
     constructor(private patientService: PatientService, private route: ActivatedRoute,
                 private loginService: LoginService, private testResultService: TestResultService,
                 private sanitizer: DomSanitizer) {
         const id = this.route.snapshot.params['patientId'];
         this.patientTests = [];
+
+        this.loadingCompletedTests = true;
+        this.loadingAssignedTests = true;
+
         patientService.getPatientById(id).subscribe(
             data => {
                 this.patient = data.patient;
@@ -80,9 +87,10 @@ export class PatientComponent {
                 if (data.tests != null && data.tests.length > 0) {
                     this.patientTests = data.tests;
                 }
+                this.loadingAssignedTests = false;
             },
             error => {
-
+                this.loadingAssignedTests = false;
             }
         );
     }
@@ -100,9 +108,11 @@ export class PatientComponent {
                     }
                 }
                 console.log(this.testResults);
+                this.loadingCompletedTests = false;
             },
             error => {
                 console.log(error);
+                this.loadingCompletedTests = false;
             }
         );
     }

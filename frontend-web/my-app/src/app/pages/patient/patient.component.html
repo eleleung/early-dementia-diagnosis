@@ -34,6 +34,17 @@
                             </button>
                         </td>
                     </tr>
+                    <tr *ngIf="loadingCompletedTests">
+                        <td colspan="5" style="text-align: center">
+                            <img style="width: 60px; margin: auto;" src="../../../assets/loaders/three-dots.svg" >
+                        </td>
+                    </tr>
+                    <tr *ngIf="!loadingCompletedTests && (!testResults || testResults.length == 0)">
+                        <td colspan="5">
+                            <i class="icon info"></i>
+                            This patient has not completed any tests
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </lsu-tab>
@@ -62,6 +73,17 @@
                         <td>{{test.name}}</td>
                         <td>{{test.creator[0].firstName}} {{test.creator[0].lastName}}</td>
                         <td>{{test.creator[0].firstName}} {{test.creator[0].lastName}}</td>
+                    </tr>
+                    <tr *ngIf="loadingAssignedTests">
+                        <td colspan="3" style="text-align: center">
+                            <img style="width: 60px; margin: auto;" src="../../../assets/loaders/three-dots.svg" >
+                        </td>
+                    </tr>
+                    <tr *ngIf="!loadingAssignedTests && (!patientTests || patientTests.length == 0)">
+                        <td colspan="3">
+                            <i class="icon info"></i>
+                            This patient does not have any assigned tests
+                        </td>
                     </tr>
                 </tbody>
             </table>
