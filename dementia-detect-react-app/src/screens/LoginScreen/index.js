@@ -106,7 +106,7 @@ class LoginScreen extends Component {
     return (
         <View style={styles .container}>
             <Image style={{height:150, marginBottom: 40}} source={require('../../../img/logo.psd')}/>
-            <FormLabel style={styles.label}>Email</FormLabel>
+            <FormLabel>Email</FormLabel>
             <FormInput
                 style={styles.text_input}
                 keyboardType={'email-address'}
@@ -116,7 +116,7 @@ class LoginScreen extends Component {
                 value={ this.state.email }
                 placeholder={`email`}/>
             
-            <FormLabel style={styles.label}>Password</FormLabel>
+            <FormLabel>Password</FormLabel>
             <FormInput
                 style={ styles.text_input }
                 onChangeText={ (password) => this.setState({ password }) }

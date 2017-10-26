@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native';
 export const style = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Constants.Colors.backgroundColor,
+        backgroundColor: 'white',
     },
 
     text_input: {
@@ -22,7 +22,6 @@ export const style = StyleSheet.create({
     },
 
     settings_heading: {
-        marginBottom: 20,
         marginTop: 20,
         fontFamily: 'Helvetica Neue',
         fontSize: 16,
@@ -45,5 +44,13 @@ export const style = StyleSheet.create({
     
     chosenPatient: {
         color: 'green'
-    } 
+    },
+
+    text_input: {
+        width: 330,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 0,
+        marginTop: 20
+    }
 });

@@ -8,11 +8,13 @@ import {
     Modal
 } from 'react-native';
 import {inject, observer} from 'mobx-react/native';
-import {Button} from 'react-native-elements';
+import {Button, Icon, List, ListItem, FormLabel, FormInput} from 'react-native-elements';
 
 import Constants  from '../../global/Constants';
 import * as api from '../../api';
 import {style} from './style';
+
+const niceGreen = "#2ECC40";
 
 @inject('App', 'User') @observer
 class Settings extends Component {
@@ -84,71 +86,90 @@ class Settings extends Component {
 
         return (
             <View style={style.container}>
-                <Text style={style.settings_heading}>Patient Account</Text>
-                {
-                    User.patients.length > 0 && 
-                    User.selectedPatient
-                    ?
-                    <Text style={style.labels}>
-                    Current Patient: 
-                    {` ${User.selectedPatient.firstName} ${User.selectedPatient.lastName}`}
-                    </Text>
-                    :
-                    null
-                }
-                <Text 
-                    style={style.labels}
-                    onPress={ () => this.addPatient() }>
-                    Add Patient    
-                </Text>
-                <Text
-                    style={style.labels}
-                    onPress={ () => this.changeSelectedPatient() }>
-                    Change Patient Account
-                </Text>
-                <Text
-                    style={style.labels}
-                    onPress={ () => this.showModal() }>
-                    Assign a Doctor
-                </Text>  
-                <Modal
-                    animationType="slide"
-                    transparent={false}
-                    visible={modalVisible}>
-                    <View style={style.container}>
-                        <View style={{
+            <Text style={style.settings_heading}>Patient Account</Text>
+            <List containerStyle={{
+                        marginBottom: 20,
+                    }}>
+                    {
+                        User.patients.length > 0 && 
+                        User.selectedPatient
+                        ?
+                            <ListItem
+                                title={`Current Patient: ${User.selectedPatient.firstName} ${User.selectedPatient.lastName}`}
+                                fontFamily='Helvetica Neue'
+                                hideChevron={true}
+                            />
+                        :
+                        null
+                    }
+                    <ListItem 
+                        onPress={ () => this.addPatient() }
+                        leftIcon={{name: 'add'}}
+                        title={'Add Patient'}
+                    />
+                    <ListItem
+                        onPress={ () => this.changeSelectedPatient() }
+                        leftIcon={{name: 'people'}}
+                        title={'Change Patient Account'}
+                    />
+                    <ListItem
+                        onPress={ () => this.showModal() }
+                        leftIcon={{name: 'person-add'}}
+                        title={'Assign a Doctor'}
+                    />
+            </List> 
+            
+            <List>
+                <ListItem
+                    title={'My Details'}
+                    leftIcon={{name: 'edit'}}
+                    />
+            </List> 
+
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={modalVisible}>
+
+                <View style={style.container}>
+                    <View style={{
                             flex: 1,
                             justifyContent: 'center',
                             alignItems: 'center',
                         }}>
-                            <Text style={{marginBottom: 15}}>Enter in the doctor's reference code below</Text>
-                            <TextInput 
-                                placeholder={'Reference Code'}
-                                style={style.text_input}
-                                value={referenceCode}
-                                autoCapitalize={'none'}
-                                onChangeText={ (referenceCode) => this.setState({ referenceCode }) }
-                            />
-                        </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 20}}>
-                            <Button
-                                title={`Cancel`}
-                                onPress={ () => this.setState({modalVisible: !modalVisible}) }
-                            />
-                            <Button
-                                title={`Submit`}
-                                onPress={ () => this.submit() }
-                            />
-                        </View>
+                        <FormLabel>Enter in the doctor's reference code below</FormLabel>
+                        <FormInput
+                        style={style.text_input}
+                        autoCapitalize={'none'}
+                        onChangeText={ (referenceCode) => this.setState({ referenceCode }) }
+                        value={ referenceCode }
+                        placeholder={`Reference Code`}/>
                     </View>
-                </Modal>
-                <Button
-                    style={{
-                        marginTop: 30,
-                    }}
-                    title={`Log Out`}
-                    onPress={ () => this.logout() }
-                />
+
+                    <Button
+                        title={`Submit`}
+                        backgroundColor={niceGreen}
+                        onPress={ () => this.submit() }
+                    />
+                    <Button
+                        style={{
+                            marginTop: 15,
+                            marginBottom: 40
+                        }}
+                        title={`Cancel`}
+                        onPress={ () => this.setState({modalVisible: !modalVisible}) }
+                    />
+                </View>
+
+            </Modal>
+            <Button
+                backgroundColor='red'
+                style={{
+                    marginTop: 30,
+                }}
+                title={`Log Out`}
+                onPress={ () => this.logout() }
+            />
             </View>
         )
     }
