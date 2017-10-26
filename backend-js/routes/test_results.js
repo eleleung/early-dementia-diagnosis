@@ -18,8 +18,6 @@ router.post('/getCompletedPatientTests',[passport.authenticate('jwt', {session: 
         }
 
         if (testResults) {
-            console.log(testResults);
-            console.log(testResults.length);
             res.json({success: true, completedTests: testResults})
         }
     });

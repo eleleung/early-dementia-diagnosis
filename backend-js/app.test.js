@@ -28,7 +28,6 @@ const app = express();
 const users = require('./routes/users');
 const patients = require('./routes/patients');
 const doctors = require('./routes/doctors');
-const audio = require('./routes/transcriber');
 const pictures = require('./routes/pictures');
 const tests = require('./routes/tests');
 
