@@ -55,7 +55,7 @@ class Store {
             let response = await api.registerPatient.post(patient);
             if (response.ok) {
                 let responseJson = await response.json(); 
-
+                this.patients.push(responseJson.patient);
                 return true;
             } else {
                 return false;
@@ -76,8 +76,8 @@ class Store {
                     if (responseJson.carerPatients.length > 0) {
                         // this.setSelectedPatient(responseJson.carerPatients[0]);
                         this.selectedPatient = responseJson.carerPatients[0];
-                        await this.inflatePatientTests(patient._id);
-                        await this.inflatePatientCompletedTests(patient._id);
+                        await this.inflatePatientTests();
+                        await this.inflatePatientCompletedTests();
                     }
                     return true;
                 } else {
@@ -92,13 +92,16 @@ class Store {
 
     setSelectedPatient = async (patient) => {
         this.selectedPatient = patient;
-        await this.inflatePatientTests(patient._id);
-        await this.inflatePatientCompletedTests(patient._id);
+        await this.inflatePatientTests();
+        await this.inflatePatientCompletedTests();
     }
 
-    @action inflatePatientTests = async (patientId: string) => {
+    @action inflatePatientTests = async () => {
+        if (this.selectedPatient == null) {
+            return;
+        }
         try {
-            let response = await api.getPatientTests.post({"patientId": patientId});
+            let response = await api.getPatientTests.post({"patientId": this.selectedPatient._id});
             let responseJson = await response.json();
 
             this.selectedPatientTests = responseJson.tests;
@@ -125,12 +128,15 @@ class Store {
         }
     }
 
-    @action inflatePatientCompletedTests = async (patientId: string) => {
+    @action inflatePatientCompletedTests = async () => {
+        if (this.selectedPatient == null) {
+            return;
+        }
         try {
-            let response = await api.getCompletedPatientTests.post({"patientId": patientId});
+            let response = await api.getCompletedPatientTests.post({"patientId": this.selectedPatient._id});
             let responseJson = await response.json();
 
-            this.selectedPatientCompletedTests = responseJson.completedTests;
+            this.selectedPatientCompletedTests = responseJson.testResults;
             console.log('Patient completed tests: ');
             console.log(this.selectedPatientCompletedTests);
         } catch (error) {

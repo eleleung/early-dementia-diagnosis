@@ -18,7 +18,7 @@ router.post('/getCompletedPatientTests',[passport.authenticate('jwt', {session: 
         }
 
         if (testResults) {
-            res.json({success: true, completedTests: testResults})
+            res.json({success: true, testResults: testResults})
         }
     });
 });

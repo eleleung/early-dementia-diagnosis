@@ -7,7 +7,8 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  RefreshControl
 } from 'react-native';
 import { AudioUtils } from 'react-native-audio';
 
@@ -27,42 +28,7 @@ class Tests extends Component {
 
         this.state = {
             filePath: filePath,
-            // tests: [
-            //     {
-            //         _id: '59edb2c723256124f41617ed', 
-            //         name: 'Record Speech', 
-            //         icon: 'av-timer', 
-            //         sections: [
-            //             {
-            //                 type: "audio",
-            //                 instruction: "Press record and read the text aloud",
-            //                 content: "A quick brown fox jumps over the laz y dog, then runs around in the park before chasing its tail for 20 minutes."
-            //             },
-            //             {
-            //                 type: "audio",
-            //                 instruction: "Have a 5 minute conversation.",
-            //                 content: "Aim to ask a similar question at least twice in the five minutes."
-            //             }
-            //         ]
-            //     },
-            //     {
-            //         _id: 2, 
-            //         name: 'Take Image', 
-            //         icon: 'flight-takeoff',
-            //         sections: [
-            //             {
-            //                 type: "image",
-            //                 instruction: "Take A Photo",
-            //                 content: "Draw an image of an analogue clock and take a photo of it. "
-            //             },
-            //             {
-            //                 type: "image",
-            //                 instruction: "Take A Photo",
-            //                 content: "Take a photo of the patient."
-            //             }
-            //         ]
-            //     },
-            // ]
+            refreshing: false,
         }
     }
 
@@ -77,13 +43,27 @@ class Tests extends Component {
         });
     }
 
-    render() {
-        const {tests} = this.state;
-        const { User } = this.props;
+    onRefresh = async () => {
+        const {User} = this.props;
         
+        this.setState({ refreshing: true });
+        await User.inflatePatientTests();
+        this.setState({ refreshing: false });
+    };
+
+    render() {
+        const {tests, refreshing} = this.state;
+        const { User } = this.props;
 
         return (
-            <ScrollView style={style.container}>
+            <ScrollView 
+                style={style.container}
+                refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={this.onRefresh}
+                />
+                }>
                 <View style={style.container}>
                     <View style={{
                         flexDirection: 'row',
