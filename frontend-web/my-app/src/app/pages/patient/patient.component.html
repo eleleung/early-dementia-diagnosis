@@ -10,6 +10,9 @@
                     <input type="text" placeholder="Search...">
                     <i class="circular search link icon"></i>
                 </div>
+                <button class="ui icon button primary-button" style="float: right" (click)="refreshCompletedTests()">
+                    <i class="refresh icon"></i>
+                </button>
             </div>
             <table class="ui table">
                 <thead>
@@ -43,6 +46,9 @@
                 </div>
                 <button class="ui icon button primary-button" style="float: right" (click)="assignModal = true">
                     <i class="plus icon"></i>
+                </button>
+                <button class="ui icon button primary-button" style="float: right" (click)="refreshAssignedTests()">
+                    <i class="refresh icon"></i>
                 </button>
             </div>
             <table class="ui table">
@@ -105,24 +111,28 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let section of testResult.test.components; let i = index;">
-                        <td>{{i}}</td>
+                        <td>{{i+1}}</td>
                         <td>{{section.instruction}} <div style="font-size: 0.8em;">{{section.content}}</div></td>
                         <td *ngIf="testResult.componentResults[i].type == 'audio'">
-                            <img *ngIf="!testResult.componentResults[i].audioFile" style="width:50px;" src="../../../assets/loaders/three-dots.svg"/>
-                            <div *ngIf="testResult.componentResults[i].audioFile">
-                                <h4>Recording</h4>
-                                <audio controls>
-                                    <source [src]="testResult.componentResults[i].audioFile.url" type="audio/wav">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <div style="margin-top:10px">
-                                    <h4>Transcribed Text</h4>
-                                    {{testResult.componentResults[i].transcribedString}}
+                            <div style="min-height: 100px;">
+                                <img *ngIf="!testResult.componentResults[i].audioFile" style="width:50px;" src="../../../assets/loaders/three-dots.svg"/>
+                                <div *ngIf="testResult.componentResults[i].audioFile">
+                                    <h4>Recording</h4>
+                                    <audio controls>
+                                        <source [src]="testResult.componentResults[i].audioFile.url" type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                    <div style="margin-top:10px">
+                                        <h4>Transcribed Text</h4>
+                                        {{testResult.componentResults[i].transcribedString}}
+                                    </div>
                                 </div>
                             </div>
                         </td>
                         <td *ngIf="testResult.componentResults[i].type == 'image'">
-                            <img *ngIf="testResult.componentResults[i].imageFile" style="width:100px; height:200px;" [src]="testResult.componentResults[i].imageFile.url"/>
+                            <div style="width:100px; height:200px;">
+                                <img *ngIf="testResult.componentResults[i].imageFile" style="width:100px; height:200px;" [src]="testResult.componentResults[i].imageFile.url"/>
+                            </div>
                         </td>
                         <td *ngIf="testResult.componentResults[i].type == 'question'">
                             TODO: show answer
@@ -156,7 +166,7 @@
                         <td>{{test.creator[0].firstName}} {{test.creator[0].lastName}}</td>
                         <td>{{test.description}}</td>
                         <td>
-                            <button class="ui icon button" lsu-popup [trigger]="'hover'" [content]="'Assign this test'" (click)="addTest(test)">
+                            <button class="ui icon button" (click)="addTest(test)">
                                 <i class="plus icon"></i>
                             </button>
                         </td>
