@@ -131,7 +131,9 @@ class Settings extends Component {
                 transparent={false}
                 visible={modalVisible}>
 
-                <View style={style.container}>
+                <View style={{
+                    flex: 1                            
+                }}>
                     <View style={{
                             flex: 1,
                             justifyContent: 'center',
