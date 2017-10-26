@@ -2,7 +2,30 @@
     <h1 class="ui header">Create A Test</h1>
     <div class="ui divider"></div>
     <br/>
-    <div style="width:70%; display: inline-block;">
+    <div style="display: inline-block; margin-bottom: 20px;">
+        <button class="ui labeled icon button"
+                lsu-popup [trigger]="'hover'" [content]="'Add a question to your test.'"
+                (click)="addQuestionAnswer()"
+                style="margin-right: 25px;">
+            <i class="question icon"></i>
+            Question
+        </button>
+        <button class="ui labeled icon button"
+                lsu-popup [trigger]="'hover'" [content]="'Add a drawable component to your test.'"
+                (click)="addDrawing()"
+                style="margin-right: 25px;">
+            <i class="pencil icon"></i>
+            Drawing
+        </button>
+        <button class="ui labeled icon button"
+                lsu-popup [trigger]="'hover'" [content]="'Add a speech component to your test.'"
+                (click)="addRecordSpeech()"
+                style="margin-right: 25px;">
+            <i class="microphone icon"></i>
+            Record Audio
+        </button>
+    </div>
+    <div style="width: 80%; display: inline-block;">
         <div *ngIf="saved && !error">
             <div class="ui success message">
                 <div class="header">Test successfully created!</div>
@@ -70,50 +93,5 @@
             </table>
             <button *ngIf="testComponents.length > 0" (click)="saveTest()" class="ui button">Save Test</button>
         </div>
-    </div>
-    <div style="width: 70%; margin-top: 20px;">
-        <h3>Test Components</h3>
-        <table class="ui table" style="margin-top:28px">
-            <thead>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Add</th>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Question Answer</td>
-                <td>Add a question to your test. The response will be recorded.</td>
-                <td>
-                    <button class="ui icon button primary-button" style="float: right; display: inline-block"
-                            (click)="addQuestionAnswer()">
-                        <i class="plus icon"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Drawing</td>
-                <td>Specify an object that you wish the patient to draw. A photo of the drawing will be taken
-                     for you to view.</td>
-                <td>
-                    <button class="ui icon button primary-button" style="float: right; display: inline-block"
-                            (click)="addDrawing()">
-                        <i class="plus icon"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>Record Speech</td>
-                <td>Record the patient's speech. You may input some text for the patient to read aloud or
-                have patient's carer ask the patient a question e.g. What is the time?</td>
-                <td>
-                    <button class="ui icon button primary-button" style="float: right; display: inline-block"
-                            lsu-popup [trigger]="'hover'" [content]="'Add new component'"
-                            (click)="addRecordSpeech()">
-                        <i class="plus icon"></i>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
     </div>
 </div>
