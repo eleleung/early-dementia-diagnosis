@@ -71,7 +71,7 @@ export class CreateTestComponent {
                 if (response.success) {
                     this.saved = true;
                     this.testComponents = [];
-                    this.testName = this.date.toDateString();
+                    this.testName = '';
                     this.description = '';
                 }
                 else {
