@@ -8,6 +8,7 @@ const config = require('../config/database');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const ms = require('mediaserver');
+const ffmpeg = require('fluent-ffmpeg');
 
 const TestResult = require('../models/test_result');
 
@@ -24,13 +25,15 @@ router.post('/getCompletedPatientTests',[passport.authenticate('jwt', {session: 
     });
 });
 
-//BAD but may have to do for the purposes of demo
-router.get('/audio', [passport.authenticate('jwt', {session:false}), bodyParser.json()], function(req, res) {
+//BAD - should stream converted audio directly or check that the audio file has not already been converted
+router.post('/audio', [passport.authenticate('jwt', {session:false}), bodyParser.json()], function(req, res) {
+    const patientId = req.body.patientId;
     const filename = req.body.filename;
+    const fullpath = `./data/${patientId}/${filename}`;
 
-    const convertedFilename = filename.replace('.flac', '.wav');
+    const convertedFilename = fullpath.replace('.aac', '.wav');
 
-    const proc = new ffmpeg({ source: filename })
+    const proc = new ffmpeg({ source: fullpath })
         .toFormat('wav')
         .saveToFile(convertedFilename, function(stdout, stderr) {
         });

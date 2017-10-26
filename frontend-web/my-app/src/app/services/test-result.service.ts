@@ -12,10 +12,10 @@ export class TestResultService {
 
     }
 
-    loadAudio(filename: string) {
-        const url = GlobalVariable.BASE_API_URL + 'tests/audio';
+    loadAudio(patientId, filename: string) {
+        const url = GlobalVariable.BASE_API_URL + 'test-results/audio';
         const headers = this.securityService.loggedInHeader();
 
-        return this.http.post(url, {filename: filename}, {headers: headers, responseType: ResponseContentType.Blob});
+        return this.http.post(url, {patientId: patientId, filename: filename}, {headers: headers, responseType: ResponseContentType.Blob});
     }
 }

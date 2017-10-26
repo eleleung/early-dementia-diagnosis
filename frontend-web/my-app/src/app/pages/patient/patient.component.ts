@@ -9,6 +9,7 @@ import 'rxjs/Rx' ;
 import {GlobalVariable} from "../../globals";
 import {TestResultService} from "../../services/test-result.service";
 import {TestResult} from "../../models/testResult";
+import {DomSanitizer} from "@angular/platform-browser";
 
 /**
  * Created by nathanstanley on 25/5/17.
@@ -35,7 +36,8 @@ export class PatientComponent {
     };
 
     constructor(private patientService: PatientService, private route: ActivatedRoute,
-                private loginService: LoginService, private testResultService: TestResultService) {
+                private loginService: LoginService, private testResultService: TestResultService,
+                private sanitizer: DomSanitizer) {
         const id = this.route.snapshot.params['patientId'];
         patientService.getPatientById(id).subscribe(
             data => {
@@ -114,17 +116,19 @@ export class PatientComponent {
 
         for (const component of testResult.componentResults) {
             if (component.type === 'audio') {
-                this.testResultService.loadAudio(component.filename).subscribe(
+                this.testResultService.loadAudio(this.patient._id, component.filename).subscribe(
                     data => {
                         const blob = data.blob();
                         const blobUrl = URL.createObjectURL(blob);
                         const audio = new Audio(blobUrl);
-                        console.log(audio);
 
-                        component.audioFile = {audio: audio, state: 'STOPPED'};
+                        component.audioFile = {
+                            blob: blob,
+                            audio: audio,
+                            url: this.sanitizer.bypassSecurityTrustUrl(blobUrl),
+                        };
                     },
                     err => {
-
                     }
                 );
             }

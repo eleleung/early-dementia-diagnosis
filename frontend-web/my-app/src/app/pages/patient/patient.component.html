@@ -26,10 +26,8 @@
                         <td>{{testResult.test.description}}</td>
                         <td>{{testResult.test.creator[0].firstName}} {{testResult.test.creator[0].lastName}}</td>
                         <td>
-                            <button class="ui icon button primary-button" lsu-popup [trigger]="'hover'"
-                                    [content]="'View Details'"
-                                    (click)="openCompletedTestModal(testResult)">
-                                        <i class="plus icon"></i>
+                            <button class="ui icon button secondary" (click)="openCompletedTestModal(testResult)">
+                                <i class="tasks icon"></i>
                             </button>
                         </td>
                     </tr>
@@ -43,7 +41,7 @@
                     <input type="text" placeholder="Search...">
                     <i class="circular search link icon"></i>
                 </div>
-                <button class="ui icon button primary-button" style="float: right" lsu-popup [trigger]="'hover'" [content]="'Assign a new test'" (click)="assignModal = true">
+                <button class="ui icon button primary-button" style="float: right" (click)="assignModal = true">
                     <i class="plus icon"></i>
                 </button>
             </div>
@@ -81,9 +79,19 @@
                     <tr *ngFor="let section of testResult.test.components; let i = index;">
                         <td>{{i}}</td>
                         <td>{{section.instruction}} <div style="font-size: 0.8em;">{{section.content}}</div></td>
-                        <td>{{section.content !== '' ? section.content : 'N/A'}}</td>
                         <td *ngIf="testResult.componentResults[i].type == 'audio'">
-                            <img src="../../../assets/loaders/ball-triangle.svg"/>
+                            <img *ngIf="!testResult.componentResults[i].audioFile" style="width:50px;" src="../../../assets/loaders/three-dots.svg"/>
+                            <div *ngIf="testResult.componentResults[i].audioFile">
+                                <h4>Recording</h4>
+                                <audio controls>
+                                    <source [src]="testResult.componentResults[i].audioFile.url" type="audio/wav">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <div style="margin-top:10px">
+                                    <h4>Transcribed Text</h4>
+                                    {{testResult.componentResults[i].transcribedString}}
+                                </div>
+                            </div>
                         </td>
                         <td *ngIf="testResult.componentResults[i].type == 'image'">
                             TODO: show image

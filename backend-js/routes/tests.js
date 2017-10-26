@@ -139,6 +139,7 @@ router.post('/submit_test', [passport.authenticate('jwt', {session:false}), uplo
     Promise.all(promises).then( (trans) => {
         for (const tran of trans) {
             results[tran.index].transcribedString = tran.transcribedString;
+            results[tran.index].filename = tran.filename;
         }
 
         let testResult = new TestResult({
@@ -202,6 +203,7 @@ function handleAudioSection(result, index, dir, files) {
                         const transcribedString = res.results[0].alternatives[0].transcript;
                         return resolve({
                             index,
+                            filename: file.filename,
                             transcribedString
                         });
                     }
