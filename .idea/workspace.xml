@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8fc4f6bf-eb26-4a54-9670-d37e8bcb5f25" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/app.test.js" afterPath="$PROJECT_DIR$/backend-js/app.test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/config/database.js" afterPath="$PROJECT_DIR$/backend-js/config/database.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/coverage.json" afterPath="$PROJECT_DIR$/backend-js/coverage/coverage.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/app.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/app.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/config/database.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/config/database.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/config/index.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/config/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/config/passport.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/config/passport.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/index.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/models/doctor.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/models/doctor.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/models/index.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/models/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/models/patient.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/models/patient.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/models/test.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/models/test.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/models/user.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/models/user.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/doctors.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/doctors.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/index.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/patients.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/patients.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/pictures.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/pictures.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/tests.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/tests.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/users.js.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/backend-js/routes/users.js.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov-report/index.html" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov-report/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/coverage/lcov.info" afterPath="$PROJECT_DIR$/backend-js/coverage/lcov.info" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/models/patient.js" afterPath="$PROJECT_DIR$/backend-js/models/patient.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend-js/routes/tests.js" afterPath="$PROJECT_DIR$/backend-js/routes/tests.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dementia-detect-react-app/package-lock.json" afterPath="$PROJECT_DIR$/dementia-detect-react-app/package-lock.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/end-to-end-tests/.idea/workspace.xml" afterPath="$PROJECT_DIR$/end-to-end-tests/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/end-to-end-tests/appium-test.py" afterPath="$PROJECT_DIR$/end-to-end-tests/appium-test.py" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="813" />
+    <option name="y" value="23" />
+    <option name="width" value="1012" />
+    <option name="height" value="973" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8fc4f6bf-eb26-4a54-9670-d37e8bcb5f25" name="Default" comment="" />
+      <created>1509284026026</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1509284026026</updated>
+      <workItem from="1509284027174" duration="11000" />
+      <workItem from="1509284131225" duration="54000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="65000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="813" y="23" width="1012" height="973" extended-state="0" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24924318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="ReactNative" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24924318" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.gitignore" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="39" lean-forward="false" selection-start-line="0" selection-start-column="34" selection-end-line="0" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
