@@ -59,3 +59,7 @@ module.exports.getAllTestsWithIds = function(ids, callback) {
 module.exports.addTest = function(newTest, callback){
     newTest.save(callback);
 };
+
+module.exports.removeTests = function(callback) {
+    Test.remove({}, callback);
+};

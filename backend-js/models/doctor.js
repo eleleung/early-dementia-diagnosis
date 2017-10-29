@@ -26,7 +26,7 @@ module.exports.getDoctorById = function(id, callback){
 };
 
 module.exports.getAllDoctors = function(callback){
-    Doctor.find();
+    Doctor.find(callback);
 };
 
 module.exports.getDoctorFromLogin = function(userId, callback){
@@ -51,7 +51,6 @@ module.exports.assignPatientToDoctor = function(referenceCode, patient, callback
             populate: {path: 'patients'}
         })
         .exec(callback);
-
 };
 
 module.exports.getAllPatients = function(userId, callback){
