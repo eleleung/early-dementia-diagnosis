@@ -34,6 +34,7 @@ router.post('/register', passport.authenticate('jwt', {session:false}), function
 });
 
 router.post('/add_patient_test', passport.authenticate('jwt', {session:false}), function(req, res) {
+
     const patientId = req.body.patientId;
 
     Patient.getPatientById(patientId, function(err, patient) {
@@ -100,8 +101,9 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), function(r
 });
 
 router.post('/getPatientById', passport.authenticate('jwt', {session:false}), function(req, res, next){
+
     Patient.getPatientById(req.body._id, function(err, patient) {
-        if (err) {
+        if (err || patient == null) {
             res.status(400);
             res.json({success: false, msg: 'Failed to find patient'});
         }
