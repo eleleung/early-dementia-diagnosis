@@ -44,7 +44,7 @@ module.exports.getTestByCreator = function(creatorId, callback) {
 };
 
 module.exports.getAllTests = function(callback) {
-    Test.find();
+    Test.find(callback);
 };
 
 module.exports.getAllTestsWithIds = function(ids, callback) {

@@ -13,6 +13,8 @@ const ffmpeg = require('fluent-ffmpeg');
 const TestResult = require('../models/test_result');
 
 router.post('/getCompletedPatientTests',[passport.authenticate('jwt', {session: false}), bodyParser.json()], function(req, res) {
+
+
     TestResult.getTestResultByPatientId(req.body.patientId, function(err, testResults){
         if (err || !testResults) {
             res.status(400);

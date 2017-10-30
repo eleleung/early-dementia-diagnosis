@@ -41,33 +41,33 @@ router.post('/add_patient_test', passport.authenticate('jwt', {session:false}), 
         if (err) {
             res.status(400);
             res.json({success: false, msg: 'Failed to load patient'});
-        }
+        } else {
 
-        // TODO: check the user has access to change the patient
-        const testId = mongoose.Types.ObjectId(req.body.testId);
+            // TODO: check the user has access to change the patient
+            const testId = mongoose.Types.ObjectId(req.body.testId);
 
-        if (!patient.tests) {
-            patient.tests = []
-        }
-        patient.tests.push(testId);
-
-        let uniqueTests = new Set();
-        for (const testId of patient.tests) {
-            uniqueTests.add(testId);
-        }
-
-        patient.tests = Array.from(uniqueTests);
-
-        Patient.updatePatient(patient, function(err) {
-            if (err) {
-                res.status(400);
-                res.json({success: false, msg: 'Failed to update patient'});
+            if (!patient.tests) {
+                patient.tests = []
             }
-            else {
-                res.json({success: true, msg: 'Patient updated', patient: patient});
-            }
-        })
+            patient.tests.push(testId);
 
+            let uniqueTests = new Set();
+            for (const testId of patient.tests) {
+                uniqueTests.add(testId);
+            }
+
+            patient.tests = Array.from(uniqueTests);
+
+            Patient.updatePatient(patient, function (err) {
+                if (err) {
+                    res.status(400);
+                    res.json({success: false, msg: 'Failed to update patient'});
+                }
+                else {
+                    res.json({success: true, msg: 'Patient updated', patient: patient});
+                }
+            })
+        }
     });
 });
 

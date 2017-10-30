@@ -54,8 +54,9 @@ module.exports.updatePatient = function(patient, callback){
     patient.save(callback);
 };
 
-
 //functions made for testing purposes
 module.exports.removePatients = function(callback) {
+
     Patient.remove({}, callback);
-}
+
+};

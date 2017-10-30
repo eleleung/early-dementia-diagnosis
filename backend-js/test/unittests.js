@@ -17,7 +17,7 @@ jwt = require('jsonwebtoken');
 var MongoMock = require('mongodb-test-mock');
 const bcrypt = require('bcrypt');
 
-describe('User', function() {
+describe('Users', function() {
 
     describe("FRC01 Compare password", function () {
 

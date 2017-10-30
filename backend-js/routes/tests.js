@@ -19,19 +19,20 @@ const Patient = require('../models/patient');
 
 router.post('/getPatientTests', [passport.authenticate('jwt', {session:false}), bodyParser.json()], function(req, res) {
     Patient.getPatientById(req.body.patientId, function(err, patient) {
-        if (err) {
+        if (err || patient == null) {
             res.status(400);
             res.json({success: false, msgs: 'Failed to find patient with id: ' + req.body.patientId});
+        } else {
+            Test.getAllTestsWithIds(patient.tests, function (err, tests) {
+                if (err) {
+                    res.status(400);
+                    res.json({success: false, msgs: 'Failed to fetch tests'});
+                }
+                else {
+                    res.json({success: true, msg: 'Success', tests: tests});
+                }
+            });
         }
-        Test.getAllTestsWithIds(patient.tests, function(err, tests){
-            if (err) {
-                res.status(400);
-                res.json({success: false, msgs: 'Failed to fetch tests'});
-            }
-            else {
-                res.json({success: true, msg: 'Success', tests: tests});
-            }
-        });
     });
 });
 
@@ -39,7 +40,7 @@ router.get('/getUserTests', [passport.authenticate('jwt', {session:false})], fun
     Test.getAllTestsWithIds(req.user.tests, function(err, tests){
         if (err) {
             res.status(400);
-            res.json({success: false, msgs: 'Failed to fetch test'});
+            res.json({success: false, msg: 'Failed to fetch test'});
         }
         else {
             res.json({success: true, msg: 'Success', tests: tests});
@@ -47,32 +48,33 @@ router.get('/getUserTests', [passport.authenticate('jwt', {session:false})], fun
     });
 });
 
-router.post('/saveTest', [passport.authenticate('jwt', {session: false}), bodyParser.json()], function(req, res){
+router.post('/saveTest', [passport.authenticate('jwt', {session: false}), bodyParser.json()], function(req, res) {
     const test = req.body;
 
     if (test.userId !== req.user.id) {
-        throw Error('Not authorised to save a test for this user');
+        res.status(401);
+        res.json({success: false, msg: 'Not authorised to save a test for this user'});
+    } else {
+
+        const newTest = new Test({
+            name: test.testName,
+            description: test.description,
+            components: test.components,
+            dateCreated: new Date(),
+            creator: test.userId
+        });
+
+        Test.addTest(newTest, function (err, test) {
+            if (err) {
+                res.status(400);
+                res.json({success: false, msg: 'Failed to save test'});
+            }
+            else {
+                res.json({success: true, msg: 'Created test'});
+            }
+        });
     }
-
-    const newTest = new Test({
-        name: test.testName,
-        description: test.description,
-        components: test.components,
-        dateCreated: new Date(),
-        creator: test.userId
-    });
-
-    Test.addTest(newTest, function(err, test){
-        if (err) {
-            res.status(400);
-            res.json({success: false, msg: 'Failed to save test'});
-        }
-        else {
-            res.json({success: true, msg: 'Created test'});
-        }
-    });
 });
-
 
 
 function getFilePathFromRequest(req, callback) {
