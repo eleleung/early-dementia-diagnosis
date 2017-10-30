@@ -11,18 +11,39 @@ const fs = require('fs');
 const ffmpeg = require('fluent-ffmpeg');
 const mkdirp = require('mkdirp');
 const bodyParser = require('body-parser');
-
 const Test = require('../models/test');
 const TestResult = require('../models/test_result');
 const Patient = require('../models/patient');
-
+const storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        const json = JSON.parse(req.body.json);
+        const patientId = json.patientId;
+        const dir = `./data/${patientId}`;
+        mkdirp(dir, function(err) {
+            if (err) {
+                console.log('Error creating directory');
+            }
+            callback(null, dir);
+        });
+    },
+    filename: function (req, file, callback) {
+        callback(null, Date.now()+file.originalname);
+    }
+});
+const upload = multer({ storage: storage});
+var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1');
+var speech_to_text = new SpeechToTextV1({
+    username: 'e1ef4ae6-62c3-44db-9f8a-67536ed7590b',
+    password: 'zwcQvPsycwie'
+});
 
 router.post('/getPatientTests', [passport.authenticate('jwt', {session:false}), bodyParser.json()], function(req, res) {
     Patient.getPatientById(req.body.patientId, function(err, patient) {
-        if (err || patient == null) {
+        if (err || patient === null) {
             res.status(400);
             res.json({success: false, msgs: 'Failed to find patient with id: ' + req.body.patientId});
         } else {
+            //If the patient exists, retrieve tests for this patient
             Test.getAllTestsWithIds(patient.tests, function (err, tests) {
                 if (err) {
                     res.status(400);
@@ -74,38 +95,6 @@ router.post('/saveTest', [passport.authenticate('jwt', {session: false}), bodyPa
             }
         });
     }
-});
-
-
-function getFilePathFromRequest(req, callback) {
-    const json = JSON.parse(req.body.json);
-    const patientId = json.patientId;
-    return `./data/${patientId}`;
-}
-
-const storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        const json = JSON.parse(req.body.json);
-        const patientId = json.patientId;
-        const dir = `./data/${patientId}`;
-        mkdirp(dir, function(err) {
-            if (err) {
-                console.log('Error creating directory');
-            }
-            callback(null, dir);
-        });
-    },
-    filename: function (req, file, callback) {
-        callback(null, Date.now()+file.originalname);
-    }
-});
-const upload = multer({ storage: storage});
-
-
-var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1');
-var speech_to_text = new SpeechToTextV1({
-    username: 'e1ef4ae6-62c3-44db-9f8a-67536ed7590b',
-    password: 'zwcQvPsycwie'
 });
 
 /*
@@ -173,6 +162,12 @@ router.post('/submit_test', [passport.authenticate('jwt', {session:false}), uplo
 
     res.json({success: true });
 });
+
+function getFilePathFromRequest(req, callback) {
+    const json = JSON.parse(req.body.json);
+    const patientId = json.patientId;
+    return `./data/${patientId}`;
+}
 
 function handleAudioSection(result, index, dir, files) {
     return new Promise( function(resolve, reject) {

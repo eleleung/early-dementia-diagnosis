@@ -3,7 +3,6 @@
  * These tests are from the route level and incorpera
  */
 
-//NOTE: BE CAREFUL RUNNING THESE WITHOUT SWITCHING THE DATABASE FIRST
 var should = require('should');
 var assert = require('assert');
 var request = require('supertest');
@@ -25,7 +24,9 @@ function importTest(name, path) {
     });
 }
 
-//To run all tests
+//Runs all integration tests
+//IMPORTANT NOTE: These tests should be run against the test database.
+// This is because the tests clear the database between each test
 describe('Run all tests', function () {
 
     importTest("users", './integrationtests_users');

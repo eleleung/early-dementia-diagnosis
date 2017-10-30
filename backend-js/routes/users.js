@@ -6,7 +6,6 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
-
 const User = require('../models/user');
 const Patient = require('../models/patient');
 const Doctor = require('../models/doctor');
@@ -31,7 +30,7 @@ router.post('/register', function(req, res, next){
     })
 });
 
-// Login
+// Login user
 router.post('/authenticate', function(req, res, next){
     const email = req.body.email;
     const password = req.body.password;
@@ -68,14 +67,14 @@ router.post('/authenticate', function(req, res, next){
                                 _id: doctor._id,
                                 referenceCode: doctor.referenceCode
                             },
-                            user: user,
+                            user: user
                         })
                     }
                     else {
                         res.json({
                             success: true,
                             token: 'JWT ' + token,
-                            user: user,
+                            user: user
                         })
                     }
                 });

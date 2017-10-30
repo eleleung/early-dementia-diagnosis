@@ -13,6 +13,8 @@ const test_results = require('./routes/test_results');
 
 'use strict';
 
+//This file starts an app for running tests against. Automatically connects to testDatabase.
+
 mongoose.connect(config.testDatabase);
 
 // Check connection

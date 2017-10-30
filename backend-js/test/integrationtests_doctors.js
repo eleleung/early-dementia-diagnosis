@@ -454,7 +454,7 @@ describe('Doctors', function () {
                         if (err) {
                             throw err;
                         }
-                        console.log(res.body.doctor.referenceCode);
+
                         var doctorRefCode = res.body.doctor.referenceCode;
 
                         // add a new patient
