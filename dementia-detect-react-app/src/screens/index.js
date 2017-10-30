@@ -1,9 +1,7 @@
 // @flow
 
 import { Navigation } from 'react-native-navigation';
-
 import Constants from '../global/Constants';
-
 import LoginScreen      from './LoginScreen';
 import RegisterScreen   from './Register';
 import Home             from './Home';

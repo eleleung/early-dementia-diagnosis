@@ -13,11 +13,8 @@ import {
 } from 'react-native';
 import {inject, observer} from 'mobx-react/native';
 import { List, ListItem, Icon } from 'react-native-elements';
-
 import format from 'date-fns/format';
-
 import Constants  from '../../global/Constants';
-import Models from '../../stores/models';
 
 @inject('App', 'User') @observer
 class CompletedTests extends Component {

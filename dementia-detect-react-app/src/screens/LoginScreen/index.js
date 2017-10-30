@@ -37,7 +37,7 @@ class LoginScreen extends Component {
         this.state = {
             email: '',
             password: '',
-        }
+        };
 
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
     }
@@ -59,7 +59,7 @@ class LoginScreen extends Component {
             break;
         default:
         }
-    }
+    };
 
     handleVisibilityOfNavButtons = () => {
         const { navigator, withCancelButton } = this.props;
@@ -67,13 +67,13 @@ class LoginScreen extends Component {
         if (!withCancelButton) {
             navigator.setButtons({ leftButtons: [] })
         }
-    }
+    };
 
     dismiss = () => {
         const { navigator } = this.props;
 
         navigator.dismissModal();
-    }
+    };
 
     login = async (email: string, password: string) => {
         const { User } = this.props;
@@ -88,7 +88,7 @@ class LoginScreen extends Component {
         else {
             console.log('Invalid login credentials');
         }
-    }
+    };
 
     register = async () => {
         const {navigator} = this.props;
@@ -97,7 +97,7 @@ class LoginScreen extends Component {
             screen: Constants.Screens.REGISTER_SCREEN.screen,
             title: 'Create Account'
         });
-    }
+    };
 
   render() {
     const { navigator, User } = this.props;

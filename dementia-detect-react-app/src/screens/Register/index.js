@@ -8,15 +8,12 @@ import {
     TextInput
 } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
-
-import Constants from '../../global/Constants';
-import * as api from '../../api';
 import { style } from './style';
 
 @inject('App', 'User') @observer
 class RegisterScreen extends Component {
 
-    state: State
+    state: State;
 
     constructor(props: Props) {
         super(props);
@@ -43,7 +40,7 @@ class RegisterScreen extends Component {
         else {
             console.log('Invalid login credentials');
         }
-    }
+    };
 
     render() {
         const { firstName, lastName, email, password, password2 } = this.state;

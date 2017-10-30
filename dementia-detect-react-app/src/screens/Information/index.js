@@ -6,9 +6,7 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native';
-import { inject, observer } from 'mobx-react/native';
 
-import Constants  from '../../global/Constants';
 import {style} from './style';
 
 class Information extends Component {

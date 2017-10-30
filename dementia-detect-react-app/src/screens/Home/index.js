@@ -13,9 +13,6 @@ import {
 } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
 import { List, ListItem, Icon } from 'react-native-elements';
-
-import NavButtons from '../../global/NavButtons';
-import NavBar     from '../../global/NavBar';
 import Constants  from '../../global/Constants';
 
 const win = Dimensions.get('window');
@@ -26,6 +23,7 @@ class Home extends Component {
         super(props);
     };
 
+    // TODO: implement componentDidMount
     componentDidMount() {
 
     }

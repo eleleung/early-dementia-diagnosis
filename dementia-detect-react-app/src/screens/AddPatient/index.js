@@ -12,8 +12,6 @@ import {inject, observer} from 'mobx-react/native';
 import {SegmentedControls} from 'react-native-radio-buttons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import format from 'date-fns/format';
-
-import Constants  from '../../global/Constants';
 import Models from '../../stores/models';
 import {style} from './style';
 

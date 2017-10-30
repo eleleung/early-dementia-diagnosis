@@ -4,7 +4,6 @@ import {observable, action, mobx, toJS} from 'mobx';
 import {persist} from 'mobx-persist';
 
 import Models from './models';
-import Constants from '../global/Constants';
 import * as api from '../api';
 
 class Store {
@@ -64,18 +63,17 @@ class Store {
         } catch (error) {
             return false;
         }
-    }
+    };
 
     @action getPatients = async () => {
         if (this.token && this.current) {
             try {
-                let response = await api.getAllPatients.get()
+                let response = await api.getAllPatients.get();
                 if (response.ok) {
                     let responseJson = await response.json();
                     this.patients = responseJson.carerPatients;
                     
                     if (responseJson.carerPatients.length > 0) {
-                        // this.setSelectedPatient(responseJson.carerPatients[0]);
                         this.selectedPatient = responseJson.carerPatients[0];
                         await this.inflatePatientTests();
                         await this.inflatePatientCompletedTests();
@@ -95,10 +93,10 @@ class Store {
         this.selectedPatient = patient;
         await this.inflatePatientTests();
         await this.inflatePatientCompletedTests();
-    }
+    };
 
     @action inflatePatientTests = async () => {
-        if (this.selectedPatient == null) {
+        if (this.selectedPatient === null) {
             return;
         }
         try {
@@ -117,20 +115,15 @@ class Store {
         try {
             let response = await api.assignDoctor.post({"patientId": patientId, "referenceCode": referenceCode});
             let responseJson = await response.json();
-
-            if (responseJson.success) {
-                return true;
-            } else {
-                return false;
-            }
+            return responseJson.success;
         } catch (error) {
             console.log(error);
             return false;
         }
-    }
+    };
 
     @action inflatePatientCompletedTests = async () => {
-        if (this.selectedPatient == null) {
+        if (this.selectedPatient === null) {
             return;
         }
         try {

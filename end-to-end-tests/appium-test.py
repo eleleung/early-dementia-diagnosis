@@ -344,7 +344,7 @@ class MobileAppTestAppium(unittest.TestCase):
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
         # click off the keyboard
         self.driver.find_element_by_name('Email').click()
-        self.driver.find_element_by_name("password").passwordField.send_keys(['password'])
+        self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name('Log In')
         loginbutton.click()
 
