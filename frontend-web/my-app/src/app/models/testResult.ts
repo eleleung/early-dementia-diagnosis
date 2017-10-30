@@ -1,6 +1,6 @@
 import {User} from './user';
 import {Patient} from './patient';
-import {Test} from "./test";
+import {Test} from './test';
 
 export class TestResult {
     name: string;

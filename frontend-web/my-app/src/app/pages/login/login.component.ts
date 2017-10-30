@@ -19,7 +19,7 @@ export class LoginComponent {
     constructor (private loginService: LoginService,
                  private patientService: PatientService,
                  private router: Router) {
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         // if (loginService.checkLogin()) {
         //     userService.redirectLostUser();
         // }
@@ -56,6 +56,7 @@ export class LoginComponent {
         );
     }
 
+    // TODO: Implement reset password
     resetPassword() {
         // this.loading = true;
         // this.loginService.resetPassword(this.model.email).subscribe(

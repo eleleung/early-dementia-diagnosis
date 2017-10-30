@@ -3,8 +3,8 @@
  */
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {PatientService} from "../../services/patient.service";
-import {Test} from "../../models/test";
+import {PatientService} from '../../services/patient.service';
+import {Test} from '../../models/test';
 
 @Component({
     selector: 'tests',

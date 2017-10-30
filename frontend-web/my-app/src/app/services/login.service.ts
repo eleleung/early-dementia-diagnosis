@@ -63,6 +63,7 @@ export class LoginService {
         this.router.navigate(['/login']);
     }
 
+    // TODO: Implement reset password
     resetPassword(email: string) {
         // let tokenUrl = GlobalVariable.BASE_API_URL + '/user/resetPassword';
         // let headers1 = new Headers({'Content-Type': 'application/json'});

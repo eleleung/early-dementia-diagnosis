@@ -2,7 +2,6 @@
  * Created by nathanstanley on 25/4/17.
  */
 import {Component} from '@angular/core';
-import {Router} from '@angular/router';
 import {PatientService} from "../../services/patient.service";
 
 @Component({

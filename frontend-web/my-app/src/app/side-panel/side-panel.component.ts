@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {LoginService} from '../services/login.service';
-import {User} from "../models/user";
 
 @Component({
     selector: 'side-panel',
@@ -17,6 +16,7 @@ export class SidePanelComponent {
         'closeable': true
     };
 
+    // TODO: Implement constructor
     constructor(private loginService: LoginService,
                 private router: Router) {
     }

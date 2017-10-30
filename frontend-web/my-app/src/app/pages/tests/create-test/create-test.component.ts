@@ -3,7 +3,7 @@
  */
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {TestService} from "../../../services/test.service";
+import {TestService} from '../../../services/test.service';
 
 @Component({
     selector: 'create-test',
@@ -61,8 +61,7 @@ export class CreateTestComponent {
 
     deleteComponent(index) {
         // confirm delete
-
-        this.testComponents.splice(index, 1);
+        this.testComponents.splice(index, 1); //removes component at "index" from test component
     }
 
     saveTest() {
@@ -73,8 +72,7 @@ export class CreateTestComponent {
                     this.testComponents = [];
                     this.testName = '';
                     this.description = '';
-                }
-                else {
+                } else {
                     this.saved = false;
                     this.error = true;
                 }
