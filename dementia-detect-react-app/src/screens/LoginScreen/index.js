@@ -44,7 +44,7 @@ class LoginScreen extends Component {
 
     componentDidMount() {
         this.handleVisibilityOfNavButtons();
-        this.login('ele@gmail.com', 'admin');
+        //this.login('ele@gmail.com', 'admin');
     }
 
     onNavigatorEvent = (event: { id: string }) => {
@@ -84,8 +84,8 @@ class LoginScreen extends Component {
             await User.getPatients();
 
             Constants.Global.startTabBasedApp();
-        }
-        else {
+        } else  {
+            alert('Invalid email or password. Please check and try again');
             console.log('Invalid login credentials');
         }
     };
