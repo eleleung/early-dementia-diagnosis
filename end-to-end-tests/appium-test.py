@@ -488,7 +488,7 @@ class MobileAppTestAppium(unittest.TestCase):
         # assert that we have not navigated back to the add patient page
         self.assertTrue(submit.is_displayed())
         # assert that error has appeared
-        self.assertTrue(self.driver.find_element_by_name("Error"))
+        self.assertTrue(self.driver.find_element_by_name("Error with adding patient. Please ensure that all fields have been filled"))
 
     """
     Test Case: test_FRC04_defaultPatientProfileOnLogin

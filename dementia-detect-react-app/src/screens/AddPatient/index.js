@@ -70,6 +70,7 @@ class AddPatient extends Component {
             const result = await User.registerPatient(patient);
             result == true ? navigator.pop() : alert("Error with adding patient");
         } else {
+            alert("Error with adding patient. Please ensure that all fields have been filled");
             console.log("make sure all fields have been filled");
         }
     };
