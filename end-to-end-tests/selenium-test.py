@@ -843,7 +843,7 @@ class WebAppTest(unittest.TestCase):
         driver.find_element_by_xpath("//button[contains(.,'Save Test')]").click()
 
         # assert
-        self.assertTrue(driver.find_element_by_xpath("//div[contains(.,'There was an error with saving your test. Try again later.')]"))
+        self.assertTrue(driver.find_element_by_xpath("//div[contains(.,'One or more of your test cases contain no content. Test has not been added')]"))
 
     '''
     Test Case: test_FRD08A_addTestWithNoInstructionInComponent_shouldFailToCreateTest
@@ -907,7 +907,7 @@ class WebAppTest(unittest.TestCase):
 
         # assert
         self.assertTrue(driver.find_element_by_xpath(
-            "//div[contains(.,'There was an error with saving your test. Try again later.')]"))
+            "//div[contains(.,'One or more of your test cases contain no instructions. Test has not been added.')]"))
 
     '''
     Test Case: test_FRD08_addTestWithNoTestName_shouldFailToCreateTest
