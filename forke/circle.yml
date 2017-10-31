@@ -1,6 +1,0 @@
-machine:
- service: -mongodb status || service -mongodb start returned exit code 1
-
-test:
-override:
-  -mocha test --reporter mocha-junit-reporter
