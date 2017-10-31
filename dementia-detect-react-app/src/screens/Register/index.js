@@ -38,6 +38,7 @@ class RegisterScreen extends Component {
             navigator.pop();
         }
         else {
+            alert('An error occurred during registration. Please check and try again');
             console.log('Invalid login credentials');
         }
     };

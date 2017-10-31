@@ -239,7 +239,7 @@ class MobileAppTestAppium(unittest.TestCase):
         loginbutton.click()
 
         # assert that an error has appeared
-        error = self.driver.find_element_by_name("Error")
+        error = self.driver.find_element_by_name("An error occurred during registration. Please check and try again")
         self.assertTrue(error.is_displayed())
 
     """
@@ -282,7 +282,7 @@ class MobileAppTestAppium(unittest.TestCase):
         loginbutton.click()
 
         # assert that an error has appeared
-        error = self.driver.find_element_by_name("Error")
+        error = self.driver.find_element_by_name("An error occurred during registration. Please check and try againror")
         self.assertTrue(error.is_displayed())
 
     """
@@ -328,7 +328,7 @@ class MobileAppTestAppium(unittest.TestCase):
         loginbutton.click()
 
         # assert that an error has appeared
-        error = self.driver.find_element_by_name("Error")
+        error = self.driver.find_element_by_name("An error occurred during registration. Please check and try again")
         self.assertTrue(error.is_displayed())
 
     # FRC03 - test home page
