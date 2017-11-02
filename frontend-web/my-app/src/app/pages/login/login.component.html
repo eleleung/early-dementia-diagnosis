@@ -4,24 +4,62 @@
           <img class="ui logo image" style="width:205px;height:auto;margin:auto;margin-bottom:20px" src="/assets/images/dementia1.png">
       </div>
         <div class="ui segment padded" [ngClass]="{'loading': loading}" style="max-width:400px;margin:auto">
-            <h2 class="ui dividing header" style="margin-bottom: 30px">Login</h2>
-            <div class="ui message" [ngClass]="messageClass" *ngIf="message">
-                <p>{{message}}</p>
+            <div *ngIf="loggingIn">
+                <h2 class="ui dividing header" style="margin-bottom: 30px">Login</h2>
+                <div class="ui message" [ngClass]="messageClass" *ngIf="message">
+                    <p>{{message}}</p>
+                </div>
+                <form class="ui form" (ngSubmit)="onLoginSubmit()" [hidden]="loginService.checkLogin()">
+                    <div class="field" style="margin-bottom: 30px">
+                        <label for="email">Email</label>
+                        <input type="text" id="email" name="email" placeholder="Email" [(ngModel)]="model.email" required />
+                    </div>
+                    <div class="field" style="margin-bottom: 50px">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Password" [(ngModel)]="model.password" required />
+                        <a style="cursor: pointer" (click)="resetPassword()">Forgot your password?</a>
+                    </div>
+                    <div>
+                        <button type="submit" class="ui button green" style="width:100%; margin-bottom: 10px;">Login</button>
+                        <button type="button" class="ui button" style="width:100%" (click)="loggingIn = false">No account? Register!</button>
+                    </div>
+                </form>
             </div>
-            <form class="ui form" (ngSubmit)="onSubmit()" [hidden]="loginService.checkLogin()">
-                <div class="field" style="margin-bottom: 30px">
-                    <label for="email">Email</label>
-                    <input type="text" id="email" name="email" placeholder="Email" [(ngModel)]="model.email" required />
+            <div *ngIf="!loggingIn">
+                <h2 class="ui dividing header" style="margin-bottom: 30px">Register</h2>
+                <div class="ui message" [ngClass]="messageClass" *ngIf="message">
+                    <p>{{message}}</p>
                 </div>
-                <div class="field" style="margin-bottom: 50px">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Password" [(ngModel)]="model.password" required />
-                </div>
-                <div>
-                    <button type="submit" class="ui button green" style="width:100%; margin-bottom: 10px;">Login</button>
-                    <button type="button" class="ui button" style="width:100%" (click)="resetPassword()">Reset Password</button>
-                </div>
-            </form>
+                <form class="ui form" (ngSubmit)="onRegisterSubmit()" [hidden]="loginService.checkLogin()">
+                    <div class="two fields">
+                        <div class="field">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="First Name" [(ngModel)]="registerModel.firstName" required />
+                        </div>
+                        <div class="field">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Last Name" [(ngModel)]="registerModel.lastName" required />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="text" id="registerEmail" name="email" placeholder="Email" [(ngModel)]="registerModel.email" required />
+                    </div>
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input type="password" id="registerPassword" name="password" placeholder="Password" [(ngModel)]="registerModel.password" required />
+                    </div>
+                    <div class="field">
+                        <label for="password">Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
+                               [(ngModel)]="confirmPassword" required />
+                    </div>
+                    <div>
+                        <button type="submit" class="ui button green" style="width:100%; margin-bottom: 10px;">Register</button>
+                        <button type="button" class="ui button" style="width:100%; margin-bottom: 10px;" (click)="loggingIn = true">Back to Login</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

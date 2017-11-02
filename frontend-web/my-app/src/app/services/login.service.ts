@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {GlobalVariable} from '../globals';
-import {LoginModel, User} from '../models/user';
+import {LoginModel, RegisterModel, User} from '../models/user';
 import {Router} from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
@@ -15,7 +15,7 @@ export class LoginService {
     doctor: Doctor;
 
     constructor (private http: Http, private router: Router, private securityService: SecurityService) {
-        if (this.user == null || (localStorage.getItem('token') != null && localStorage.getItem('token') != '')) {
+        if (this.user == null || (localStorage.getItem('token') != null && localStorage.getItem('token') !== '')) {
             this.validate().subscribe(
                 data => {
                     this.user = data.user;
@@ -30,15 +30,11 @@ export class LoginService {
         }
     }
 
-    getUser() {
-        this.validate().subscribe(
-            data => {
-                this.user = data.user;
-            },
-            error => {
-                console.log(error);
-            }
-        );
+    register(registerModel: RegisterModel) {
+        const tokenUrl = GlobalVariable.BASE_API_URL + 'doctors/register/';
+        const headers1 = new Headers({'Content-Type': 'application/json'});
+
+        return this.http.post(tokenUrl, JSON.stringify(registerModel), {headers: headers1}).map(res => res.json());
     }
 
     login(model: LoginModel) {
@@ -54,7 +50,7 @@ export class LoginService {
     }
 
     checkLogin() {
-        return (this.user && localStorage.getItem('token') != '' && localStorage.getItem('token') != null);
+        return (this.user && localStorage.getItem('token') !== '' && localStorage.getItem('token') != null);
     }
 
     logout() {

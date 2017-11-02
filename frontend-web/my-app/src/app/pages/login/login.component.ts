@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
 import {LoginService} from '../../services/login.service';
 import {Router} from '@angular/router';
-import {LoginModel} from '../../models/user';
+import {LoginModel, RegisterModel, User} from '../../models/user';
 import {PatientService} from '../../services/patient.service';
+import {logging} from "selenium-webdriver";
 
 @Component({
     selector: 'login',
@@ -11,21 +12,21 @@ import {PatientService} from '../../services/patient.service';
 
 export class LoginComponent {
     private model: LoginModel = new LoginModel();
-    messageClass: string = '';
-    message: string = '';
-    loading: boolean = false;
+    private registerModel: RegisterModel = new RegisterModel();
 
+    messageClass = '';
+    message = '';
+    loading = false;
+    loggingIn = true;
+    confirmPassword = '';
 
     constructor (private loginService: LoginService,
                  private patientService: PatientService,
                  private router: Router) {
         window.scrollTo(0, 0);
-        // if (loginService.checkLogin()) {
-        //     userService.redirectLostUser();
-        // }
     }
 
-    onSubmit() {
+    onLoginSubmit() {
         this.loading = true;
         this.loginService.login(this.model).subscribe(
             (result) => {
@@ -51,6 +52,41 @@ export class LoginComponent {
             (error) => {
                 this.messageClass = 'error';
                 this.message = 'Error with login credentials, please check your email and password';
+                this.loading = false;
+            }
+        );
+    }
+
+    onRegisterSubmit() {
+        this.loading = true;
+        if (this.registerModel.password !== this.confirmPassword) {
+            this.messageClass = 'error';
+            this.message = 'Make sure your passwords match!';
+            this.loading = false;
+            return;
+        }
+
+        this.loginService.register(this.registerModel).subscribe(
+            (result) => {
+                if (result.success) {
+                    this.messageClass = 'success';
+                    this.message = 'Successfully registered. Please login now';
+
+                    this.registerModel.firstName = '';
+                    this.registerModel.lastName = '';
+                    this.registerModel.password = '';
+                    this.registerModel.email = '';
+                    this.confirmPassword = '';
+                } else {
+                    this.messageClass = 'error';
+                    this.message = 'Error with registration credentials, please try again';
+                }
+                this.loading = false;
+
+            },
+            (error) => {
+                this.messageClass = 'error';
+                this.message = 'Error with registration credentials, please try again';
                 this.loading = false;
             }
         );
