@@ -12,7 +12,7 @@
 <div class="ui link list" style="margin-top:30px">
     <a class="item menu-item" routerLink="/overview" routerLinkActive="active"><span style="margin-left:10px">Overview</span></a>
     <a class="item menu-item" routerLink="/patients" routerLinkActive="active"><span style="margin-left:10px">Patients</span></a>
-    <a class="item menu-item" routerLink="/tests" routerLinkActive="active"><span style="margin-left:10px">Tests</span></a>
+    <a class="item menu-item" routerLink="/tests" routerLinkActive="active"><span style="margin-left:10px">Create Tests</span></a>
     <a class="item menu-item" routerLinkActive="active" *ngIf="loginService.doctor" (click)="showReferenceModal = true"><span style="margin-left:10px">My Reference Code</span></a>
     <a class="item menu-item" (click)="loginService.logout()"><span style="margin-left:10px">Log out</span></a>
 </div>

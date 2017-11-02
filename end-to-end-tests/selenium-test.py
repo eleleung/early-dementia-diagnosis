@@ -28,9 +28,94 @@ class WebAppTest(unittest.TestCase):
         result = self.db.testresults.delete_many({})
         print(result)
 
-    # FRD01 - not testable
+    # FRD02 - signup tests
+    """
+    Test Case: test_FRD02_validSignUp_shouldSignUpNewDoctor
+    Purpose: test that a new doctor account can be created
+    Expected Outcome: doctor should be signed up
+    """
+    def test_FRD02_validSignUp_shouldSignUpNewDoctor(self):
+        driver = self.driver
+        driver.get(self.base_url)
 
-    # FRD02 - not delivered yet
+        for i in range(10):
+            try:
+                if driver.find_element_by_xpath("//div[@class='login']"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        driver.find_element_by_xpath("//button[@class='ui button']").click()
+        driver.find_element_by_xpath("//input[@id='firstName']").send_keys('first')
+        driver.find_element_by_xpath("//input[@id='lastName']").send_keys('last')
+        driver.find_element_by_xpath("//input[@id='registerEmail']").send_keys('email@email.com')
+        driver.find_element_by_xpath("//input[@id='registerPassword']").send_keys('password')
+        driver.find_element_by_xpath("//input[@id='confirmPassword']").send_keys('password')
+        driver.find_element_by_xpath("//button[contains(.,'Register')]").click();
+
+        self.assertTrue(driver.find_element_by_xpath("//p[contains(.,'Successfully registered. Please login now')]"))
+
+    """
+    Test Case: test_FRD02_invalidSignUp_shouldSignUpNewDoctor
+    Purpose: test that a new doctor account is not created when confirm passwords dont match
+    Expected Outcome: doctor should not be signed up
+    """
+    def test_FRD02_invalidSignUp_incorrectConfirmPassword_shouldNotSignUpNewDoctor(self):
+        driver = self.driver
+        driver.get(self.base_url)
+
+        for i in range(10):
+            try:
+                if driver.find_element_by_xpath("//div[@class='login']"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        driver.find_element_by_xpath("//button[@class='ui button']").click()
+        driver.find_element_by_xpath("//input[@id='firstName']").send_keys('first')
+        driver.find_element_by_xpath("//input[@id='lastName']").send_keys('last')
+        driver.find_element_by_xpath("//input[@id='registerEmail']").send_keys('email@email.com')
+        driver.find_element_by_xpath("//input[@id='registerPassword']").send_keys('password')
+        driver.find_element_by_xpath("//input[@id='confirmPassword']").send_keys('invalid')
+        driver.find_element_by_xpath("//button[contains(.,'Register')]").click();
+
+        self.assertTrue(driver.find_element_by_xpath("//p[contains(.,'Make sure your passwords match!')]"))
+
+    """
+    Test Case: test_FRD02_invalidSignUp_duplicateUser_shouldSignUpNewDoctor
+    Purpose: test that a new doctor account is not created when the user is a duplicate
+    Expected Outcome: doctor should not be signed up
+    """
+    def test_FRD02_invalidSignUp_duplicateUser_shouldNotSignUpNewDoctor(self):
+
+        self.helper_add_doctor()
+
+        driver = self.driver
+        driver.get(self.base_url)
+
+        for i in range(10):
+            try:
+                if driver.find_element_by_xpath("//div[@class='login']"): break
+            except:
+                pass
+            time.sleep(1)
+        else:
+            self.fail("time out")
+
+        driver.find_element_by_xpath("//button[@class='ui button']").click()
+        driver.find_element_by_xpath("//input[@id='firstName']").send_keys('first')
+        driver.find_element_by_xpath("//input[@id='lastName']").send_keys('last')
+        driver.find_element_by_xpath("//input[@id='registerEmail']").send_keys('doctor@email.com')
+        driver.find_element_by_xpath("//input[@id='registerPassword']").send_keys('password')
+        driver.find_element_by_xpath("//input[@id='confirmPassword']").send_keys('password')
+        driver.find_element_by_xpath("//button[contains(.,'Register')]").click()
+
+        driver.find_element_by_xpath("//p[contains(.,'Error with registration credentials, please try again')]")
+
 
     # FRD03 - login tests
     """
@@ -339,65 +424,6 @@ class WebAppTest(unittest.TestCase):
         # assert that the correct reference code is displayed
         self.assertTrue(driver.find_element_by_xpath("//b[contains(.,'correctRefCode')]"))
 
-    """
-    Test Case: test_FRD05_viewDoctorReferenceCodeWhereReferenceCodeDoesNoExist_shouldError
-    Purpose: test that if a doctor's reference code doesn't exist then an error is thrown
-    Expected Outcome: should thorw a fatal error indicating that that a support request should be made
-    """
-    def test_FRD05_viewDoctorReferenceCodeWhereReferenceCodeDoesNoExist_shouldError(self):
-
-        self.addDoctorWithNoReferenceCode()
-
-        driver = self.driver
-        driver.get(self.base_url)
-
-        for i in range(10):
-            try:
-                if driver.find_element_by_xpath("//div[@class='login']"): break
-            except:
-                pass
-            time.sleep(1)
-        else:
-            self.fail("time out")
-
-        driver.find_element_by_id("email").clear()
-        driver.find_element_by_id("email").send_keys("doctor@email.com")
-        driver.find_element_by_id("password").clear()
-        driver.find_element_by_id("password").send_keys("password")
-        driver.find_element_by_xpath("//button[@type='submit']").click()
-        # ERROR: Caught exception [Error: locator strategy either id or name must be specified explicitly.]
-
-        # enter email
-        self.assertEqual("doctor@email.com", driver.find_element_by_id("email").get_attribute("value"))
-        for i in range(10):
-            try:
-                if "doctor@email.com" == driver.find_element_by_id("email").get_attribute("value"): break
-            except:
-                pass
-            time.sleep(1)
-        else:
-            self.fail("time out")
-
-        # enter password
-        self.assertEqual("password", driver.find_element_by_id("password").get_attribute("value"))
-        for i in range(60):
-            try:
-                if "password" == driver.find_element_by_id("password").get_attribute("value"): break
-            except:
-                pass
-            time.sleep(1)
-        else:
-            self.fail("time out")
-
-        # click submit
-        driver.find_element_by_xpath("//button[@type='submit']").click()
-
-        # get reference code
-        driver.find_element_by_xpath("//span[contains(.,'My Reference Code)]").click()
-
-        # assert that the correct reference code is displayed
-        self.assertTrue(driver.find_element_by_xpath("//b[contains(.,'ERROR')]"))
-
     # FRD06 - not delivered
 
     # FRD07 - A list of currently monitored patients can be viewed
@@ -643,7 +669,7 @@ class WebAppTest(unittest.TestCase):
         # click submit
         driver.find_element_by_xpath("//button[@type='submit']").click()
         time.sleep(2)
-        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click()
+        driver.find_element_by_xpath("//span[contains(.,'Create Tests')]").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Create a new test']").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Add a speech component to your']").click()
         driver.find_element_by_xpath("//input[@id='testName']").send_keys("Speech test")
@@ -707,7 +733,7 @@ class WebAppTest(unittest.TestCase):
         # click submit
         driver.find_element_by_xpath("//button[@type='submit']").click()
         time.sleep(2)
-        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click()
+        driver.find_element_by_xpath("//span[contains(.,'Create Tests')]").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Create a new test']").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Add a drawable component to yo']").click()
         driver.find_element_by_xpath("//input[@id='testName']").send_keys("Drawing test")
@@ -771,7 +797,7 @@ class WebAppTest(unittest.TestCase):
         # click submit
         driver.find_element_by_xpath("//button[@type='submit']").click()
         time.sleep(2)
-        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click()
+        driver.find_element_by_xpath("//span[contains(.,'Create Tests')]").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Create a new test']").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Add a question to your test.']").click()
         driver.find_element_by_xpath("//input[@id='testName']").send_keys("Question test")
@@ -834,7 +860,7 @@ class WebAppTest(unittest.TestCase):
         # click submit
         driver.find_element_by_xpath("//button[@type='submit']").click()
         time.sleep(2)
-        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click()
+        driver.find_element_by_xpath("//span[contains(.,'Create Tests')]").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Create a new test']").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Add a drawable component to yo']").click()
         driver.find_element_by_xpath("//input[@id='testName']").send_keys("Drawing test")
@@ -842,8 +868,12 @@ class WebAppTest(unittest.TestCase):
         #driver.find_element_by_xpath("//textarea[@id='content']").send_keys("Ask the patient to draw a clock")
         driver.find_element_by_xpath("//button[contains(.,'Save Test')]").click()
 
-        # assert
-        self.assertTrue(driver.find_element_by_xpath("//div[contains(.,'One or more of your test cases contain no content. Test has not been added')]"))
+        time.sleep(2)
+
+        # assert that alert has occured
+        self.assertTrue(self.driver.switch_to.alert)
+
+
 
     '''
     Test Case: test_FRD08A_addTestWithNoInstructionInComponent_shouldFailToCreateTest
@@ -897,7 +927,7 @@ class WebAppTest(unittest.TestCase):
         # click submit
         driver.find_element_by_xpath("//button[@type='submit']").click()
         time.sleep(2)
-        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click()
+        driver.find_element_by_xpath("//span[contains(.,'Create Tests')]").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Create a new test']").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Add a drawable component to yo']").click()
         driver.find_element_by_xpath("//input[@id='testName']").send_keys("Drawing test")
@@ -905,9 +935,10 @@ class WebAppTest(unittest.TestCase):
         driver.find_element_by_xpath("//textarea[@id='content']").send_keys("Ask the patient to draw a clock")
         driver.find_element_by_xpath("//button[contains(.,'Save Test')]").click()
 
-        # assert
-        self.assertTrue(driver.find_element_by_xpath(
-            "//div[contains(.,'One or more of your test cases contain no instructions. Test has not been added.')]"))
+        time.sleep(2)
+
+        # assert that alert has occured
+        self.assertTrue(self.driver.switch_to.alert)
 
     '''
     Test Case: test_FRD08_addTestWithNoTestName_shouldFailToCreateTest
@@ -961,7 +992,7 @@ class WebAppTest(unittest.TestCase):
         # click submit
         driver.find_element_by_xpath("//button[@type='submit']").click()
         time.sleep(2)
-        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click()
+        driver.find_element_by_xpath("//span[contains(.,'Create Tests')]").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Create a new test']").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Add a drawable component to yo']").click()
         #driver.find_element_by_xpath("//input[@id='testName']").send_keys("Drawing test")
@@ -1026,7 +1057,7 @@ class WebAppTest(unittest.TestCase):
         # click submit
         driver.find_element_by_xpath("//button[@type='submit']").click()
         time.sleep(2)
-        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click()
+        driver.find_element_by_xpath("//span[contains(.,'Create Tests')]").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Create a new test']").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Add a speech component to your']").click()
         driver.find_element_by_xpath("//input[@id='testName']").send_keys("Speech test")
@@ -1038,7 +1069,7 @@ class WebAppTest(unittest.TestCase):
         driver.find_element_by_xpath("//div[contains(.,'Test successfully created!')]")
 
         # go back to the tests tab
-        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click()
+        driver.find_element_by_xpath("//span[contains(.,'Create Tests')]").click()
 
         # assert that the test ecists on the test page and is assigned to 0 patients
         self.assertTrue(driver.find_element_by_xpath("//td[contains(.,'Speech test')]"))
@@ -1097,7 +1128,7 @@ class WebAppTest(unittest.TestCase):
         # click submit
         driver.find_element_by_xpath("//button[@type='submit']").click()
         time.sleep(2)
-        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click()
+        driver.find_element_by_xpath("//span[contains(.,'Create Tests')]").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Create a new test']").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Add a speech component to your']").click()
         #driver.find_element_by_xpath("//input[@id='testName']").send_keys("Speech test")
@@ -1110,7 +1141,7 @@ class WebAppTest(unittest.TestCase):
             "//div[contains(.,'There was an error with saving your test. Try again later.')]")
 
         # go back to the tests tab
-        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click()
+        driver.find_element_by_xpath("//span[contains(.,'Create Tests')]").click()
 
         # assert that the test does not exists on the screen
         self.assertTrue(driver.find_element_by_xpath("//td[contains(.,'There are no tests at the moment')]"))
@@ -1172,7 +1203,7 @@ class WebAppTest(unittest.TestCase):
         driver.find_element_by_xpath("//button[@type='submit']").click()
 
         #create a test
-        driver.find_element_by_xpath("//span[contains(.,'Tests')]").click()
+        driver.find_element_by_xpath("//span[contains(.,'Create Tests')]").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Create a new test']").click()
         driver.find_element_by_xpath("//button[@ng-reflect-content='Add a question to your test.']").click()
         driver.find_element_by_xpath("//input[@id='testName']").send_keys("Question test")
@@ -1332,10 +1363,6 @@ class WebAppTest(unittest.TestCase):
         # assert that the drawing test results exist in completed tests
         self.assertTrue(driver.find_element_by_xpath(
                 "//td[contains(.,'This patient has not completed any tests')]"))
-
-    # FRD13 - Not delivered yet
-
-    # FRD14 - Not delivered yet
 
     def is_element_present(self, how, what):
         try:

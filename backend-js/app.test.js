@@ -9,18 +9,16 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const ffmpeg = require('fluent-ffmpeg');
-const test_results = require('./routes/test_results');
 
 'use strict';
 
-//This file starts an app for running tests against. Automatically connects to testDatabase.
-
-mongoose.connect(config.testDatabase);
+mongoose.connect(config.database);
 
 // Check connection
 mongoose.connection.on('connected', function(){
     console.log('Connected to db ' + config.testDatabase);
 });
+
 
 mongoose.connection.on('error', function(err){
     console.log('Database error ' + err);
@@ -33,10 +31,10 @@ const patients = require('./routes/patients');
 const doctors = require('./routes/doctors');
 const pictures = require('./routes/pictures');
 const tests = require('./routes/tests');
-
+const test_results = require('./routes/test_results');
 
 // Port number
-const port = 3100;
+const port = 3000;
 
 // CORS Middleware
 app.use(cors());
@@ -51,7 +49,10 @@ require('./config/passport')(passport);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Body Parser Middleware
-app.use(bodyParser.json());
+app.use('/users', bodyParser.json());
+app.use('/patients', bodyParser.json());
+app.use('/doctors', bodyParser.json());
+app.use('/test', bodyParser.json());
 
 // Available routes
 app.use('/users', users);

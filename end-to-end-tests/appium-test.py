@@ -8,7 +8,7 @@ from bson.objectid import ObjectId
 class MobileAppTestAppium(unittest.TestCase):
     def setUp(self):
         desired_caps = {'platformName': 'iOS',
-                        'platformVersion': '11.0',
+                        'platformVersion': '11.1',
                         'deviceName': 'iPhone 6',
                         'app': '/Users/caitlinwoods/Desktop/early-dementia-diagnosis/dementia-detect-react-app'
                                '/ios/build/Build/Products/Debug-iphonesimulator/DementiaDetect.app',
@@ -82,7 +82,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # assert that the login was unsuccessful
         # check that we're still on the login page and the login button is still displayed
-        self.assertTrue(loginbutton.is_displayed())
+        self.assertTrue(self.driver.find_element_by_name('Alert'));
 
     """
     Test Case: test_FRC01_login_invalidPassword
@@ -109,7 +109,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # assert that the login was unsuccessful
         # check that we're still on the login page and the login button is still displayed
-        self.assertTrue(loginbutton.is_displayed())
+        self.assertTrue(self.driver.find_element_by_name("Alert"))
 
     """
     Test Case: test_FRC01_logout
@@ -488,7 +488,7 @@ class MobileAppTestAppium(unittest.TestCase):
         # assert that we have not navigated back to the add patient page
         self.assertTrue(submit.is_displayed())
         # assert that error has appeared
-        self.assertTrue(self.driver.find_element_by_name("Error with adding patient. Please ensure that all fields have been filled"))
+        self.assertTrue(self.driver.find_element_by_name("Alert"))
 
     """
     Test Case: test_FRC04_defaultPatientProfileOnLogin
