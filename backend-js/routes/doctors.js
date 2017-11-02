@@ -48,6 +48,8 @@ router.post('/register', function(req, res, next){
 });
 
 router.post('/assign-doctor', passport.authenticate('jwt', {session:false}), function(req, res, next){
+
+    // Check if the patient exists, if not do not continue
     Patient.getPatientById(req.body.patientId, function(err, patient){
         if (err || !patient) {
             res.status(400);
@@ -80,6 +82,7 @@ router.post('/assign-doctor', passport.authenticate('jwt', {session:false}), fun
 });
 
 router.post('/get-all-doctor-patients', passport.authenticate('jwt', {session:false}), function(req, res, next){
+
     Doctor.getAllPatients(req.body.userId, function(err, patients){
         if (err) {
             res.status(400);
@@ -92,8 +95,8 @@ router.post('/get-all-doctor-patients', passport.authenticate('jwt', {session:fa
     });
 });
 
-// Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), function(req, res, next){
+    //retrieves the user profile of the authenticated user
     res.json({doctor: req.user});
 });
 

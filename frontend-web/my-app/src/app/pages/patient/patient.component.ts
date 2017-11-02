@@ -6,7 +6,6 @@ import {Patient} from '../../models/patient';
 import { MODAL_DIRECTIVES } from 'angular2-semantic-ui';
 import {LoginService} from '../../services/login.service';
 import 'rxjs/Rx' ;
-import {GlobalVariable} from "../../globals";
 import {TestResultService} from "../../services/test-result.service";
 import {TestResult} from "../../models/testResult";
 import {DomSanitizer} from "@angular/platform-browser";
@@ -136,17 +135,18 @@ export class PatientComponent {
         );
     }
 
+    // for viewing completed tests
     openCompletedTestModal(testResult) {
         this.testResult = testResult;
         this.completedTestModal = true;
 
         for (const component of testResult.componentResults) {
             if (component.type === 'audio') {
+                // view audio component
                 this.testResultService.loadAudio(this.patient._id, component.filename).subscribe(
                     data => {
                         const blob = data.blob();
                         const blobUrl = URL.createObjectURL(blob);
-
                         component.audioFile = {
                             blob: blob,
                             url: this.sanitizer.bypassSecurityTrustUrl(blobUrl),
@@ -156,6 +156,7 @@ export class PatientComponent {
                     }
                 );
             } else if (component.type === 'image') {
+                // view image component
                 this.testResultService.loadImage(this.patient._id, component.filename).subscribe(
                     data => {
                         const blob = data.blob();

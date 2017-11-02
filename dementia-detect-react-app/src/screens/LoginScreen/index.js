@@ -37,14 +37,14 @@ class LoginScreen extends Component {
         this.state = {
             email: '',
             password: '',
-        }
+        };
 
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
     }
 
     componentDidMount() {
         this.handleVisibilityOfNavButtons();
-        this.login('ele@gmail.com', 'admin');
+        //this.login('ele@gmail.com', 'admin');
     }
 
     onNavigatorEvent = (event: { id: string }) => {
@@ -59,7 +59,7 @@ class LoginScreen extends Component {
             break;
         default:
         }
-    }
+    };
 
     handleVisibilityOfNavButtons = () => {
         const { navigator, withCancelButton } = this.props;
@@ -67,13 +67,13 @@ class LoginScreen extends Component {
         if (!withCancelButton) {
             navigator.setButtons({ leftButtons: [] })
         }
-    }
+    };
 
     dismiss = () => {
         const { navigator } = this.props;
 
         navigator.dismissModal();
-    }
+    };
 
     login = async (email: string, password: string) => {
         const { User } = this.props;
@@ -84,11 +84,11 @@ class LoginScreen extends Component {
             await User.getPatients();
 
             Constants.Global.startTabBasedApp();
-        }
-        else {
+        } else  {
+            alert('Invalid email or password. Please check and try again');
             console.log('Invalid login credentials');
         }
-    }
+    };
 
     register = async () => {
         const {navigator} = this.props;
@@ -97,7 +97,7 @@ class LoginScreen extends Component {
             screen: Constants.Screens.REGISTER_SCREEN.screen,
             title: 'Create Account'
         });
-    }
+    };
 
   render() {
     const { navigator, User } = this.props;

@@ -9,8 +9,11 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 const ffmpeg = require('fluent-ffmpeg');
+const test_results = require('./routes/test_results');
 
 'use strict';
+
+//This file starts an app for running tests against. Automatically connects to testDatabase.
 
 mongoose.connect(config.testDatabase);
 
@@ -30,6 +33,7 @@ const patients = require('./routes/patients');
 const doctors = require('./routes/doctors');
 const pictures = require('./routes/pictures');
 const tests = require('./routes/tests');
+
 
 // Port number
 const port = 3100;
@@ -53,9 +57,9 @@ app.use(bodyParser.json());
 app.use('/users', users);
 app.use('/patients', patients);
 app.use('/doctors', doctors);
-app.use('/transcriber', audio);
 app.use('/pictures', pictures);
-app.use('/test', tests);
+app.use('/tests', tests);
+app.use('/test-results', test_results);
 
 // Index Route
 app.get('/', function(req, res){

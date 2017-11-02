@@ -3,7 +3,7 @@
  */
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {TestService} from "../../../services/test.service";
+import {TestService} from '../../../services/test.service';
 
 @Component({
     selector: 'create-test',
@@ -61,11 +61,22 @@ export class CreateTestComponent {
 
     deleteComponent(index) {
         // confirm delete
-
-        this.testComponents.splice(index, 1);
+        this.testComponents.splice(index, 1); // removes component at "index" from test component
     }
 
     saveTest() {
+
+        for (let comp = 0; comp < this.testComponents.length; comp++) {
+            if (this.testComponents[comp].instructions === '') {
+                alert('One or more of your test cases contain no instructions. Test has not been added');
+                this.saved = false;
+                return;
+            } else if (this.testComponents[comp].content === '') {
+                alert('One or more of your test cases contain no content. Test has not been added');
+                this.saved = false;
+                return;
+            }
+        }
         this.testService.saveTest(this.testComponents, this.testName, this.description).subscribe(
             response => {
                 if (response.success) {
@@ -73,8 +84,7 @@ export class CreateTestComponent {
                     this.testComponents = [];
                     this.testName = '';
                     this.description = '';
-                }
-                else {
+                } else {
                     this.saved = false;
                     this.error = true;
                 }

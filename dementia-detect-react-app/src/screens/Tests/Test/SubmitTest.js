@@ -13,7 +13,6 @@ import { Button, Icon, Card } from 'react-native-elements';
 import RNFetchBlob from 'react-native-fetch-blob';
 
 import SoundPlayer from './SoundPlayer';
-import Constants  from '../../../global/Constants';
 import {style} from './style';
 
 @inject('App', 'User') @observer
@@ -25,7 +24,7 @@ class SubmitTest extends Component {
         const results = getResults();
         this.state = {
             results: results
-        }
+        };
         console.log(results);
     }
     
@@ -43,7 +42,7 @@ class SubmitTest extends Component {
                         resizeMode="contain" 
                         style={{ width: null, height:400 }}/>
         }
-    }
+    };
 
     submitTest = () => {
         const { User, filePath, test } = this.props;
@@ -56,7 +55,7 @@ class SubmitTest extends Component {
             testId: test._id,
             test: test,
             results: results,
-        }
+        };
         params.push({
             name : 'json',
             data: JSON.stringify(jsonData)
@@ -72,12 +71,13 @@ class SubmitTest extends Component {
                     name : 'file',
                     filename : `test-id=${test._id}_section=${step}.${fileType}`,
                     data: RNFetchBlob.wrap(fileURI)
-                }
+                };
                 params.push(param);
             }
         }
 
         RNFetchBlob.fetch(
+            // Url location of  backend
             'POST', 
             'http://localhost:3000/tests/submit_test', 
             {
@@ -95,7 +95,7 @@ class SubmitTest extends Component {
         .catch((err) => {
             alert('There was an error, please try again in a few minutes');
         })
-    }
+    };
 
     render () {
         const {test, back} = this.props;

@@ -11,7 +11,6 @@ import {inject, observer} from 'mobx-react/native';
 import {Button, Icon, List, ListItem, FormLabel, FormInput} from 'react-native-elements';
 
 import Constants  from '../../global/Constants';
-import * as api from '../../api';
 import {style} from './style';
 
 const niceGreen = "#2ECC40";
@@ -47,13 +46,11 @@ class Settings extends Component {
 
     showModal = () => {
         const {modalVisible} = this.state;
-
         this.setState({modalVisible: true});
     };
 
     hideModal = () => {
         const {modalVisible} = this.state;
-
         this.setState({modalVisible: false});
     };
 
@@ -62,7 +59,6 @@ class Settings extends Component {
     submit = async() => {
         const {User} = this.props;
         const {referenceCode, modalVisible, successfulLink} = this.state;
-        
 
         const result = await User.assignDoctor(User.selectedPatient._id, referenceCode);
         if (result) {

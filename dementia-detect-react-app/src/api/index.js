@@ -3,6 +3,7 @@
 import URI from 'urijs';
 import stores from '../stores';
 
+//Backend URL
 async function url(path, apiHost = 'localhost:3000') {
     return URI(`http://${apiHost || 'localhost:3000'}`).path(path).toString();    
 }
@@ -44,7 +45,7 @@ function endpoint(path, withAuth = true) {
     };
 }
 
-export const resetPassword = endpoint('/users/reset-password', false);
+export const resetPassword = endpoint('/users/reset-password', false); //TODO: implement reset password
 export const registerPatient = endpoint('/patients/register');
 export const getAllPatients = endpoint('/users/getPatients');
 export const getPatientTests = endpoint('/tests/getPatientTests');

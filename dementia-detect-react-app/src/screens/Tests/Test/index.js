@@ -7,9 +7,6 @@ import {
     StyleSheet,
 } from 'react-native';
 import { inject, observer } from 'mobx-react/native';
-import { Button } from 'react-native-elements'
-
-import Constants  from '../../../global/Constants';
 import {style} from './style';
 import RecordAudio from './RecordAudio'
 import ImageCapture from './ImageCapture'
@@ -41,7 +38,7 @@ class Test extends Component {
 
     getResults = () => {
         return this.state.results;
-    }
+    };
 
     setFilename = (step, filename) => {
         const {results} = this.state;
@@ -50,7 +47,7 @@ class Test extends Component {
         }
         results[step].filename = filename;
         this.setState({ results: results });
-    }
+    };
 
     getFilename = (step) => {
         const {results} = this.state;
@@ -58,7 +55,7 @@ class Test extends Component {
             return;
         }
         return results[step].filename;
-    }
+    };
 
     getComponent = (section) => {
         const {test, filePath} = this.props;
@@ -72,7 +69,7 @@ class Test extends Component {
                 filename: `${filePath}/test-id=${test._id}_section=${step}.aac`,
                 originalname: `test-id=${test._id}_section=${step}.aac`,
                 type: section.type
-            }
+            };
             component = <RecordAudio key={step} result={result} section={section} step={step} next={this.next} back={this.back}/>;            
         }
         else if (section.type == 'image') {
@@ -80,7 +77,7 @@ class Test extends Component {
                 filename: '', // This is set by the camera library - we cant control the name with the current library
                 originalname: `test-id=${test._id}_section=${step}.jpg`,
                 type: section.type
-            }
+            };
             component = <ImageCapture key={step} setFilename={this.setFilename} getFilename={this.getFilename} section={section} step={step} next={this.next} back={this.back}/>;
         }
         else if (section.type == 'question') {
@@ -92,22 +89,22 @@ class Test extends Component {
         }
 
         return {component, result};
-    }
+    };
 
     sendTest = () => {
         const {step, components} = this.state;
         //TODO: submit new test
-    }
+    };
 
     next = () => {
         const {step, components} = this.state;
         this.setState({step: Math.min(step + 1, components.length - 1)});
-    }
+    };
 
     back = () => {
         const {step} = this.state;
         this.setState({step: Math.max(step - 1, 0)});
-    }
+    };
 
     render() {
         const {step, components} = this.state;

@@ -7,11 +7,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const mongoose = require('mongoose');
-
-const User = require('../models/user');
 const Patient = require('../models/patient');
-const Test = require('../models/test');
-const TestResult = require('../models/test_result');
 
 router.post('/register', passport.authenticate('jwt', {session:false}), function(req, res){
     const newPatient = new Patient({
@@ -33,44 +29,47 @@ router.post('/register', passport.authenticate('jwt', {session:false}), function
     });
 });
 
+//Assigns and existing test to a patient
 router.post('/add_patient_test', passport.authenticate('jwt', {session:false}), function(req, res) {
+
     const patientId = req.body.patientId;
 
     Patient.getPatientById(patientId, function(err, patient) {
         if (err) {
             res.status(400);
             res.json({success: false, msg: 'Failed to load patient'});
-        }
 
-        // TODO: check the user has access to change the patient
-        const testId = mongoose.Types.ObjectId(req.body.testId);
+        } else {
 
-        if (!patient.tests) {
-            patient.tests = []
-        }
-        patient.tests.push(testId);
+            // TODO: check the user has access to change the patient
+            const testId = mongoose.Types.ObjectId(req.body.testId);
 
-        let uniqueTests = new Set();
-        for (const testId of patient.tests) {
-            uniqueTests.add(testId);
-        }
-
-        patient.tests = Array.from(uniqueTests);
-
-        Patient.updatePatient(patient, function(err) {
-            if (err) {
-                res.status(400);
-                res.json({success: false, msg: 'Failed to update patient'});
+            if (!patient.tests) {
+                patient.tests = []
             }
-            else {
-                res.json({success: true, msg: 'Patient updated', patient: patient});
-            }
-        })
+            patient.tests.push(testId);
 
+            let uniqueTests = new Set();
+            for (const testId of patient.tests) {
+                uniqueTests.add(testId);
+            }
+
+            patient.tests = Array.from(uniqueTests);
+
+            Patient.updatePatient(patient, function (err) {
+                if (err) {
+                    res.status(400);
+                    res.json({success: false, msg: 'Failed to update patient'});
+                }
+                else {
+                    res.json({success: true, msg: 'Patient updated', patient: patient});
+                }
+            })
+        }
     });
 });
 
-// No currently in use
+// Not currently in use
 router.post('/update', passport.authenticate('jwt', {session:false}), function(req, res) {
     const patient = req.body.patient;
 
@@ -81,7 +80,7 @@ router.post('/update', passport.authenticate('jwt', {session:false}), function(r
         gender: patient.gender,
         dateOfBirth: patient.dateOfBirth,
         carers: patient.carers,
-        tests: patient.tests,
+        tests: patient.tests
     });
 
     Patient.updatePatient(updatedPatient, function(err) {
@@ -96,12 +95,14 @@ router.post('/update', passport.authenticate('jwt', {session:false}), function(r
 });
 
 router.get('/profile', passport.authenticate('jwt', {session:false}), function(req, res, next){
+    //retrieves the user profile of the authenticated user
     res.json({user: req.user});
 });
 
 router.post('/getPatientById', passport.authenticate('jwt', {session:false}), function(req, res, next){
+
     Patient.getPatientById(req.body._id, function(err, patient) {
-        if (err) {
+        if (err || patient === null) {
             res.status(400);
             res.json({success: false, msg: 'Failed to find patient'});
         }

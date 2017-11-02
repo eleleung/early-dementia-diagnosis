@@ -54,6 +54,8 @@ class RecordAudio extends Component {
     }
 
     prepareRecordingPath(audioPath) {
+
+        // determines the quality and format of the voice recording
         AudioRecorder.prepareRecordingAtPath(audioPath, {
             SampleRate: 22050,
             Channels: 1,
@@ -118,7 +120,7 @@ class RecordAudio extends Component {
                 console.error(error);
             }
         }
-    }
+    };
 
     stopRecording = async () => {
         if (this.state.action !== RECORDING) {
@@ -137,7 +139,7 @@ class RecordAudio extends Component {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     stopPlaying = async () => {
         const {sound} = this.state;
@@ -156,14 +158,14 @@ class RecordAudio extends Component {
         this.clearTimer();        
 
         this.setState({action: STOPPED});
-    }
+    };
     
     clearTimer = () => {
         if (this.timer) {
             clearInterval(this.timer);
             this.timer = null;
         }
-    }
+    };
 
     play = async () => {
         if (this.state.action === RECORDING) {
@@ -177,7 +179,7 @@ class RecordAudio extends Component {
         // These timeouts are a hacky workaround for some issues with react-native-sound.
         // See https://github.com/zmxv/react-native-sound/issues/89.
         setTimeout(() => {
-            var sound = new Sound(this.state.audioPath, '', (error) => {
+            let sound = new Sound(this.state.audioPath, '', (error) => {
                 if (error) {
                     console.log('failed to load the sound', error);
                 }
@@ -199,7 +201,7 @@ class RecordAudio extends Component {
                 });
             }, 100);
         }, 100);
-    }
+    };
 
     playSuccess = () => {
         const {width} = Dimensions.get('window');        
@@ -222,13 +224,14 @@ class RecordAudio extends Component {
                 }
             });
         }, 0.5);
-    }
+    };
 
     record = async () => {
         if (this.state.action === RECORDING) {
             return;
         }
 
+        //Checks if the application has permission to use the microphone
         if (!this.state.hasPermission) {
             console.warn('Can\'t record, no permission granted!');
             return;
@@ -243,7 +246,7 @@ class RecordAudio extends Component {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     _finishRecording(didSucceed, filePath) {
         this.setState({ action: NONE });
@@ -274,7 +277,7 @@ class RecordAudio extends Component {
         }).start( () => {
             next();
         });
-    }
+    };
 
     back = () => {
         const {width} = Dimensions.get('window');        
@@ -286,7 +289,7 @@ class RecordAudio extends Component {
         }).start( () => {
             back();
         });
-    }
+    };
 
     render() {
         const {step, next, back, section} = this.props;
@@ -384,7 +387,7 @@ class RecordAudio extends Component {
             </View>
         );
     }
-}
+};
 
 var styles = StyleSheet.create({
     container: {

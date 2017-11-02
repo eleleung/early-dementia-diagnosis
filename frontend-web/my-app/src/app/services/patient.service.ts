@@ -65,6 +65,7 @@ export class PatientService {
             .map(res => res.json());
     }
 
+    // Assign a test to a patient
     addPatientTest(patientId: string, testId: string) {
         const url = GlobalVariable.BASE_API_URL + 'patients/add_patient_test';
         const headers = this.securityService.loggedInHeader();
@@ -73,6 +74,7 @@ export class PatientService {
             .map(res => res.json());
     }
 
+    // View test results for a patient
     getCompletedPatientTests(patientId: string) {
         const url = GlobalVariable.BASE_API_URL + 'test-results/getCompletedPatientTests';
         const headers = this.securityService.loggedInHeader();

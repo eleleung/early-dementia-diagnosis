@@ -12,6 +12,7 @@ import { inject, observer } from 'mobx-react/native';
 import Constants  from '../../../global/Constants';
 import {style} from './style';
 
+//TODO: Implement Answer Question
 class AnswerQuestion extends Component {
     constructor(props: Props)
     {

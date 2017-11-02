@@ -37,7 +37,7 @@ class PatientList extends Component {
                 <List containerStyle={{marginBottom: 20}}>
                 {
                 User.patients.map((item, i) => (
-                    User.selectedPatient._id == item._id ? 
+                    User.selectedPatient._id === item._id ?
                     <ListItem
                         key={i}
                         title={`${item.firstName} ${item.lastName}`}

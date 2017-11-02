@@ -70,7 +70,7 @@ class ImageCapture extends Component {
             this.setState({action: INSTRUCTIONS});
         }
         
-    }
+    };
 
     switchType = () => {
         let newType;
@@ -88,7 +88,7 @@ class ImageCapture extends Component {
                 type: newType,
             },
         });
-    }
+    };
 
     switchFlash = () => {
         let newFlashMode;
@@ -108,7 +108,7 @@ class ImageCapture extends Component {
                 flashMode: newFlashMode,
             },
         });
-    }
+    };
 
     flashIcon = () => {
         let icon;
@@ -123,7 +123,7 @@ class ImageCapture extends Component {
         }
 
         return icon;
-    }
+    };
 
     next = () => {
         const {width} = Dimensions.get('window');
@@ -135,7 +135,7 @@ class ImageCapture extends Component {
         }).start( () => {
             next();
         });
-    }
+    };
 
     back = () => {
         const {width} = Dimensions.get('window');        
@@ -147,7 +147,7 @@ class ImageCapture extends Component {
         }).start( () => {
             back();
         });
-    }
+    };
 
     render() {
         const {step, next, back, section} = this.props;
@@ -248,8 +248,7 @@ class ImageCapture extends Component {
     }
 }
 
-const win = Dimensions.get('window');
-
+const window = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {

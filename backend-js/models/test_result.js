@@ -69,3 +69,7 @@ module.exports.getAllTestResults = function() {
 module.exports.addTestResult = function(newTestResult, callback){
     newTestResult.save(callback);
 };
+
+module.exports.removeTestResults = function(callback) {
+    TestResult.remove({}, callback);
+};

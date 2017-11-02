@@ -41,7 +41,7 @@ class Tests extends Component {
             title: `Complete ${test.name}`,
             passProps: {test: test, filePath: filePath}
         });
-    }
+    };
 
     onRefresh = async () => {
         const {User} = this.props;

@@ -8,13 +8,11 @@ import {
     Animated
 } from 'react-native';
 import { Button, Icon, Card, Slider } from 'react-native-elements'
-
 import { inject, observer } from 'mobx-react/native';
 import Sound from 'react-native-sound';
-import Constants  from '../../../global/Constants';
 import {style} from './style';
 
-const niceGreen = "#2ECC40"
+const niceGreen = "#2ECC40";
 
 const PLAYING = 'playing';
 const STOPPED = 'stopped';
@@ -47,14 +45,14 @@ class SoundPlayer extends Component {
         this.clearTimer();        
 
         this.setState({action: STOPPED});
-    }
+    };
     
     clearTimer = () => {
         if (this.timer) {
             clearInterval(this.timer);
             this.timer = null;
         }
-    }
+    };
 
     play = async () => {
         if (this.state.action === PLAYING) {
@@ -64,7 +62,7 @@ class SoundPlayer extends Component {
         // These timeouts are a hacky workaround for some issues with react-native-sound.
         // See https://github.com/zmxv/react-native-sound/issues/89.
         setTimeout(() => {
-            var sound = new Sound(this.props.audioPath, '', (error) => {
+            let sound = new Sound(this.props.audioPath, '', (error) => {
                 if (error) {
                     console.log('failed to load the sound', error);
                 }
@@ -88,7 +86,7 @@ class SoundPlayer extends Component {
                 });
             }, 100);
         }, 100);
-    }
+    };
 
     playSuccess = () => {
         const {width} = Dimensions.get('window');        
@@ -102,7 +100,7 @@ class SoundPlayer extends Component {
                 }
             });
         }, 0.5);
-    }
+    };
 
     onSlidingStart(){
         this.setState({ sliding: true });

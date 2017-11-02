@@ -19,4 +19,4 @@ export const appRoutes: Routes = [
     {path: 'completed-patient-test/:testResultId', component: CompletedPatientTestComponent, canActivate: [AuthGuard]}
 ];
 
-export const routing = RouterModule.forRoot(appRoutes); //Need to add AuthGuard in here somewhere
+export const routing = RouterModule.forRoot(appRoutes); // TODO: Need to add AuthGuard

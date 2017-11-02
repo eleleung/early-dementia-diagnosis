@@ -1,28 +1,7 @@
-This file outlines the test strategy for the dementia detect backend.
+
 
 The backend tests are written using the Mocha framework:
 https://mochajs.org
-
-Current Functions under test:
-
-Doctors
- - register
- - authenticate
-
- Patients
- - register
- - profile
- - get patient by Id
-
- Tests
- - get patient tests
-
- Users
- - register
- - authenticate
- - Get Patients
- - profile
- - evaluate
 
 
 Instructions to evaluate code coverage with Mocha

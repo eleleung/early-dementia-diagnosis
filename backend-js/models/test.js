@@ -44,7 +44,7 @@ module.exports.getTestByCreator = function(creatorId, callback) {
 };
 
 module.exports.getAllTests = function(callback) {
-    Test.find();
+    Test.find(callback);
 };
 
 module.exports.getAllTestsWithIds = function(ids, callback) {
@@ -58,4 +58,8 @@ module.exports.getAllTestsWithIds = function(ids, callback) {
 
 module.exports.addTest = function(newTest, callback){
     newTest.save(callback);
+};
+
+module.exports.removeTests = function(callback) {
+    Test.remove({}, callback);
 };

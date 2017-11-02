@@ -12,8 +12,6 @@ import {inject, observer} from 'mobx-react/native';
 import {SegmentedControls} from 'react-native-radio-buttons';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import format from 'date-fns/format';
-
-import Constants  from '../../global/Constants';
 import Models from '../../stores/models';
 import {style} from './style';
 
@@ -72,6 +70,7 @@ class AddPatient extends Component {
             const result = await User.registerPatient(patient);
             result == true ? navigator.pop() : alert("Error with adding patient");
         } else {
+            alert("Error with adding patient. Please ensure that all fields have been filled");
             console.log("make sure all fields have been filled");
         }
     };
