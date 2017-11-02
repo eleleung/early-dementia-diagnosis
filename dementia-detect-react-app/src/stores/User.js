@@ -12,7 +12,7 @@ class Store {
     @persist @observable token = "";
 
     @observable patients = [];
-    @observable selectedPatient = new Models.Patient;
+    @observable selectedPatient = null;
 
     @observable selectedPatientTests = [];
     @observable selectedPatientCompletedTests = [];

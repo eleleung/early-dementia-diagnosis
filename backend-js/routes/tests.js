@@ -19,7 +19,7 @@ const Patient = require('../models/patient');
 
 router.post('/getPatientTests', [passport.authenticate('jwt', {session:false}), bodyParser.json()], function(req, res) {
     Patient.getPatientById(req.body.patientId, function(err, patient) {
-        if (err) {
+        if (err || !patient) {
             res.status(400);
             res.json({success: false, msgs: 'Failed to find patient with id: ' + req.body.patientId});
         }

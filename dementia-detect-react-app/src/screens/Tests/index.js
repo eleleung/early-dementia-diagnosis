@@ -77,7 +77,14 @@ class Tests extends Component {
                                 type='font-awesome'
                             />
                         </View>
-                        <Text style={style.heading}>Complete the tests assigned to {User.selectedPatient.firstName}</Text>
+                        {
+                            User.selectedPatient && User.selectedPatient.firstName
+                            ?
+                            <Text style={style.heading}>Complete the tests assigned to {User.selectedPatient.firstName}</Text>
+                            :
+                            <Text style={style.heading}>Complete the tests assigned to the patient</Text>
+                        }
+
                     </View>
                     <List containerStyle={{
                         marginBottom: 20,
