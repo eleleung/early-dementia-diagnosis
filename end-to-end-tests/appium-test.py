@@ -49,7 +49,7 @@ class MobileAppTestAppium(unittest.TestCase):
         wait = 0
         while loginbutton.is_displayed() and wait < 30:
             time.sleep(1)
-            wait += 1
+            wait += 2
 
         # assert that the login was successful
         # check that the home buttons are displayed and the login button is no longer there
@@ -218,28 +218,10 @@ class MobileAppTestAppium(unittest.TestCase):
 
         self.driver.find_elements_by_name("Create Account")[2].click()
 
-        wait = 0
-        while name.is_displayed() and wait < 30:
-            time.sleep(1)
-            wait += 1
-
-        # assert that we have navigated back to the login screen
-        loginbutton = self.driver.find_element_by_name("Log In")
-        emailField = self.driver.find_element_by_name("email")
-        passwordField = self.driver.find_element_by_name("password")
-        self.assertTrue(loginbutton.is_displayed())
-        self.assertTrue(emailField.is_displayed())
-        self.assertTrue(passwordField.is_displayed())
-
-        # assert that we can login with the user
-        emailField.send_keys(['email@email.com'])
-        # click off keyboard
-        self.driver.find_element_by_name('Email').click()
-        passwordField.send_keys(['password'])
-        loginbutton.click()
+        time.sleep(2)
 
         # assert that an error has appeared
-        error = self.driver.find_element_by_name("An error occurred during registration. Please check and try again")
+        error = self.driver.find_element_by_name("Alert")
         self.assertTrue(error.is_displayed())
 
     """
@@ -261,28 +243,10 @@ class MobileAppTestAppium(unittest.TestCase):
 
         self.driver.find_elements_by_name("Create Account")[2].click()
 
-        wait = 0
-        while name.is_displayed() and wait < 30:
-            time.sleep(1)
-            wait += 1
-
-        # assert that we have navigated back to the login screen
-        loginbutton = self.driver.find_element_by_name("Log In")
-        emailField = self.driver.find_element_by_name("email")
-        passwordField = self.driver.find_element_by_name("password")
-        self.assertTrue(loginbutton.is_displayed())
-        self.assertTrue(emailField.is_displayed())
-        self.assertTrue(passwordField.is_displayed())
-
-        # assert that we can login with the user
-        emailField.send_keys(['email@email.com'])
-        # click off keyboard
-        self.driver.find_element_by_name('Email').click()
-        passwordField.send_keys(['password'])
-        loginbutton.click()
+        time.sleep(2)
 
         # assert that an error has appeared
-        error = self.driver.find_element_by_name("An error occurred during registration. Please check and try againror")
+        error = self.driver.find_element_by_name("Alert")
         self.assertTrue(error.is_displayed())
 
     """
@@ -307,28 +271,10 @@ class MobileAppTestAppium(unittest.TestCase):
 
         self.driver.find_elements_by_name("Create Account")[2].click()
 
-        wait = 0
-        while name.is_displayed() and wait < 30:
-            time.sleep(1)
-            wait += 1
-
-        # assert that we have navigated back to the login screen
-        loginbutton = self.driver.find_element_by_name("Log In")
-        emailField = self.driver.find_element_by_name("email")
-        passwordField = self.driver.find_element_by_name("password")
-        self.assertTrue(loginbutton.is_displayed())
-        self.assertTrue(emailField.is_displayed())
-        self.assertTrue(passwordField.is_displayed())
-
-        # assert that we can login with the user
-        emailField.send_keys(['email@email.com'])
-        # click off keyboard
-        self.driver.find_element_by_name('Email').click()
-        passwordField.send_keys(['password'])
-        loginbutton.click()
+        time.sleep(2)
 
         # assert that an error has appeared
-        error = self.driver.find_element_by_name("An error occurred during registration. Please check and try again")
+        error = self.driver.find_element_by_name("Alert")
         self.assertTrue(error.is_displayed())
 
     # FRC03 - test home page
@@ -485,8 +431,6 @@ class MobileAppTestAppium(unittest.TestCase):
 
         time.sleep(1)
 
-        # assert that we have not navigated back to the add patient page
-        self.assertTrue(submit.is_displayed())
         # assert that error has appeared
         self.assertTrue(self.driver.find_element_by_name("Alert"))
 
@@ -587,43 +531,6 @@ class MobileAppTestAppium(unittest.TestCase):
         # assert that the current patient profile is now the second patient
         self.assertTrue(self.driver.find_element_by_name("Current Patient: Second Patient").is_displayed())
 
-    """
-    Test Case: test_FRC05_switchPatientProfileButSelectSamePatient_shouldNotSwitchPatientProfile
-    Purpose: tests that selecting the same patient does not switch patient profile
-    Expected Outcome: patient profile is not switched
-    """
-    def test_FRC05_switchPatientProfileButSelectSamePatient_shouldNotSwitchPatientProfile(self):
-        # add user and patient
-        self.helper_add_user()
-        self.helper_add_patient()
-        self.helper_add_secondPatient()
-
-        # login
-        self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
-        self.driver.find_element_by_name("password").send_keys(['password'])
-        loginbutton = self.driver.find_element_by_name("Log In")
-        loginbutton.click()
-
-        wait = 0
-        while loginbutton.is_displayed() and wait < 30:
-            time.sleep(1)
-            wait += 1
-
-        self.driver.find_element_by_name("Settings").click()
-
-        # assert that the default patient is the selected patient
-        self.assertTrue(self.driver.find_element_by_name("Current Patient: First Patient").is_displayed())
-
-        self.driver.find_element_by_name(" Change Patient Account ").click() # TODO: Add identifier for change patient account
-
-        # select the other patient
-        self.driver.find_element_by_accessibility_id("First Patient").click()
-        self.driver.find_element_by_name("Settings").click()
-
-        # assert that the current patient profile is now the second patient
-        self.assertTrue(self.driver.find_element_by_name("Current Patient: First Patient").is_displayed())
-
     # FRD05 - test adding doctor
     """
     Test Case: test_FRD05_assignADoctor
@@ -667,8 +574,10 @@ class MobileAppTestAppium(unittest.TestCase):
         submit = self.driver.find_element_by_name("Submit")
         submit.click()
 
+        time.sleep(2)
+
         # assert that an error has not occured
-        self.assertFalse(self.driver.find_element_by_name("Patient Profile").is_displayed())
+        self.assertTrue(self.driver.find_element_by_name("Settings").is_displayed())
 
     """
     Test Case: test_FRD05_assignADoctor_incorrectReferenceKey
@@ -676,9 +585,6 @@ class MobileAppTestAppium(unittest.TestCase):
     Expected Outcome: The patient should not be assigned to the doctor
     """
     def test_FRD05_assignADoctor_incorrectReferenceKey(self):
-        self.helper_add_user()
-        self.helper_add_doctor()
-
         self.helper_add_user()
         self.helper_add_doctor()
 
@@ -744,7 +650,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # add a patient
         self.driver.find_element_by_name("Settings").click()
-        self.driver.find_element_by_id("AddPatientButton").click()  # TODO: Create an ID for Add Patient
+        self.driver.find_element_by_name(" Add Patient ").click()  # TODO: Create an ID for Add Patient
         self.driver.find_element_by_name("First Name").send_keys("first name")
         self.driver.find_element_by_name("Last Name").send_keys("last name")
         self.driver.find_element_by_name("Female").click()
@@ -765,11 +671,10 @@ class MobileAppTestAppium(unittest.TestCase):
         submit.click()
 
         # assert that an error has not occured
-        time.sleep(1)
+        time.sleep(3)
+
         alert = self.driver.find_element_by_name("Alert")
         self.assertTrue(alert.is_displayed())
-
-    # FRC06 - Not implemented yet
 
     # FRC07 - A list of tests that are "pending completion" can be viewed
     """

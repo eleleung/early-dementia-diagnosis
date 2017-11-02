@@ -874,7 +874,6 @@ class WebAppTest(unittest.TestCase):
         self.assertTrue(self.driver.switch_to.alert)
 
 
-
     '''
     Test Case: test_FRD08A_addTestWithNoInstructionInComponent_shouldFailToCreateTest
     Purpose: tests that tests with no instruction cannot be created
