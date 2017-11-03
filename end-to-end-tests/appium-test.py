@@ -42,14 +42,14 @@ class MobileAppTestAppium(unittest.TestCase):
 
         emailField.send_keys(['email@email.com'])
         # click off the keyboard
-        self.driver.find_element_by_name('Email').click()
+        self.driver.find_element_by_name('email').click()
         passwordField.send_keys(['password'])
         loginbutton.click()
 
         wait = 0
         while loginbutton.is_displayed() and wait < 30:
             time.sleep(1)
-            wait += 2
+            wait += 1
 
         # assert that the login was successful
         # check that the home buttons are displayed and the login button is no longer there
@@ -101,7 +101,7 @@ class MobileAppTestAppium(unittest.TestCase):
         self.assertTrue(passwordField.is_displayed())
 
         emailField.send_keys(['email@email.com'])
-        self.driver.find_element_by_name('Email').click()  # click off the keyboard
+        self.driver.find_element_by_name('email').click()  # click off the keyboard
         passwordField.send_keys(['invalid'])
         loginbutton.click()
 
@@ -127,7 +127,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         emailField.send_keys(['email@email.com'])
         # click off the keyboard
-        self.driver.find_element_by_name('Email').click()
+        self.driver.find_element_by_name('email').click()
         passwordField.send_keys(['password'])
         loginbutton.click()
 
@@ -187,7 +187,7 @@ class MobileAppTestAppium(unittest.TestCase):
         # assert that we can login with the user
         emailField.send_keys(['email@email.com'])
         # click off keyboard
-        self.driver.find_element_by_name('Email').click()
+        self.driver.find_element_by_name('email').click()
         passwordField.send_keys(['password'])
         loginbutton.click()
 
@@ -289,7 +289,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
         # click off the keyboard
-        self.driver.find_element_by_name('Email').click()
+        self.driver.find_element_by_name('email').click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name('Log In')
         loginbutton.click()
@@ -317,7 +317,7 @@ class MobileAppTestAppium(unittest.TestCase):
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
         # click off keyboard
-        self.driver.find_element_by_name('Email').click()
+        self.driver.find_element_by_name('email').click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -360,7 +360,7 @@ class MobileAppTestAppium(unittest.TestCase):
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
         # click off keyboard
-        self.driver.find_element_by_name('Email').click()
+        self.driver.find_element_by_name('email').click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -405,7 +405,7 @@ class MobileAppTestAppium(unittest.TestCase):
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
         # click off keyboard
-        self.driver.find_element_by_name('Email').click()
+        self.driver.find_element_by_name('email').click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -446,7 +446,7 @@ class MobileAppTestAppium(unittest.TestCase):
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
         # click off keyboard
-        self.driver.find_element_by_name('Email').click()
+        self.driver.find_element_by_name('email').click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -478,7 +478,7 @@ class MobileAppTestAppium(unittest.TestCase):
         self.driver.find_element_by_name("Log Out").click()
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
         # click off keyboard
-        self.driver.find_element_by_name('Email').click()
+        self.driver.find_element_by_name('email').click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -507,7 +507,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -543,7 +543,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -574,7 +574,7 @@ class MobileAppTestAppium(unittest.TestCase):
         submit = self.driver.find_element_by_name("Submit")
         submit.click()
 
-        time.sleep(2)
+        time.sleep(5)
 
         # assert that an error has not occured
         self.assertTrue(self.driver.find_element_by_name("Settings").is_displayed())
@@ -590,7 +590,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -638,7 +638,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -688,7 +688,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -715,7 +715,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -742,7 +742,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -771,7 +771,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -802,7 +802,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -825,7 +825,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -857,7 +857,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -884,7 +884,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
@@ -913,7 +913,7 @@ class MobileAppTestAppium(unittest.TestCase):
 
         # login
         self.driver.find_element_by_name("email").send_keys(['email@email.com'])
-        self.driver.find_element_by_name("Email").click()
+        self.driver.find_element_by_name("email").click()
         self.driver.find_element_by_name("password").send_keys(['password'])
         loginbutton = self.driver.find_element_by_name("Log In")
         loginbutton.click()
